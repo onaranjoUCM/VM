@@ -1,2 +1,3 @@
+include ':desktopEngine'
 include ':app'
 rootProject.name = "Practica1"
