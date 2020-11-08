@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="desktopEngine" target="1.7" />
+      <module name="engine" target="1.7" />
+      <module name="logic" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

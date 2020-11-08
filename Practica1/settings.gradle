@@ -1,3 +1,6 @@
+include ':logic'
+include ':engine'
+include ':androidEngine'
 include ':desktopEngine'
 include ':app'
 rootProject.name = "Practica1"
