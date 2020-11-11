@@ -4,5 +4,4 @@ include ':androidEngine'
 include ':desktopGame'
 include ':androidGame'
 include ':engine'
-include ':app'
 rootProject.name = "Practica1"
