@@ -1,5 +1,5 @@
 package es.ucm.gdv.engine;
 
-public class Font {
+public interface Font {
 
 }

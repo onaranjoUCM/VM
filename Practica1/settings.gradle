@@ -1,6 +1,8 @@
-include ':logic'
-include ':engine'
-include ':androidEngine'
+include ':offTheLineLogic'
 include ':desktopEngine'
+include ':androidEngine'
+include ':desktopGame'
+include ':androidGame'
+include ':engine'
 include ':app'
 rootProject.name = "Practica1"

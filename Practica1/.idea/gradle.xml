@@ -12,10 +12,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/androidEngine" />
+            <option value="$PROJECT_DIR$/androidGame" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/desktopEngine" />
+            <option value="$PROJECT_DIR$/desktopGame" />
             <option value="$PROJECT_DIR$/engine" />
-            <option value="$PROJECT_DIR$/logic" />
+            <option value="$PROJECT_DIR$/offTheLineLogic" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -6,6 +6,6 @@ enum eventType {
     CLICK, RELEASE, MOVE
 }
 
-public abstract class Input {
-    public abstract List<TouchEvent> getTouchEvents();
+public interface Input {
+    List<TouchEvent> getTouchEvents();
 }
