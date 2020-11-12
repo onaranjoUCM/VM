@@ -3,6 +3,11 @@ package es.ucm.gdv.engine.android;
 import es.ucm.gdv.engine.Font;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
+
+    //IMPORTANTEEEEEEEEEEE
+    //por tanto en lugar de hacer que vuestro Graphics herede de SurfaceView, organizarlo para que en el momento de pintar tenga el canvas donde hacerlo
+    //o hacérselo llegar en cada frame*/
+
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
         return null;

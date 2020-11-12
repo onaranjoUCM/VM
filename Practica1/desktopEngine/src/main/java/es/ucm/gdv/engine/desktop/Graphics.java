@@ -1,8 +1,15 @@
 package es.ucm.gdv.engine.desktop;
 
+import java.awt.Image;
+
 import es.ucm.gdv.engine.Font;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
+    //Castear a Graphics2D en rotate y scale
+    //NO DEBE HEREDAR DE JFRAME
+
+    Graphics g;
+
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
         return null;
