@@ -4,6 +4,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':desktopEngine')
     implementation project(path: ':offTheLineLogic')
+    implementation project(path: ':engine')
 }
 
 sourceCompatibility = "1.7"

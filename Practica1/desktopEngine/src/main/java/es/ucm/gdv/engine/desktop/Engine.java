@@ -2,18 +2,25 @@ package es.ucm.gdv.engine.desktop;
 
 import java.io.InputStream;
 
-import es.ucm.gdv.engine.Font;
-import es.ucm.gdv.engine.Graphics;
-
 public class Engine implements es.ucm.gdv.engine.Engine {
+    Graphics graphics_;
+    Font font_;
+
+    public void init(Window w) {
+        graphics_ = new es.ucm.gdv.engine.desktop.Graphics();
+        graphics_.init(w);
+
+        font_ = new es.ucm.gdv.engine.desktop.Font();
+    }
+
     @Override
     public Graphics getGraphics() {
-        return null;
+        return graphics_;
     }
 
     @Override
     public Font getFont() {
-        return null;
+        return font_;
     }
 
     @Override

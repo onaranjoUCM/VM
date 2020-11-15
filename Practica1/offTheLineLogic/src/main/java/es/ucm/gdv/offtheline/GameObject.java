@@ -10,7 +10,7 @@ public abstract class GameObject {
         W_= W;
         H_= Y;
     }
-    public abstract void update(Input i);
+    public abstract void update();
 
     public abstract void render(Graphics g);
 

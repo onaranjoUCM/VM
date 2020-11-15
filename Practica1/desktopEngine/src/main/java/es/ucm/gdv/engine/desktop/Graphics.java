@@ -1,6 +1,7 @@
 package es.ucm.gdv.engine.desktop;
 
-import java.awt.Image;
+import java.awt.Color;
+import java.awt.image.BufferStrategy;
 
 import es.ucm.gdv.engine.Font;
 
@@ -8,7 +9,8 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     //Castear a Graphics2D en rotate y scale
     //NO DEBE HEREDAR DE JFRAME
 
-    Graphics g;
+    BufferStrategy strategy;
+    java.awt.Graphics g;
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
@@ -52,7 +54,9 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void drawLine(int x1, int y1, int x2, int y2) {
-
+        g.setColor(Color.BLACK);
+        g.drawLine(x1, y1, x2, y2);
+        g.fillRect(0, 0, 100, 100);
     }
 
     @Override
@@ -73,5 +77,15 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     @Override
     public int getHeight() {
         return 0;
+    }
+
+    public void init(Window w) {
+        w.createBufferStrategy(2);
+        strategy = w.getBufferStrategy();
+    }
+
+    @Override
+    public void updateSurface() {
+        g = strategy.getDrawGraphics();
     }
 }

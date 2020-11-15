@@ -14,4 +14,6 @@ public interface Graphics {
     void drawText(String text, int x, int y);
     int getWidth();
     int getHeight();
+
+    void updateSurface();
 }
