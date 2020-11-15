@@ -3,6 +3,8 @@ package es.ucm.gdv.engine.desktop;
 import java.awt.Color;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.JFrame;
+
 import es.ucm.gdv.engine.Font;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
@@ -79,7 +81,7 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
         return 0;
     }
 
-    public void init(Window w) {
+    public void init(JFrame w) {
         w.createBufferStrategy(2);
         strategy = w.getBufferStrategy();
     }

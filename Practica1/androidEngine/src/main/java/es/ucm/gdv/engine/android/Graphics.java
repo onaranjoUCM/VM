@@ -1,5 +1,8 @@
 package es.ucm.gdv.engine.android;
 
+import android.view.Surface;
+import android.view.SurfaceView;
+
 import es.ucm.gdv.engine.Font;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
@@ -71,5 +74,14 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     @Override
     public int getHeight() {
         return 0;
+    }
+
+    public void init(SurfaceView surface) {
+
+    }
+
+    @Override
+    public void updateSurface() {
+
     }
 }

@@ -1,11 +1,19 @@
 package es.ucm.gdv.engine.android;
 
+import android.view.SurfaceView;
 import java.io.InputStream;
 
-import es.ucm.gdv.engine.Font;
-import es.ucm.gdv.engine.Graphics;
-
 public class Engine implements es.ucm.gdv.engine.Engine {
+    Graphics graphics_;
+    Font font_;
+
+    public void init(SurfaceView surface) {
+        graphics_ = new es.ucm.gdv.engine.android.Graphics();
+        graphics_.init(surface);
+
+        font_ = new es.ucm.gdv.engine.android.Font();
+    }
+
     @Override
     public Graphics getGraphics() {
         return null;
