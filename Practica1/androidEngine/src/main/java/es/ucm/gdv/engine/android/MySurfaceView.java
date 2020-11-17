@@ -2,7 +2,6 @@ package es.ucm.gdv.engine.android;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -11,7 +10,6 @@ public class MySurfaceView extends SurfaceView implements Runnable {
     Thread _renderThread;
     SurfaceHolder _holder;
     volatile boolean _running = false;
-    Paint _paint = new Paint();
     Engine engine_;
 
     public MySurfaceView(Context context, Engine e) {

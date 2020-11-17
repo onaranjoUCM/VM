@@ -11,7 +11,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
         //posX_ += speed_;
     }
 

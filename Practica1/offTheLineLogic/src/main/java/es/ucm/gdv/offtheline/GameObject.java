@@ -10,7 +10,7 @@ public abstract class GameObject {
         W_= W;
         H_= Y;
     }
-    public abstract void update();
+    public abstract void update(double deltaTime);
 
     public abstract void render(Graphics g);
 

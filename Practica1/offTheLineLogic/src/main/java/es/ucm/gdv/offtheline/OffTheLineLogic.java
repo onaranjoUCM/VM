@@ -8,32 +8,23 @@ public class OffTheLineLogic {
     ArrayList<GameObject> gameObjects;
     Graphics graphics;
 
-    public void init(Engine e) {
+    public OffTheLineLogic(Engine e) {
         gameObjects = new ArrayList<GameObject>();
         graphics = e.getGraphics();
         gameObjects.add(new Player(0, 0, 10, 10, 0.05f));
-    }
-
-    public void run() {
-        while (true) {
-            handleInput();
-            update();
-            render();
-        }
     }
 
     public void handleInput() {
         // Do something
     }
 
-    public void update() {
+    public void update(double deltaTime) {
         for (GameObject object : gameObjects) {
-            object.update();
+            object.update(deltaTime);
         }
     }
 
     public void render() {
-        graphics.updateSurface();
         for (GameObject object : gameObjects) {
             object.render(graphics);
         }

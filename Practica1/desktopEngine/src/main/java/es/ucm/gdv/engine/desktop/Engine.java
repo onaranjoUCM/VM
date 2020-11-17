@@ -1,17 +1,15 @@
 package es.ucm.gdv.engine.desktop;
 
+import java.awt.image.BufferStrategy;
 import java.io.InputStream;
-
-import javax.swing.JFrame;
 
 public class Engine implements es.ucm.gdv.engine.Engine {
     Graphics graphics_;
     Font font_;
 
-    public void init(JFrame w) {
+    public Engine(BufferStrategy strategy) {
+        super();
         graphics_ = new es.ucm.gdv.engine.desktop.Graphics();
-        graphics_.init(w);
-
         font_ = new es.ucm.gdv.engine.desktop.Font();
     }
 

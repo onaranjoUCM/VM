@@ -3,16 +3,13 @@ package es.ucm.gdv.engine.desktop;
 import java.awt.Color;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.JFrame;
-
 import es.ucm.gdv.engine.Font;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
     //Castear a Graphics2D en rotate y scale
     //NO DEBE HEREDAR DE JFRAME
 
-    BufferStrategy strategy;
-    java.awt.Graphics g;
+    java.awt.Graphics graphics;
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
@@ -56,9 +53,9 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void drawLine(int x1, int y1, int x2, int y2) {
-        g.setColor(Color.BLACK);
-        g.drawLine(x1, y1, x2, y2);
-        g.fillRect(0, 0, 100, 100);
+        graphics.setColor(Color.BLACK);
+        graphics.drawLine(x1, y1, x2, y2);
+        graphics.fillRect(100, 100, 200, 200);
     }
 
     @Override
@@ -81,13 +78,7 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
         return 0;
     }
 
-    public void init(JFrame w) {
-        w.createBufferStrategy(2);
-        strategy = w.getBufferStrategy();
-    }
-
-    @Override
-    public void updateSurface() {
-        g = strategy.getDrawGraphics();
+    public void setGraphics(java.awt.Graphics g) {
+        graphics = g;
     }
 }

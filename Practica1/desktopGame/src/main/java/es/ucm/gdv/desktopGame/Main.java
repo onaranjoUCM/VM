@@ -1,17 +1,42 @@
 package es.ucm.gdv.desktopGame;
 
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
 import  es.ucm.gdv.engine.desktop.Window;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 import es.ucm.gdv.engine.desktop.Engine;
 
 public class Main {
         public static void main (String[] args){
-            Engine e = new Engine();
             Window w = new Window("OFF THE LINE", 600, 400);
-            e.init(w);
+            w.createBufferStrategy(2);
+            BufferStrategy strategy = w.getBufferStrategy();
 
-            OffTheLineLogic logic = new OffTheLineLogic();
-            logic.init(e);
-            logic.run();
+            Engine e = new Engine(strategy);
+            OffTheLineLogic logic = new OffTheLineLogic(e);
+
+            long lastFrameTime = System.nanoTime();
+            while(true) {
+                long currentTime = System.nanoTime();
+                long nanoDelta = currentTime - lastFrameTime;
+                lastFrameTime = currentTime;
+                logic.update(nanoDelta);
+
+                // Render single frame
+                do {
+                    do {
+                        Graphics graphics = strategy.getDrawGraphics();
+                        e.getGraphics().setGraphics(graphics);
+                        logic.render();
+                        graphics.dispose();
+                    // Repeat the rendering if the drawing buffer contents were restored
+                    } while (strategy.contentsRestored());
+
+                    // Display the buffer
+                    strategy.show();
+                // Repeat the rendering if the drawing buffer was lost
+                } while(strategy.contentsLost());
+            }
         }
 }

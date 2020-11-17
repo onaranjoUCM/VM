@@ -1,5 +1,6 @@
 package es.ucm.gdv.engine.android;
 
+import android.graphics.Canvas;
 import android.view.Surface;
 import android.view.SurfaceView;
 
@@ -10,6 +11,8 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     //IMPORTANTEEEEEEEEEEE
     //por tanto en lugar de hacer que vuestro Graphics herede de SurfaceView, organizarlo para que en el momento de pintar tenga el canvas donde hacerlo
     //o hacérselo llegar en cada frame*/
+
+    Canvas canvas;
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
@@ -76,12 +79,7 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
         return 0;
     }
 
-    public void init(SurfaceView surface) {
-
-    }
-
-    @Override
-    public void updateSurface() {
-
+    public void setCanvas(Canvas c) {
+        canvas = c;
     }
 }
