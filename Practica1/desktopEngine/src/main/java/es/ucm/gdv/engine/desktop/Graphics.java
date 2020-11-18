@@ -1,7 +1,8 @@
 package es.ucm.gdv.engine.desktop;
 
 import java.awt.Color;
-import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
 
 import es.ucm.gdv.engine.Font;
 
@@ -10,6 +11,16 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     //NO DEBE HEREDAR DE JFRAME
 
     java.awt.Graphics graphics;
+    JFrame window;
+
+    float scaleX = 1;
+    float scaleY = 1;
+    float rotation = 0;
+
+    public Graphics(JFrame w) {
+        super();
+        window = w;
+    }
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
@@ -18,22 +29,23 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void clear(int r, int g, int b) {
-
+        graphics.clearRect(0, 0, getWidth(), getHeight());
     }
 
     @Override
     public void translate(int x, int y) {
-
+        graphics.translate(x, y);
     }
 
     @Override
     public void scale(int x, int y) {
-
+        scaleX = x;
+        scaleY = y;
     }
 
     @Override
     public void rotate(float angle) {
-
+        rotation += angle;
     }
 
     @Override
@@ -48,19 +60,17 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void setColor(int r, int g, int b) {
-
+        graphics.setColor(new Color(r, g, b));
     }
 
     @Override
     public void drawLine(int x1, int y1, int x2, int y2) {
-        graphics.setColor(Color.BLACK);
         graphics.drawLine(x1, y1, x2, y2);
-        graphics.fillRect(100, 100, 200, 200);
     }
 
     @Override
     public void fillRect(int x1, int y1, int x2, int y2) {
-
+        graphics.fillRect(x1, y1, x2, y2);
     }
 
     @Override
@@ -70,12 +80,12 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public int getWidth() {
-        return 0;
+        return window.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return 0;
+        return window.getHeight();
     }
 
     public void setGraphics(java.awt.Graphics g) {

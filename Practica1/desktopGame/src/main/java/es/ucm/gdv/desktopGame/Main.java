@@ -13,7 +13,7 @@ public class Main {
             w.createBufferStrategy(2);
             BufferStrategy strategy = w.getBufferStrategy();
 
-            Engine e = new Engine(strategy);
+            Engine e = new Engine(w);
             OffTheLineLogic logic = new OffTheLineLogic(e);
 
             long lastFrameTime = System.nanoTime();

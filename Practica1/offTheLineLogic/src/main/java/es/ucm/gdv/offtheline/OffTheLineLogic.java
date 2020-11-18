@@ -11,7 +11,7 @@ public class OffTheLineLogic {
     public OffTheLineLogic(Engine e) {
         gameObjects = new ArrayList<GameObject>();
         graphics = e.getGraphics();
-        gameObjects.add(new Player(0, 0, 10, 10, 0.05f));
+        gameObjects.add(new Player(100, 100, 100, 100, 0.05f));
     }
 
     public void handleInput() {
@@ -25,6 +25,7 @@ public class OffTheLineLogic {
     }
 
     public void render() {
+        graphics.clear(255, 255, 255);
         for (GameObject object : gameObjects) {
             object.render(graphics);
         }
