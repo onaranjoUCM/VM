@@ -4,7 +4,7 @@ import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Input;
 
 public abstract class GameObject {
-    public GameObject(int posX, int posY, int W, int Y){
+    public GameObject(float posX, float posY, int W, int Y){
         posX_= posX;
         posY_= posY;
         W_= W;
@@ -15,6 +15,6 @@ public abstract class GameObject {
     public abstract void render(Graphics g);
 
     protected
-        int posX_, posY_;
+        float posX_, posY_;
         int W_, H_;
 }

@@ -29,7 +29,8 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void clear(int r, int g, int b) {
-        graphics.clearRect(0, 0, getWidth(), getHeight());
+        graphics.setColor(new Color(r, g, b));
+        graphics.fillRect(0, 0, getWidth(), getHeight());
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Enemy extends GameObject {
     private float offset_; //posicion final que se desplaza
     private double time1_, time2_; //time1 el tiempo que tarda en recorrer de la posINI a posFIN, time2 el tiempo que tarda el reanudar la marcha
 
-    public Enemy(int posX, int posY, int length, float speed, float angle, float offset, double time1, double time2){
+    public Enemy(float posX, float posY, int length, float speed, float angle, float offset, double time1, double time2){
         super(posX, posY, length, 0);
         speed_= speed;
         angle_ = angle;
@@ -28,7 +28,7 @@ public class Enemy extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(255, 0, 0);
-        g.drawLine(posX_, posY_, (int) (posX_ + Math.cos(angle_) * (W_ / 2)), (int) (posY_ - Math.sin(angle_) * (W_ / 2))); //Linea1
-        g.drawLine(posX_, posY_, (int) (posX_ - Math.cos(angle_) * (W_ / 2)), (int) (posY_ + Math.sin(angle_) * (W_ / 2))); //Linea2
+        g.drawLine((int) posX_, (int) posY_, (int) (posX_ + Math.cos(angle_) * (W_ / 2)), (int) (posY_ - Math.sin(angle_) * (W_ / 2))); //Linea1
+        g.drawLine((int) posX_, (int) posY_, (int) (posX_ - Math.cos(angle_) * (W_ / 2)), (int) (posY_ + Math.sin(angle_) * (W_ / 2))); //Linea2
     }
 }
