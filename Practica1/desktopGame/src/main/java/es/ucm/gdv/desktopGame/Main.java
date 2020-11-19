@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import  es.ucm.gdv.engine.desktop.Window;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 import es.ucm.gdv.engine.desktop.Engine;
+import es.ucm.gdv.offtheline.Player;
 
 public class Main {
         public static void main (String[] args){
