@@ -13,12 +13,12 @@ public class Engine implements es.ucm.gdv.engine.Engine {
 
     @Override
     public Graphics getGraphics() {
-        return null;
+        return graphics_;
     }
 
     @Override
     public Font getFont() {
-        return null;
+        return font_;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package es.ucm.gdv.engine.android;
 
 import android.graphics.Canvas;
-import android.view.Surface;
-import android.view.SurfaceView;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import es.ucm.gdv.engine.Font;
 
@@ -12,7 +12,13 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     //por tanto en lugar de hacer que vuestro Graphics herede de SurfaceView, organizarlo para que en el momento de pintar tenga el canvas donde hacerlo
     //o hacérselo llegar en cada frame*/
 
-    Canvas canvas;
+    Canvas _canvas;
+    Paint _paint;
+
+    public Graphics() {
+        super();
+        _paint = new Paint();
+    }
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
@@ -21,7 +27,7 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void clear(int r, int g, int b) {
-
+        _canvas.drawColor(Color.rgb(r, g, b));
     }
 
     @Override
@@ -80,6 +86,6 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     public void setCanvas(Canvas c) {
-        canvas = c;
+        _canvas = c;
     }
 }
