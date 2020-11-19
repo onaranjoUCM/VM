@@ -14,6 +14,7 @@ public class OffTheLineLogic {
         gameObjects.add(new Player(60, 200, 100, 100, 0.01f));
         gameObjects.add(new Coin(100, 100, 10, 10, 0.05f, 0, 45));
         gameObjects.add(new Enemy(100, 100, 100, 0.001f, 45f, 0, 0,0));
+        gameObjects.add(new Path(400, 300, 500, 200, 0));
     }
 
     public void handleInput() {
