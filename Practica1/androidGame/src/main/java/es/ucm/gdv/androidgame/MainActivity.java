@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
@@ -15,13 +14,10 @@ import es.ucm.gdv.offtheline.OffTheLineLogic;
 
 public class MainActivity extends AppCompatActivity {
     protected MySurfaceView _renderView;
-    protected Typeface _font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _font = Typeface.createFromAsset(this.getAssets(), "Bangers-Regular.ttf");
-
         _renderView = new MySurfaceView(this);
         setContentView(_renderView);
     }
@@ -42,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Thread _renderThread;
         SurfaceHolder _holder;
         volatile boolean _running = false;
-        //Paint _paint = new Paint();
         OffTheLineLogic _logic;
         Engine _engine;
 
@@ -51,15 +46,6 @@ public class MainActivity extends AppCompatActivity {
             _holder = getHolder();
             _engine = new Engine();
             _logic = new OffTheLineLogic(_engine);
-
-            /*
-            if (_font != null) {
-                _paint.setTypeface(_font);
-                _paint.setFakeBoldText(true);
-                _paint.setColor(0xFFFFFFFF);
-                _paint.setTextSize(80);
-            }
-            */
         }
 
         public void resume() {

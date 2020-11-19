@@ -32,42 +32,42 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void translate(int x, int y) {
-
+        _canvas.translate(x, y);
     }
 
     @Override
     public void scale(int x, int y) {
-
+        _canvas.scale(x, y);
     }
 
     @Override
     public void rotate(float angle) {
-
+        _canvas.rotate(angle);
     }
 
     @Override
     public void save() {
-
+        _canvas.save();
     }
 
     @Override
     public void restore() {
-
+        _canvas.restore();
     }
 
     @Override
     public void setColor(int r, int g, int b) {
-
+        _paint.setColor(Color.rgb(r, g, b));
     }
 
     @Override
     public void drawLine(int x1, int y1, int x2, int y2) {
-
+        _canvas.drawLine(x1, y1, x2, y2, _paint);
     }
 
     @Override
     public void fillRect(int x1, int y1, int x2, int y2) {
-
+        _canvas.drawRect(x1, y1, x2, y2, _paint);
     }
 
     @Override
@@ -77,12 +77,12 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public int getWidth() {
-        return 0;
+        return _canvas.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return 0;
+        return _canvas.getHeight();
     }
 
     public void setCanvas(Canvas c) {
