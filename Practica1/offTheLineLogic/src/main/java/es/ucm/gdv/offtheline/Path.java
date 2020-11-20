@@ -7,10 +7,12 @@ import es.ucm.gdv.engine.Graphics;
 
 public class Path extends GameObject {
     List<float[]> vertices;
+    List<float[]> directions;
 
-    public Path(List<float[]> v){
+    public Path(List<float[]> v, List<float[]> d){
         super(0, 0, 0, 0);
         vertices = v;
+        directions = d;
     }
 
     @Override

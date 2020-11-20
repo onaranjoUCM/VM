@@ -27,12 +27,12 @@ public class LevelReader {
         }
     }
 
-    ArrayList<GameObject> loadLevel(int n) {
+    ArrayList<GameObject> loadLevel(int levelIndex) {
         boolean playerAdded = false;
         float playerX = 0; float playerY = 0;
         ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
-        JSONObject level = (JSONObject) fullFile.get(n);
+        JSONObject level = (JSONObject) fullFile.get(levelIndex);
         String name = (String) level.get("name");
         String time = (String) level.get("time");
 
@@ -40,9 +40,13 @@ public class LevelReader {
         JSONArray paths = (JSONArray) level.get("paths");
         Iterator<JSONObject> itPath = paths.iterator();
         while (itPath.hasNext()) {
-            JSONArray vertices = (JSONArray) itPath.next().get("vertices");
-            Iterator<JSONObject> itVertices = vertices.iterator();
             List<float[]> vertexList = new ArrayList<>();
+            List<float[]> directionsList = new ArrayList<>();
+            JSONObject path = itPath.next();
+
+            // VERTICES
+            JSONArray vertices = (JSONArray) path.get("vertices");
+            Iterator<JSONObject> itVertices = vertices.iterator();
             while (itVertices.hasNext()) {
                 JSONObject vertex = itVertices.next();
                 float xVertex = (Long) vertex.get("x");
@@ -55,7 +59,21 @@ public class LevelReader {
                     playerAdded = true;
                 }
             }
-            gameObjects.add(new Path(vertexList));
+
+            // DIRECTIONS
+            JSONArray directions = (JSONArray) path.get("directions");
+            if (directions != null) {
+                Iterator<JSONObject> itDirections = directions.iterator();
+                while (itDirections.hasNext()) {
+                    JSONObject vertex = itDirections.next();
+                    float xDir = (Long) vertex.get("x");
+                    float yDir = (Long) vertex.get("y");
+                    float tuple[] = {xDir, yDir};
+                    vertexList.add(tuple);
+                }
+            }
+
+            gameObjects.add(new Path(vertexList, directionsList));
         }
 
         // ITEMS
@@ -76,9 +94,43 @@ public class LevelReader {
                 JSONObject enemy = itEnemies.next();
                 float xEnemy = (Long) enemy.get("x");
                 float yEnemy = (Long) enemy.get("y");
-                int length = (int) enemy.get("length");
+                float length = (Long) enemy.get("length");
                 float angle = (Long) enemy.get("angle");
-                gameObjects.add(new Enemy(xEnemy, yEnemy, length, 0.001f, angle, 0, 0, 0));
+
+                float speed;
+                try {
+                    speed = (Long) enemy.get("speed");
+                } catch (NullPointerException e) {
+                    speed = 0;
+                }
+
+                JSONObject offset;
+                float offsetX;
+                float offsetY;
+                try {
+                    offset = (JSONObject) enemy.get("offset");
+                    offsetX = (Long)offset.get("x");
+                    offsetY = (Long)offset.get("y");
+                } catch (NullPointerException e) {
+                    offsetX = 0;
+                    offsetY = 0;
+                }
+
+                float time1;
+                try {
+                    time1 = (Long) enemy.get("time1");
+                } catch (NullPointerException e) {
+                    time1 = 0;
+                }
+
+                float time2;
+                try {
+                    time2 = (Long) enemy.get("time2");
+                } catch (NullPointerException e) {
+                    time2 = 0;
+                }
+
+                gameObjects.add(new Enemy(xEnemy, yEnemy, (int)length, angle, speed, offsetX, offsetY, time1, time2));
             }
         }
 

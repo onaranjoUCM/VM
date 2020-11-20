@@ -5,16 +5,21 @@ import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Graphics;
 
 public class Enemy extends GameObject {
-    private float speed_;
+    private float length_;
     private float angle_;
-    private float offset_; //posicion final que se desplaza
-    private double time1_, time2_; //time1 el tiempo que tarda en recorrer de la posINI a posFIN, time2 el tiempo que tarda el reanudar la marcha
+    private float speed_;
+    private float offsetX_;
+    private float offsetY_;
+    private float time1_;
+    private float time2_;
 
-    public Enemy(float posX, float posY, int length, float speed, float angle, float offset, double time1, double time2){
+    public Enemy(float posX, float posY, int length, float angle, float speed, float offsetX, float offsetY, float time1, float time2){
         super(posX, posY, length, 0);
-        speed_= speed;
+        length_ = length;
+        speed_ = speed;
         angle_ = angle;
-        offset_= offset;
+        offsetX_ = offsetX;
+        offsetY_ = offsetY;
         time1_ = time1;
         time2_ = time2;
     }
@@ -22,7 +27,6 @@ public class Enemy extends GameObject {
     @Override
     public void update(double deltaTime) {
         angle_ += speed_;
-        //posX_ += speed_;
     }
 
     @Override
