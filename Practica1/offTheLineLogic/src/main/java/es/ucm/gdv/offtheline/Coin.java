@@ -13,12 +13,10 @@ public class Coin extends GameObject {
         radius_ = radius;
         angle_ = angle;
         angle2_ = angle_ - 90;
-
     }
 
     @Override
     public void update(double deltaTime) {
-        //posX_ += speed_;
         angle_ += speed_;
         angle2_+= speed_;
     }

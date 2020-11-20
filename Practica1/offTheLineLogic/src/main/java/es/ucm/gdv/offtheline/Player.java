@@ -4,25 +4,30 @@ import es.ucm.gdv.engine.Graphics;
 
 public class Player extends GameObject {
     private float speed_;
+    private float radius_;
+    private float angle_, angle2_;
     private int directionX, directionY;
 
-    public Player(float posX, float posY, int W, int H, float speed){
+    public Player(float posX, float posY, int W, int H, float speed, float radius, float angle){
         super(posX, posY, W, H);
         speed_= speed;
-
+        radius_ = radius;
+        angle_ = angle;
+        angle2_ = angle_ - 90;
     }
 
     @Override
     public void update(double deltaTime) {
-        posX_ += speed_; //* deltaTime;
+        angle_ += speed_;
+        angle2_+= speed_;
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(0, 0, 255);
-        g.drawLine((int)(posX_ - (W_/2)), (int)(posY_ - (H_/2)), (int)(posX_ + (W_/2)), (int)(posY_ - (H_/2))); //LineaArriba
-        g.drawLine((int)(posX_ - (W_/2)), (int)(posY_ + (H_/2)), (int)(posX_ + (W_/2)), (int)(posY_ + (H_/2))); //LineaAbajo
-        g.drawLine((int)(posX_ - (W_/2)), (int)(posY_ - (H_/2)), (int)(posX_ - (W_/2)), (int)(posY_ + (H_/2))); //LineaIzquierda
-        g.drawLine((int)(posX_ + (W_/2)), (int)(posY_ - (H_/2)), (int)(posX_ + (W_/2)), (int)(posY_ + (H_/2))); //LineaDerecha
+        g.drawLine((int)(posX_ - (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaArriba
+        g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ + (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaAbajo
+        g.drawLine((int)(posX_ - (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle2_))*(H_))),  (int)(posX_ + (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaIzquierda
+        g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaDerecha
     }
 }
