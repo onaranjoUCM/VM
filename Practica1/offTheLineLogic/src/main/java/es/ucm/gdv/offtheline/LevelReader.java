@@ -29,7 +29,7 @@ public class LevelReader {
 
     ArrayList<GameObject> loadLevel(int levelIndex) {
         boolean playerAdded = false;
-        float playerX = 0; float playerY = 0;
+        Path playerPath = null;
         ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
         JSONObject level = (JSONObject) fullFile.get(levelIndex);
@@ -53,11 +53,6 @@ public class LevelReader {
                 float yVertex = (Long) vertex.get("y");
                 float tuple[] = {xVertex, yVertex};
                 vertexList.add(tuple);
-
-                if(!playerAdded) {
-                    playerX = xVertex; playerY = yVertex;
-                    playerAdded = true;
-                }
             }
 
             // DIRECTIONS
@@ -73,7 +68,12 @@ public class LevelReader {
                 }
             }
 
-            gameObjects.add(new Path(vertexList, directionsList));
+            Path aux = new Path(vertexList, directionsList);
+            if(!playerAdded) {
+                playerPath = aux;
+                playerAdded = true;
+            }
+            gameObjects.add(aux);
         }
 
         // ITEMS
@@ -135,7 +135,7 @@ public class LevelReader {
         }
 
         // Add player last to render on top of everything
-        gameObjects.add(new Player(playerX, playerY, 10, 10, 0.05f, 0, 45));
+        gameObjects.add(new Player(playerPath, 10, 10, 0.05f, 0, 45));
         gameObjects.add(new Lives(50,-150, 100, 20, 5));
 
         return gameObjects;

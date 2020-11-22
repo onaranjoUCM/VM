@@ -22,7 +22,7 @@ public class Main {
                 long currentTime = System.nanoTime();
                 long nanoDelta = currentTime - lastFrameTime;
                 lastFrameTime = currentTime;
-                logic.update(nanoDelta);
+                logic.update((double) nanoDelta / 1.0E9);
 
                 // Render single frame
                 do {
