@@ -136,6 +136,7 @@ public class LevelReader {
 
         // Add player last to render on top of everything
         gameObjects.add(new Player(playerX, playerY, 10, 10, 0.05f, 0, 45));
+        gameObjects.add(new Lives(50,-150, 100, 20, 5));
 
         return gameObjects;
     }

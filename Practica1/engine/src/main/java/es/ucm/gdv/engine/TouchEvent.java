@@ -1,8 +1,9 @@
 package es.ucm.gdv.engine;
 
 public class TouchEvent {
-    int type;
-    int posX;
-    int posY;
-    int id;
+    public enum EventType {PRESSED, RELEASED, MOVED}
+    public EventType type;
+    public int posX;
+    public int posY;
+    public int id;
 }

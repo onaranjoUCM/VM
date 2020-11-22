@@ -8,6 +8,8 @@ public class Enemy extends GameObject {
     private float length_;
     private float angle_;
     private float speed_;
+    private float posXIni;
+    private float posYIni;
     private float offsetX_;
     private float offsetY_;
     private float time1_;
@@ -22,6 +24,8 @@ public class Enemy extends GameObject {
         offsetY_ = offsetY;
         time1_ = time1;
         time2_ = time2;
+        posXIni = posX;
+        posXIni = posY;
     }
 
     @Override
