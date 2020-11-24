@@ -24,6 +24,7 @@ public class Path extends GameObject {
         for (int i = 1; i < vertices.size(); i++) {
             g.drawLine((int)vertices.get(i - 1)[0],(int) vertices.get(i - 1)[1], (int)vertices.get(i)[0], (int)vertices.get(i)[1]);
         }
+
         g.drawLine((int)vertices.get(0)[0],(int) vertices.get(0)[1], (int)vertices.get(vertices.size() - 1)[0], (int)vertices.get(vertices.size() - 1)[1]);
     }
 }

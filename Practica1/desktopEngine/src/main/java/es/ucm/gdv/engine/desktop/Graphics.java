@@ -1,6 +1,7 @@
 package es.ucm.gdv.engine.desktop;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 
@@ -12,10 +13,6 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     java.awt.Graphics graphics;
     JFrame window;
-
-    float scaleX = 1;
-    float scaleY = 1;
-    float rotation = 0;
 
     public Graphics(JFrame w) {
         super();
@@ -39,14 +36,13 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
-    public void scale(int x, int y) {
-        scaleX = x;
-        scaleY = y;
+    public void scale(float x, float y) {
+        ((Graphics2D)graphics).scale(x, y);
     }
 
     @Override
     public void rotate(float angle) {
-        rotation += angle;
+        ((Graphics2D)graphics).rotate(angle);
     }
 
     @Override

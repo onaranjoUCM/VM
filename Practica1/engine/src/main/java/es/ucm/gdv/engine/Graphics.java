@@ -4,7 +4,7 @@ public interface Graphics {
     Font newFont(String filename, int size, boolean isBold);
     void clear(int r, int g, int b);
     void translate(int x, int y);
-    void scale(int x, int y);
+    void scale(float x, float y);
     void rotate(float angle);
     void save();
     void restore();

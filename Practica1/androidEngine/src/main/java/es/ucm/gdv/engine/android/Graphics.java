@@ -36,7 +36,7 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
-    public void scale(int x, int y) {
+    public void scale(float x, float y) {
         _canvas.scale(x, y);
     }
 

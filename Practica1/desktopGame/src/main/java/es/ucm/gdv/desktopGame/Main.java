@@ -10,7 +10,7 @@ import es.ucm.gdv.offtheline.Player;
 
 public class Main {
         public static void main (String[] args){
-            Window w = new Window("OFF THE LINE", 600, 400);
+            Window w = new Window("OFF THE LINE", 800, 600);
             w.createBufferStrategy(2);
             BufferStrategy strategy = w.getBufferStrategy();
 

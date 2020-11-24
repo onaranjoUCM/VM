@@ -73,7 +73,7 @@ public class LevelReader {
                     float xDir = readFloat(vertex.get("x"));
                     float yDir = readFloat(vertex.get("y"));
                     float tuple[] = {xDir, yDir};
-                    vertexList.add(tuple);
+                    directionsList.add(tuple);
                 }
             }
 
