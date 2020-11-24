@@ -27,6 +27,15 @@ public class LevelReader {
         }
     }
 
+    float readFloat(Object o) {
+        try {
+            return (Long) o;
+        } catch(ClassCastException e) {
+            double aux = (double)o;
+            return (float)aux;
+        }
+    }
+
     ArrayList<GameObject> loadLevel(int levelIndex) {
         boolean playerAdded = false;
         Path playerPath = null;
@@ -49,8 +58,8 @@ public class LevelReader {
             Iterator<JSONObject> itVertices = vertices.iterator();
             while (itVertices.hasNext()) {
                 JSONObject vertex = itVertices.next();
-                float xVertex = (Long) vertex.get("x");
-                float yVertex = (Long) vertex.get("y");
+                float xVertex = readFloat(vertex.get("x"));
+                float yVertex = readFloat(vertex.get("y"));
                 float tuple[] = {xVertex, yVertex};
                 vertexList.add(tuple);
             }
@@ -61,8 +70,8 @@ public class LevelReader {
                 Iterator<JSONObject> itDirections = directions.iterator();
                 while (itDirections.hasNext()) {
                     JSONObject vertex = itDirections.next();
-                    float xDir = (Long) vertex.get("x");
-                    float yDir = (Long) vertex.get("y");
+                    float xDir = readFloat(vertex.get("x"));
+                    float yDir = readFloat(vertex.get("y"));
                     float tuple[] = {xDir, yDir};
                     vertexList.add(tuple);
                 }
@@ -81,8 +90,8 @@ public class LevelReader {
         Iterator<JSONObject> itItems = items.iterator();
         while (itItems.hasNext()) {
             JSONObject vertex = itItems.next();
-            float xItem = (Long) vertex.get("x");
-            float yItem = (Long) vertex.get("y");
+            float xItem = readFloat(vertex.get("x"));
+            float yItem = readFloat(vertex.get("y"));
             gameObjects.add(new Coin(xItem, yItem, 10, 10, 0.05f, 0, 45));
         }
 
@@ -92,10 +101,10 @@ public class LevelReader {
             Iterator<JSONObject> itEnemies = enemies.iterator();
             while (itEnemies.hasNext()) {
                 JSONObject enemy = itEnemies.next();
-                float xEnemy = (Long) enemy.get("x");
-                float yEnemy = (Long) enemy.get("y");
-                float length = (Long) enemy.get("length");
-                float angle = (Long) enemy.get("angle");
+                float xEnemy = readFloat(enemy.get("x"));
+                float yEnemy = readFloat(enemy.get("y"));
+                float length = readFloat(enemy.get("length"));
+                float angle = readFloat(enemy.get("angle"));
 
                 float speed;
                 try {
@@ -109,8 +118,8 @@ public class LevelReader {
                 float offsetY;
                 try {
                     offset = (JSONObject) enemy.get("offset");
-                    offsetX = (Long)offset.get("x");
-                    offsetY = (Long)offset.get("y");
+                    offsetX = readFloat(offset.get("x"));
+                    offsetY = readFloat(offset.get("y"));
                 } catch (NullPointerException e) {
                     offsetX = 0;
                     offsetY = 0;
@@ -118,14 +127,14 @@ public class LevelReader {
 
                 float time1;
                 try {
-                    time1 = (Long) enemy.get("time1");
+                    time1 = readFloat(enemy.get("time1"));
                 } catch (NullPointerException e) {
                     time1 = 0;
                 }
 
                 float time2;
                 try {
-                    time2 = (Long) enemy.get("time2");
+                    time2 = readFloat(enemy.get("time2"));
                 } catch (NullPointerException e) {
                     time2 = 0;
                 }
