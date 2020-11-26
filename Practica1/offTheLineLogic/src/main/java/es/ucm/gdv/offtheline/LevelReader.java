@@ -89,10 +89,32 @@ public class LevelReader {
         JSONArray items = (JSONArray) level.get("items");
         Iterator<JSONObject> itItems = items.iterator();
         while (itItems.hasNext()) {
-            JSONObject vertex = itItems.next();
-            float xItem = readFloat(vertex.get("x"));
-            float yItem = readFloat(vertex.get("y"));
-            gameObjects.add(new Coin(xItem, yItem, 10, 10, 0.05f, 0, 45));
+            JSONObject item = itItems.next();
+            float xItem = readFloat(item.get("x"));
+            float yItem = readFloat(item.get("y"));
+
+            float radius;
+            try {
+                radius = readFloat(item.get("radius"));
+            } catch (NullPointerException e) {
+                radius = 0;
+            }
+
+            float speed;
+            try {
+                speed = readFloat(item.get("speed"));
+            } catch (NullPointerException e) {
+                speed = 0;
+            }
+
+            float angle;
+            try {
+                angle = readFloat(item.get("angle"));
+            } catch (NullPointerException e) {
+                angle = 0;
+            }
+
+            gameObjects.add(new Coin(xItem, yItem, radius, speed, angle));
         }
 
         // ENEMIES
