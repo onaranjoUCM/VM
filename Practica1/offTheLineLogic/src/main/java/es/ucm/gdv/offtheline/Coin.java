@@ -24,8 +24,10 @@ public class Coin extends GameObject {
     public void update(double deltaTime) {
         angle_ += speed_ * deltaTime;
 
-        posX_ = (float)(radius_ * Math.cos(Math.toRadians (angle_)));
-        posY_ = (float)(radius_ * Math.sin(Math.toRadians (angle_)));
+        if (radius_ != 0) {
+            posX_ = (float) (radius_ * Math.cos(Math.toRadians(angle_)));
+            posY_ = (float) (radius_ * Math.sin(Math.toRadians(angle_)));
+        }
 
         spinAngle_ += spinSpeed_;
         spinAngle2_+= spinSpeed_;

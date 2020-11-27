@@ -60,25 +60,18 @@ public class Player extends GameObject {
         float den = (x2 - x1);
 
         double angle;
-        if (num > 0 && den == 0)
-            angle = 90.0;
-        else if (num == 0 && den < 0)
-            angle = 180;
-        else if (num == den && den < 0)
-            angle = -135;
-        else if (num == -den && den < 0)
-            angle = 135;
-        else
-            angle = Math.toDegrees(Math.atan(num/den));
+        angle = Math.toDegrees(Math.atan(num / den));
+
+        if ((x2 < x1))
+            angle += 180;
 
         dirX = Math.cos(Math.toRadians(angle));
         dirY = Math.sin(Math.toRadians(angle));
 
-        if (Math.abs(posX_ - currentPath_.vertices.get(nextVertexIndex)[0]) < 1 &&
-                Math.abs(posY_ - currentPath_.vertices.get(nextVertexIndex)[1]) < 1) {
+        if (Math.abs(posX_ - currentPath_.vertices.get(nextVertexIndex)[0]) < 0.5 &&
+                Math.abs(posY_ - currentPath_.vertices.get(nextVertexIndex)[1]) < 0.5) {
             pathVertexIndex++;
             if (pathVertexIndex == currentPath_.vertices.size()) pathVertexIndex = 0;
         }
-
     }
 }
