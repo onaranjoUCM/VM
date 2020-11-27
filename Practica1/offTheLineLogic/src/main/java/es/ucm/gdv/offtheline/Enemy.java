@@ -16,6 +16,8 @@ public class Enemy extends GameObject {
     private float time2_;
     private double dirX, dirY;
     private float speedMove_;
+    boolean stop_;
+    float timenow_;
 
     public Enemy(float posX, float posY, int length, float angle, float speed, float offsetX, float offsetY, float time1, float time2){
         super(posX, posY, length, 0);
@@ -33,58 +35,69 @@ public class Enemy extends GameObject {
             float magnitude = (float)Math.sqrt(x);
             speedMove_ = magnitude/time1_;
         }
+        stop_ = true;
     }
 
     @Override
     public void update(double deltaTime) {
         if(offsetX_ != 0 || offsetY_!= 0) {
-            updateDirection();
+            updateDirection(deltaTime);
             posX_ += speedMove_*deltaTime * dirX;
             posY_ += speedMove_* deltaTime * dirY;
         }
-        angle_ += speed_;
+        angle_ += speed_ * deltaTime;
     }
 
-    private void updateDirection() {
-
-        if (posX_ == offsetX_ && posY_ == offsetY_) {
+    private void updateDirection(double deltaTime) {
+        if((dirX > 0 && posX_ >= offsetX_) || (dirY > 0 && posY_ >= offsetY_) || (dirX < 0 && posX_ <= offsetX_) || (dirY < 0 && posY_ <= offsetY_)){
             float auxX = offsetX_;
             float auxY = offsetY_;
             offsetX_ = posXIni;
             offsetY_ = posYIni;
             posXIni = auxX;
             posYIni = auxY;
+            dirX = 0;
+            dirY = 0;
+            timenow_ = time2_;
+            stop_ = true;
         }
-        // Calculate direction
-        float x1 = posX_;
-        float y1 = posY_;
-        float x2 = offsetX_;
-        float y2 = offsetY_;
+        if(stop_){
+            timenow_ -= deltaTime;
+            if(timenow_ <= 0)
+                stop_ = false;
+        }
+        if(!stop_) {
+            // Calculate direction
+            float x1 = posX_;
+            float y1 = posY_;
+            float x2 = offsetX_;
+            float y2 = offsetY_;
 
-        float num = (y2 - y1);
-        float den = (x2 - x1);
+            float num = (y2 - y1);
+            float den = (x2 - x1);
 
-        double angle;
-        if (num > 0 && den == 0) {
-            angle = 90.0;
-            dirX = 0;
-            dirY = 1;
-        } else if (num == 0 && den < 0) {
-            angle = 180;
-            dirX = -1;
-            dirY = 0;
-        } else if (num < 0 && den == 0) {
-            angle = 270.0;
-            dirX = 0;
-            dirY = -1;
-        } else if (num == 0 && den > 0) {
-            angle = 0;
-            dirX = 1;
-            dirY = 0;
-        } else{
-            angle = Math.toDegrees(Math.atan(num / den));
-            dirX = Math.cos(Math.toRadians(angle));
-            dirY = Math.sin(Math.toRadians(angle));
+            double angle;
+            if (num > 0 && den == 0) {
+                angle = 90.0;
+                dirX = 0;
+                dirY = 1;
+            } else if (num == 0 && den < 0) {
+                angle = 180;
+                dirX = -1;
+                dirY = 0;
+            } else if (num < 0 && den == 0) {
+                angle = 270.0;
+                dirX = 0;
+                dirY = -1;
+            } else if (num == 0 && den > 0) {
+                angle = 0;
+                dirX = 1;
+                dirY = 0;
+            } else {
+                angle = Math.toDegrees(Math.atan(num / den));
+                dirX = Math.cos(Math.toRadians(angle));
+                dirY = Math.sin(Math.toRadians(angle));
+            }
         }
 
     }
