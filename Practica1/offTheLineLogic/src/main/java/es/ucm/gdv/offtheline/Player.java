@@ -5,16 +5,16 @@ import es.ucm.gdv.engine.Graphics;
 public class Player extends GameObject {
     private float speed_;
     private float moveSpeed_ = 250; // 400 in hard mode
-    private float radius_;
+    public float radius_;
     private float angle_, angle2_;
     private double dirX, dirY;
     private Path currentPath_;
     int pathVertexIndex = 0;
 
-    public Player(Path path, int W, int H, float speed, float radius, float angle){
+    public Player(Path path, int W, int H, float speed, float angle){
         super(path.vertices.get(0)[0], path.vertices.get(0)[1], W, H);
         speed_= speed;
-        radius_ = radius;
+        radius_ = (W < H) ? W : H;
         angle_ = angle;
         angle2_ = angle_ - 90;
         currentPath_ = path;
@@ -22,7 +22,9 @@ public class Player extends GameObject {
 
     @Override
     public void update(double deltaTime) {
-        updateDirection();
+        if (currentPath_ != null)
+            updateDirection();
+
         posX_ += moveSpeed_ * deltaTime * dirX;
         posY_ += moveSpeed_ * deltaTime * dirY;
 
