@@ -6,7 +6,7 @@ import es.ucm.gdv.engine.Graphics;
 
 public class Enemy extends GameObject {
     public float length_;
-    private float angle_;
+    public float angle_;
     private float speed_;
     private float posXIni;
     private float posYIni;

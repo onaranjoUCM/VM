@@ -7,11 +7,19 @@ import es.ucm.gdv.engine.*;
 public class OffTheLineLogic {
     ArrayList<GameObject> gameObjects;
     Graphics graphics;
+    LevelReader lr;
+    int nItems;
+    boolean levelFinished;
+    long lastItemTime;
+
+    int currentLevel = 0;
+    int timeToSkipLevel = 3;
 
     public OffTheLineLogic(Engine e) {
-        LevelReader lr = new LevelReader();
-        gameObjects = lr.loadLevel(8);
+        lr = new LevelReader();
+        loadLevel(currentLevel);
         graphics = e.getGraphics();
+        lastItemTime = System.nanoTime();
     }
 
     public void handleInput() {
@@ -21,6 +29,18 @@ public class OffTheLineLogic {
     public void update(double deltaTime) {
         for (GameObject object : gameObjects) {
             object.update(deltaTime);
+        }
+
+        if (levelFinished) {
+            if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {
+                if (currentLevel < 19)
+                    loadLevel(currentLevel++);
+                else
+                    ;// Pantalla final
+
+                // Si descomentas esto y pones levelFinished a true pasan los niveles solos
+                //lastItemTime = System.nanoTime();
+            }
         }
     }
 
@@ -44,8 +64,13 @@ public class OffTheLineLogic {
     }
 
     void checkCollisions(Collision c) {
-        if (c.collidesWithCoin() != null)
-            ;// pickCoin()
+        if (c.collidesWithCoin() != null) {
+            nItems--;
+            if (nItems == 0) {
+                levelFinished = true;
+                lastItemTime = System.nanoTime();
+            }
+        }
 
         if (c.collidesWithEnemy())
             ;// die()
@@ -55,5 +80,14 @@ public class OffTheLineLogic {
             Player p = (Player) (gameObjects.get(gameObjects.size() - 1));
             p.setPath(path);
         }
+    }
+
+    void loadLevel(int level) {
+        if (gameObjects != null)
+            gameObjects.clear();
+        gameObjects = lr.loadLevel(level);
+        nItems = lr.nItems;
+        levelFinished = false;
+        lastItemTime = 0;
     }
 }

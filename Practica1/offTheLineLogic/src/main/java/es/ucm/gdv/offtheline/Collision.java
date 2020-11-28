@@ -60,6 +60,27 @@ public class Collision {
     }
 
     boolean collides(Player p, Enemy e) {
+        float x1 = (float)(e.posX_ + e.posX_ * Math.cos(Math.toRadians(e.angle_)));
+        float y1 = (float)(e.posX_ + e.posX_ * Math.sin(Math.toRadians(e.angle_)));
+        float x2 = (float)(e.posX_ + e.posX_ * Math.cos(Math.toRadians(e.angle_ + 180)));
+        float y2 = (float)(e.posX_ + e.posX_ * Math.sin(Math.toRadians(e.angle_ + 180)));
+
+        float dot = (float)((((p.posX_-x1)*(x2-x1)) + ((p.posY_-y1)*(y2-y1)) ) / pow(e.length_,2));
+
+        float closestX = x1 + (dot * (x2-x1));
+        float closestY = y1 + (dot * (y2-y1));
+
+        //boolean onSegment = linePoint(x1,y1,x2,y2, closestX,closestY);
+        //if (!onSegment) continue;
+
+        float distX = closestX - p.posX_;
+        float distY = closestY - p.posY_;
+        float distance = (float)Math.sqrt((distX*distX) + (distY*distY));
+
+        if (distance <= p.radius_) {
+            return true;
+        }
+
         return false;
     }
 

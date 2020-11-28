@@ -15,8 +15,10 @@ import java.util.List;
 public class LevelReader {
     JSONParser parser;
     JSONArray fullFile;
+    int nItems;
 
     LevelReader() {
+        nItems = 0;
         parser = new JSONParser();
         try (Reader reader = new FileReader("levels.json")) {
             fullFile = (JSONArray) parser.parse(reader);
@@ -37,6 +39,7 @@ public class LevelReader {
     }
 
     ArrayList<GameObject> loadLevel(int levelIndex) {
+        nItems = 0;
         boolean playerAdded = false;
         Path playerPath = null;
         ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -89,6 +92,8 @@ public class LevelReader {
         JSONArray items = (JSONArray) level.get("items");
         Iterator<JSONObject> itItems = items.iterator();
         while (itItems.hasNext()) {
+            nItems++;
+
             JSONObject item = itItems.next();
             float xItem = readFloat(item.get("x"));
             float yItem = readFloat(item.get("y"));
