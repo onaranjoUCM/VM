@@ -76,4 +76,8 @@ public class Player extends GameObject {
             if (pathVertexIndex == currentPath_.vertices.size()) pathVertexIndex = 0;
         }
     }
+
+    public boolean isFlying() {
+        return currentPath_ == null;
+    }
 }

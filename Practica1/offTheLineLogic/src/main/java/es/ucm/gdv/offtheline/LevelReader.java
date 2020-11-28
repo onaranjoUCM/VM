@@ -5,23 +5,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class LevelReader {
-    JSONParser parser;
     JSONArray fullFile;
     int nItems;
 
-    LevelReader() {
+    LevelReader(InputStream inputStream) {
         nItems = 0;
-        parser = new JSONParser();
-        try (Reader reader = new FileReader("levels.json")) {
-            fullFile = (JSONArray) parser.parse(reader);
+        JSONParser jsonParser = new JSONParser();
+        try {
+            fullFile = (JSONArray)jsonParser.parse(
+                    new InputStreamReader(inputStream, "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -170,9 +170,10 @@ public class LevelReader {
             }
         }
 
+        gameObjects.add(new Lives(50,-150, 100, 20, 5));
+
         // Add player last to render on top of everything
         gameObjects.add(new Player(playerPath, 10, 10, 0.05f, 45));
-        gameObjects.add(new Lives(50,-150, 100, 20, 5));
 
         return gameObjects;
     }

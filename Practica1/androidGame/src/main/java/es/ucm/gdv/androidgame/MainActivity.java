@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import es.ucm.gdv.engine.android.Engine;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 
@@ -45,7 +48,14 @@ public class MainActivity extends AppCompatActivity {
             super(context);
             _holder = getHolder();
             _engine = new Engine();
-            _logic = new OffTheLineLogic(_engine);
+
+            InputStream stream = null;
+            try {
+                stream = context.getAssets().open("levels.json");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            _logic = new OffTheLineLogic(_engine, stream);
         }
 
         public void resume() {

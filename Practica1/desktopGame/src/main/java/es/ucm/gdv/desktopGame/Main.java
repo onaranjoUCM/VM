@@ -2,11 +2,14 @@ package es.ucm.gdv.desktopGame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import  es.ucm.gdv.engine.desktop.Window;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 import es.ucm.gdv.engine.desktop.Engine;
-import es.ucm.gdv.offtheline.Player;
 
 public class Main {
         public static void main (String[] args){
@@ -15,7 +18,14 @@ public class Main {
             BufferStrategy strategy = w.getBufferStrategy();
 
             Engine e = new Engine(w);
-            OffTheLineLogic logic = new OffTheLineLogic(e);
+
+            OffTheLineLogic logic = null;
+            File json = new File("levels.json");
+            try {
+                logic = new OffTheLineLogic(e, new FileInputStream(json));
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
 
             long lastFrameTime = System.nanoTime();
             while(true) {
