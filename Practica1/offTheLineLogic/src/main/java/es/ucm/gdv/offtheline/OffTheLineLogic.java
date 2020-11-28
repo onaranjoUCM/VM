@@ -10,7 +10,7 @@ public class OffTheLineLogic {
 
     public OffTheLineLogic(Engine e) {
         LevelReader lr = new LevelReader();
-        gameObjects = lr.loadLevel(4);
+        gameObjects = lr.loadLevel(8);
         graphics = e.getGraphics();
     }
 
