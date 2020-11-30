@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import java.io.IOException;
 import java.io.InputStream;
 
+import es.ucm.gdv.engine.Input;
 import es.ucm.gdv.engine.android.Engine;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 
@@ -43,11 +44,15 @@ public class MainActivity extends AppCompatActivity {
         volatile boolean _running = false;
         OffTheLineLogic _logic;
         Engine _engine;
+        Input _input;
 
         public MySurfaceView(Context context) {
             super(context);
             _holder = getHolder();
             _engine = new Engine();
+            _input = new es.ucm.gdv.engine.android.Input();
+
+            setOnTouchListener((OnTouchListener) _input);
 
             InputStream stream = null;
             try {
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            _logic = new OffTheLineLogic(_engine, stream);
+            _logic = new OffTheLineLogic(_engine, stream, _input);
         }
 
         public void resume() {
@@ -96,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 long nanoElapsedTime = currentTime - lastFrameTime;
                 lastFrameTime = currentTime;
                 double elapsedTime = (double) nanoElapsedTime / 1.0E9;
+                _logic.handleInput();
                 _logic.update(elapsedTime);
 
                 while (!_holder.getSurface().isValid());
