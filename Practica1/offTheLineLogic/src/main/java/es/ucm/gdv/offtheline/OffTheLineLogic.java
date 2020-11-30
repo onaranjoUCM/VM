@@ -48,8 +48,8 @@ public class OffTheLineLogic {
             object.update(deltaTime);
         }
 
-        if (player.isFlying())
-            checkCollisions(col);
+        //if (player.isFlying())
+            //checkCollisions(col);
 
         if (levelFinished) {
             if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {

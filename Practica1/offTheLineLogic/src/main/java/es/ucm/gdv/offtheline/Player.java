@@ -118,12 +118,17 @@ public class Player extends GameObject {
         float y = currentPath_.vertices.get(nextVertexIndex)[1] - currentPath_.vertices.get(pathVertexIndex)[1];
 
         if (currentPath_.directions.isEmpty()) {
-            dirX = -x;
-            dirY = y;
+            dirX = y;
+            dirY = -x;
         } else {
             dirX = currentPath_.directions.get(pathVertexIndex)[0];
             dirY = currentPath_.directions.get(pathVertexIndex)[1];
         }
+
+        if (dirX > 0) dirX = 1;
+        if (dirX < 0) dirX = -1;
+        if (dirY > 0) dirY = 1;
+        if (dirY < 0) dirY = -1;
 
         currentPath_ = null;
     }
