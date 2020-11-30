@@ -8,6 +8,7 @@ import es.ucm.gdv.engine.*;
 public class OffTheLineLogic {
     ArrayList<GameObject> gameObjects;
     Graphics graphics;
+    Input input;
     LevelReader lr;
     Collision col;
     Player player;
@@ -19,15 +20,27 @@ public class OffTheLineLogic {
     int currentLevel = 0;
     int timeToSkipLevel = 3;
 
-    public OffTheLineLogic(Engine e, InputStream stream) {
+    public OffTheLineLogic(Engine e, InputStream stream, Input i) {
         lr = new LevelReader(stream);
         loadLevel(currentLevel);
         graphics = e.getGraphics();
         lastItemTime = System.nanoTime();
+        input = i;//new Input();
     }
 
     public void handleInput() {
-        // Do something
+        if(input.getEvents().size() > 0){
+            for(TouchEvent t : input.getEvents()) {
+                switch (t.type) {
+                    case 1: // Pulsacion
+                        ((Player) gameObjects.get(gameObjects.size() - 1)).jump();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            input.getEvents().clear();
+        }
     }
 
     public void update(double deltaTime) {

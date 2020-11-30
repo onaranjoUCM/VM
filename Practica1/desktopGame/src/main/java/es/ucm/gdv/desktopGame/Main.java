@@ -7,13 +7,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import es.ucm.gdv.engine.desktop.Input;
 import  es.ucm.gdv.engine.desktop.Window;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 import es.ucm.gdv.engine.desktop.Engine;
 
 public class Main {
         public static void main (String[] args){
-            Window w = new Window("OFF THE LINE", 800, 600);
+            Input i = new Input();
+            Window w = new Window("OFF THE LINE", 800, 600, i);
             w.createBufferStrategy(2);
             BufferStrategy strategy = w.getBufferStrategy();
 
@@ -22,7 +24,7 @@ public class Main {
             OffTheLineLogic logic = null;
             File json = new File("levels.json");
             try {
-                logic = new OffTheLineLogic(e, new FileInputStream(json));
+                logic = new OffTheLineLogic(e, new FileInputStream(json), i);
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
@@ -32,6 +34,7 @@ public class Main {
                 long currentTime = System.nanoTime();
                 long nanoDelta = currentTime - lastFrameTime;
                 lastFrameTime = currentTime;
+                logic.handleInput();
                 logic.update((double) nanoDelta / 1.0E9);
 
                 // Render single frame

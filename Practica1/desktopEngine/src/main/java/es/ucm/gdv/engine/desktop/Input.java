@@ -9,78 +9,56 @@ import java.util.List;
 
 import es.ucm.gdv.engine.TouchEvent;
 
-public class Input implements MouseListener, MouseMotionListener, KeyListener {
+public class Input extends es.ucm.gdv.engine.Input implements MouseListener {
+    private TouchEvent event_;
 
-    public List<TouchEvent> getTouchEvents() {
-        return null;
-    }
-
-    private void registerEvent(MouseEvent mouseEvent, TouchEvent.EventType type)
-    {
-        //Rellenamos el evento
-        TouchEvent evt = new TouchEvent();
-        evt.posX = mouseEvent.getX();
-        evt.posY = mouseEvent.getY();
-        evt.id = mouseEvent.getID();
-        evt.type = type;
-
-        //addEvent(evt);
-    }
-
-    private void registerEvent(KeyEvent keyEvent, TouchEvent.EventType type)
-    {
-        //Rellenamos el evento
-        TouchEvent evt = new TouchEvent();
-        evt.posX = 0;
-        evt.posY = 0;
-        evt.id = keyEvent.getID();
-        evt.type = type;
-
-        //addEvent(evt);
-    }
-
-    public void mousePressed(MouseEvent mouseEvent)
-    {
-        registerEvent(mouseEvent, TouchEvent.EventType.PRESSED);
+    public Input(){
+        super();
     }
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent)
-    {
-        registerEvent(mouseEvent, TouchEvent.EventType.RELEASED);
+    public void mouseClicked(MouseEvent mouseEvent) {
+        event_ = new TouchEvent();
+        int posX= mouseEvent.getX();
+        int posY= mouseEvent.getY();
+        event_.init(posX, posY,mouseEvent.getID(), mouseEvent.getButton());
+        addEvent(event_);
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) { }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) { }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) { }
-
-    //DE MOUSE MOTION LISTENER
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent)
-    {
-        registerEvent(mouseEvent, TouchEvent.EventType.MOVED);
+    public void mousePressed(MouseEvent mouseEvent) {
+        event_ = new TouchEvent();
+        int posX= mouseEvent.getX();
+        int posY= mouseEvent.getY();
+        int id = 1;
+        event_.init(posX, posY, id, mouseEvent.getButton());
+        addEvent(event_);
     }
 
     @Override
-    public void mouseDragged(MouseEvent mouseEvent) { }
-
-
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent)
-    {
-        if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE)
-            registerEvent(keyEvent, TouchEvent.EventType.PRESSED);
+    public void mouseReleased(MouseEvent mouseEvent) {
+        event_ = new TouchEvent();
+        int posX= mouseEvent.getX();
+        int posY= mouseEvent.getY();
+        event_.init(posX, posY,mouseEvent.getID(), mouseEvent.getButton());
+        addEvent(event_);
     }
 
     @Override
-    public void keyReleased(KeyEvent keyEvent) { }
+    public void mouseEntered(MouseEvent mouseEvent) {
+        event_ = new TouchEvent();
+        int posX= mouseEvent.getX();
+        int posY= mouseEvent.getY();
+        event_.init(posX, posY,mouseEvent.getID(), mouseEvent.getButton());
+        addEvent(event_);
+    }
 
     @Override
-    public void keyTyped(KeyEvent keyEvent) { }
+    public void mouseExited(MouseEvent mouseEvent) {
+        event_ = new TouchEvent();
+        int posX= mouseEvent.getX();
+        int posY= mouseEvent.getY();
+        event_.init(posX, posY,mouseEvent.getID(), mouseEvent.getButton());
+        addEvent(event_);
+    }
 }
