@@ -30,14 +30,9 @@ public class Player extends GameObject {
         posX_ += moveSpeed_ * deltaTime * dirX;
         posY_ += moveSpeed_ * deltaTime * dirY;
 
-        // If the player skips the target, return to it
-        if (skippedTarget()) {
-            posX_  = currentPath_.vertices.get(nextVertexIndex)[0];
-            posY_ = currentPath_.vertices.get(nextVertexIndex)[1];
-        }
-
-        // Calculate next target vertex
-        updateCurrentVertex();
+        // If the player skips the target, return to it and update current vertex
+        if (skippedTarget())
+            updateCurrentVertex();
 
         // Update spin angle
         angle_ += speed_;
@@ -86,11 +81,11 @@ public class Player extends GameObject {
 
     private void updateCurrentVertex() {
         if (currentPath_ != null) {
-            if (Math.abs(posX_ - currentPath_.vertices.get(nextVertexIndex)[0]) < 0.5 &&
-                    Math.abs(posY_ - currentPath_.vertices.get(nextVertexIndex)[1]) < 0.5) {
-                pathVertexIndex++;
-                if (pathVertexIndex == currentPath_.vertices.size()) pathVertexIndex = 0;
-            }
+            posX_  = currentPath_.vertices.get(nextVertexIndex)[0];
+            posY_ = currentPath_.vertices.get(nextVertexIndex)[1];
+
+            pathVertexIndex++;
+            if (pathVertexIndex == currentPath_.vertices.size()) pathVertexIndex = 0;
         }
     }
 
