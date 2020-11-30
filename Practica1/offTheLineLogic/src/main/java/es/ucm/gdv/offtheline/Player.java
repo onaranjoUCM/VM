@@ -117,4 +117,19 @@ public class Player extends GameObject {
 
         return false;
     }
+
+    public void jump() {
+        float x = currentPath_.vertices.get(nextVertexIndex)[0] - currentPath_.vertices.get(pathVertexIndex)[0];
+        float y = currentPath_.vertices.get(nextVertexIndex)[1] - currentPath_.vertices.get(pathVertexIndex)[1];
+
+        if (currentPath_.directions.isEmpty()) {
+            dirX = -x;
+            dirY = y;
+        } else {
+            dirX = currentPath_.directions.get(pathVertexIndex)[0];
+            dirY = currentPath_.directions.get(pathVertexIndex)[1];
+        }
+
+        currentPath_ = null;
+    }
 }
