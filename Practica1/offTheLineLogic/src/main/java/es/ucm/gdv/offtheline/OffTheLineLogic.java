@@ -19,6 +19,8 @@ public class OffTheLineLogic {
     int currentLevel = 2;
     int timeToSkipLevel = 3;
 
+    int W_,H_;
+
     public OffTheLineLogic(Engine e, InputStream stream, Input i) {
         lr = new LevelReader(stream);
         loadLevel(currentLevel);
@@ -32,7 +34,11 @@ public class OffTheLineLogic {
             for(TouchEvent t : input.getEvents()) {
                 switch (t.type) {
                     case 1: // Pulsacion
+                        t.posX -= W_/2;
+                        t.posY -= H_/2;
                         ((Player) gameObjects.get(gameObjects.size() - 1)).jump();
+                        System.out.println("Eje X: " + t.posX);
+                        System.out.println("Eje Y: " + t.posY);
                         break;
                     default:
                         break;
@@ -79,6 +85,8 @@ public class OffTheLineLogic {
         float inc = (w < h) ? w / 800 : h / 600;
 
         graphics.scale(1f * inc, -1f * inc);
+        W_ = graphics.getWidth();
+        H_ = graphics.getHeight();
     }
 
     void checkCollisions(float startX, float startY, float endX, float endY) {
