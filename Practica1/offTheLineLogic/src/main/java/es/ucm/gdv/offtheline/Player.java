@@ -7,13 +7,14 @@ public class Player extends GameObject {
     private float moveSpeed_ = 250; // 400 in hard mode
     public float radius_;
     private float angle_, angle2_;
-    private double dirX, dirY;
+    private Vector2 dir_;
     private Path currentPath_;
     int pathVertexIndex = 0;
     int nextVertexIndex = 1;
 
     public Player(Path path, int W, int H, float speed, float angle){
-        super(path.vertices.get(0)[0], path.vertices.get(0)[1], W, H);
+        super(path.vertices.get(0).x, path.vertices.get(0).y, W, H);
+        dir_ = new Vector2(0, 0);
         speed_= speed;
         radius_ = (W < H) ? W : H;
         angle_ = angle;
@@ -27,8 +28,8 @@ public class Player extends GameObject {
         updateDirection();
 
         // Update position
-        posX_ += moveSpeed_ * deltaTime * dirX;
-        posY_ += moveSpeed_ * deltaTime * dirY;
+        posX_ += moveSpeed_ * deltaTime * dir_.x;
+        posY_ += moveSpeed_ * deltaTime * dir_.y;
 
         // If the player skips the target, return to it and update current vertex
         if (skippedTarget())
@@ -60,10 +61,10 @@ public class Player extends GameObject {
                 nextVertexIndex = 0;
 
             // Calculate direction
-            float x1 = currentPath_.vertices.get(pathVertexIndex)[0];
-            float y1 = currentPath_.vertices.get(pathVertexIndex)[1];
-            float x2 = currentPath_.vertices.get(nextVertexIndex)[0];
-            float y2 = currentPath_.vertices.get(nextVertexIndex)[1];
+            float x1 = currentPath_.vertices.get(pathVertexIndex).x;
+            float y1 = currentPath_.vertices.get(pathVertexIndex).y;
+            float x2 = currentPath_.vertices.get(nextVertexIndex).x;
+            float y2 = currentPath_.vertices.get(nextVertexIndex).y;
 
             float num = (y2 - y1);
             float den = (x2 - x1);
@@ -74,15 +75,15 @@ public class Player extends GameObject {
             if ((x2 < x1))
                 angle += 180;
 
-            dirX = Math.cos(Math.toRadians(angle));
-            dirY = Math.sin(Math.toRadians(angle));
+            dir_.x = (float)Math.cos(Math.toRadians(angle));
+            dir_.y = (float)Math.sin(Math.toRadians(angle));
         }
     }
 
     private void updateCurrentVertex() {
         if (currentPath_ != null) {
-            posX_  = currentPath_.vertices.get(nextVertexIndex)[0];
-            posY_ = currentPath_.vertices.get(nextVertexIndex)[1];
+            posX_  = currentPath_.vertices.get(nextVertexIndex).x;
+            posY_ = currentPath_.vertices.get(nextVertexIndex).y;
 
             pathVertexIndex++;
             if (pathVertexIndex == currentPath_.vertices.size()) pathVertexIndex = 0;
@@ -95,10 +96,10 @@ public class Player extends GameObject {
 
     private boolean skippedTarget() {
         if (currentPath_ != null) {
-            float originX = currentPath_.vertices.get(pathVertexIndex)[0];
-            float originY = currentPath_.vertices.get(pathVertexIndex)[1];
-            float targetX = currentPath_.vertices.get(nextVertexIndex)[0];
-            float targetY = currentPath_.vertices.get(nextVertexIndex)[1];
+            float originX = currentPath_.vertices.get(pathVertexIndex).x;
+            float originY = currentPath_.vertices.get(pathVertexIndex).y;
+            float targetX = currentPath_.vertices.get(nextVertexIndex).x;
+            float targetY = currentPath_.vertices.get(nextVertexIndex).y;
 
             if (originX < targetX)
                 return posX_ > targetX;
@@ -114,21 +115,21 @@ public class Player extends GameObject {
     }
 
     public void jump() {
-        float x = currentPath_.vertices.get(nextVertexIndex)[0] - currentPath_.vertices.get(pathVertexIndex)[0];
-        float y = currentPath_.vertices.get(nextVertexIndex)[1] - currentPath_.vertices.get(pathVertexIndex)[1];
+        float x = currentPath_.vertices.get(nextVertexIndex).x - currentPath_.vertices.get(pathVertexIndex).x;
+        float y = currentPath_.vertices.get(nextVertexIndex).y - currentPath_.vertices.get(pathVertexIndex).y;
 
         if (currentPath_.directions.isEmpty()) {
-            dirX = y;
-            dirY = -x;
+            dir_.x = y;
+            dir_.y = -x;
         } else {
-            dirX = currentPath_.directions.get(pathVertexIndex)[0];
-            dirY = currentPath_.directions.get(pathVertexIndex)[1];
+            dir_.x = currentPath_.directions.get(pathVertexIndex).x;
+            dir_.y = currentPath_.directions.get(pathVertexIndex).y;
         }
 
-        if (dirX > 0) dirX = 1;
-        if (dirX < 0) dirX = -1;
-        if (dirY > 0) dirY = 1;
-        if (dirY < 0) dirY = -1;
+        if (dir_.x > 0) dir_.x = 1;
+        if (dir_.x < 0) dir_.x = -1;
+        if (dir_.y > 0) dir_.y = 1;
+        if (dir_.y < 0) dir_.y = -1;
 
         currentPath_ = null;
     }

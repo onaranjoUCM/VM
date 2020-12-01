@@ -52,8 +52,8 @@ public class LevelReader {
         JSONArray paths = (JSONArray) level.get("paths");
         Iterator<JSONObject> itPath = paths.iterator();
         while (itPath.hasNext()) {
-            List<float[]> vertexList = new ArrayList<>();
-            List<float[]> directionsList = new ArrayList<>();
+            List<Vector2> vertexList = new ArrayList<>();
+            List<Vector2> directionsList = new ArrayList<>();
             JSONObject path = itPath.next();
 
             // VERTICES
@@ -63,8 +63,7 @@ public class LevelReader {
                 JSONObject vertex = itVertices.next();
                 float xVertex = readFloat(vertex.get("x"));
                 float yVertex = readFloat(vertex.get("y"));
-                float tuple[] = {xVertex, yVertex};
-                vertexList.add(tuple);
+                vertexList.add(new Vector2(xVertex, yVertex));
             }
 
             // DIRECTIONS
@@ -75,8 +74,7 @@ public class LevelReader {
                     JSONObject vertex = itDirections.next();
                     float xDir = readFloat(vertex.get("x"));
                     float yDir = readFloat(vertex.get("y"));
-                    float tuple[] = {xDir, yDir};
-                    directionsList.add(tuple);
+                    directionsList.add(new Vector2(xDir, yDir));
                 }
             }
 

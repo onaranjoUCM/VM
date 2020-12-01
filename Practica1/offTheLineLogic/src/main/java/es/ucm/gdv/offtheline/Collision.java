@@ -92,10 +92,10 @@ public class Collision {
             else
                 nextVertexIndex = 0;
 
-            float x1 = path.vertices.get(i)[0];
-            float y1 = path.vertices.get(i)[1];
-            float x2 = path.vertices.get(nextVertexIndex)[0];
-            float y2 = path.vertices.get(nextVertexIndex)[1];
+            float x1 = path.vertices.get(i).x;
+            float y1 = path.vertices.get(i).y;
+            float x2 = path.vertices.get(nextVertexIndex).x;
+            float y2 = path.vertices.get(nextVertexIndex).y;
 
             float distX = x1 - x2;
             float distY = y1 - y2;

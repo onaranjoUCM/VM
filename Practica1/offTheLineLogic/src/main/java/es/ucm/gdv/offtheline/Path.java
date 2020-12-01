@@ -1,15 +1,14 @@
 package es.ucm.gdv.offtheline;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.ucm.gdv.engine.Graphics;
 
 public class Path extends GameObject {
-    List<float[]> vertices;
-    List<float[]> directions;
+    List<Vector2> vertices;
+    List<Vector2> directions;
 
-    public Path(List<float[]> v, List<float[]> d){
+    public Path(List<Vector2> v, List<Vector2> d){
         super(0, 0, 0, 0);
         vertices = v;
         directions = d;
@@ -22,9 +21,9 @@ public class Path extends GameObject {
     public void render(Graphics g) {
         g.setColor(255, 255, 255);
         for (int i = 1; i < vertices.size(); i++) {
-            g.drawLine((int)vertices.get(i - 1)[0],(int) vertices.get(i - 1)[1], (int)vertices.get(i)[0], (int)vertices.get(i)[1]);
+            g.drawLine((int)vertices.get(i-1).x,(int) vertices.get(i - 1).y, (int)vertices.get(i).x, (int)vertices.get(i).y);
         }
 
-        g.drawLine((int)vertices.get(0)[0],(int) vertices.get(0)[1], (int)vertices.get(vertices.size() - 1)[0], (int)vertices.get(vertices.size() - 1)[1]);
+        g.drawLine((int)vertices.get(0).x,(int) vertices.get(0).y, (int)vertices.get(vertices.size() - 1).x, (int)vertices.get(vertices.size() - 1).y);
     }
 }

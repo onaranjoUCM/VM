@@ -1,7 +1,6 @@
 package es.ucm.gdv.offtheline;
 
 import es.ucm.gdv.engine.Graphics;
-import es.ucm.gdv.engine.Input;
 
 public abstract class GameObject {
     public GameObject(float posX, float posY, int W, int Y){
