@@ -3,21 +3,13 @@ package es.ucm.gdv.offtheline;
 import java.util.ArrayList;
 
 import static java.lang.Math.pow;
-
+/*
 public class Collision {
-    ArrayList<GameObject> gameObjects_;
-    Player player_;
-
-    Collision(ArrayList<GameObject> gameObjects) {
-        gameObjects_ = gameObjects;
-        player_ = (Player)gameObjects_.get(gameObjects_.size() - 1);
-    }
-
-    Coin collidesWithCoin() {
-        for (GameObject o : gameObjects_)
+    static Coin collidesWithCoin(Player p, ArrayList<GameObject> gameObjects) {
+        for (GameObject o : gameObjects)
             try {
                 Coin c = (Coin)o;
-                if (collides(player_, c))
+                if (collides(p, c))
                     return c;
             } catch (Exception e) {
                 continue;
@@ -25,11 +17,11 @@ public class Collision {
         return null;
     }
 
-    boolean collidesWithEnemy() {
-        for (GameObject o : gameObjects_)
+    static boolean collidesWithEnemy(Player p, ArrayList<GameObject> gameObjects) {
+        for (GameObject o : gameObjects)
             try {
                 Enemy e = (Enemy)o;
-                if (collides(player_, e))
+                if (collides(p, e))
                     return true;
             } catch (Exception e) {
                 continue;
@@ -37,8 +29,8 @@ public class Collision {
         return false;
     }
 
-    Path collidesWithPath() {
-        for (GameObject o : gameObjects_)
+    Path collidesWithPath(Player player_, ArrayList<GameObject> gameObjects) {
+        for (GameObject o : gameObjects)
             try {
                 Path p = (Path)o;
                 if (collides(player_, p))
@@ -121,3 +113,4 @@ public class Collision {
         return false;
     }
 }
+*/

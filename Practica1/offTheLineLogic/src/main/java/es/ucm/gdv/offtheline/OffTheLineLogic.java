@@ -10,14 +10,13 @@ public class OffTheLineLogic {
     Graphics graphics;
     Input input;
     LevelReader lr;
-    Collision col;
     Player player;
 
     int nItems;
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 0;
+    int currentLevel = 2;
     int timeToSkipLevel = 3;
 
     public OffTheLineLogic(Engine e, InputStream stream, Input i) {
@@ -44,12 +43,14 @@ public class OffTheLineLogic {
     }
 
     public void update(double deltaTime) {
+        float oldPlayerX = player.posX_;
+        float oldPlayerY = player.posY_;
+
         for (GameObject object : gameObjects) {
             object.update(deltaTime);
         }
 
-        //if (player.isFlying())
-            //checkCollisions(col);
+        checkCollisions(oldPlayerX, oldPlayerY, player.posX_, player.posY_);
 
         if (levelFinished) {
             if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {
@@ -57,9 +58,6 @@ public class OffTheLineLogic {
                     loadLevel(currentLevel++);
                 else
                     ;// Pantalla final
-
-                // Si descomentas esto y pones levelFinished a true pasan los niveles solos
-                //lastItemTime = System.nanoTime();
             }
         }
     }
@@ -83,23 +81,8 @@ public class OffTheLineLogic {
         graphics.scale(1f * inc, -1f * inc);
     }
 
-    void checkCollisions(Collision c) {
-        if (c.collidesWithCoin() != null) {
-            nItems--;
-            if (nItems == 0) {
-                levelFinished = true;
-                lastItemTime = System.nanoTime();
-            }
-        }
-
-        if (c.collidesWithEnemy())
-            ;// die()
-
-        Path path = c.collidesWithPath();
-        if (path != null) {
-            Player p = (Player) (gameObjects.get(gameObjects.size() - 1));
-            p.setPath(path);
-        }
+    void checkCollisions(float startX, float startY, float endX, float endY) {
+        player.collidesWithPath(gameObjects);
     }
 
     void loadLevel(int level) {
@@ -107,7 +90,6 @@ public class OffTheLineLogic {
             gameObjects.clear();
         gameObjects = lr.loadLevel(level);
         player = (Player)gameObjects.get(gameObjects.size() - 1);
-        col = new Collision(gameObjects);
         nItems = lr.nItems;
         levelFinished = false;
         lastItemTime = 0;

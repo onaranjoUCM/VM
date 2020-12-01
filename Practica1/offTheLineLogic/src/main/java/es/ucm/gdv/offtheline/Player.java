@@ -1,6 +1,9 @@
 package es.ucm.gdv.offtheline;
 
+import java.util.ArrayList;
+
 import es.ucm.gdv.engine.Graphics;
+import es.ucm.gdv.offtheline.Utils;
 
 public class Player extends GameObject {
     private float speed_;
@@ -12,6 +15,8 @@ public class Player extends GameObject {
     int pathVertexIndex = 0;
     int nextVertexIndex = 1;
 
+    Vector2 previousPos;
+
     public Player(Path path, int W, int H, float speed, float angle){
         super(path.vertices.get(0).x, path.vertices.get(0).y, W, H);
         dir_ = new Vector2(0, 0);
@@ -20,12 +25,15 @@ public class Player extends GameObject {
         angle_ = angle;
         angle2_ = angle_ - 90;
         currentPath_ = path;
+        previousPos = new Vector2(posX_, posY_);
     }
 
     @Override
     public void update(double deltaTime) {
         // If on a path, follow it
         updateDirection();
+
+        previousPos.update(posX_, posY_);
 
         // Update position
         posX_ += moveSpeed_ * deltaTime * dir_.x;
@@ -115,22 +123,55 @@ public class Player extends GameObject {
     }
 
     public void jump() {
-        float x = currentPath_.vertices.get(nextVertexIndex).x - currentPath_.vertices.get(pathVertexIndex).x;
-        float y = currentPath_.vertices.get(nextVertexIndex).y - currentPath_.vertices.get(pathVertexIndex).y;
+        if (currentPath_ != null) {
+            float x = currentPath_.vertices.get(nextVertexIndex).x - currentPath_.vertices.get(pathVertexIndex).x;
+            float y = currentPath_.vertices.get(nextVertexIndex).y - currentPath_.vertices.get(pathVertexIndex).y;
 
-        if (currentPath_.directions.isEmpty()) {
-            dir_.x = y;
-            dir_.y = -x;
-        } else {
-            dir_.x = currentPath_.directions.get(pathVertexIndex).x;
-            dir_.y = currentPath_.directions.get(pathVertexIndex).y;
+            if (currentPath_.directions.isEmpty()) {
+                dir_.x = y;
+                dir_.y = -x;
+            } else {
+                dir_.x = currentPath_.directions.get(pathVertexIndex).x;
+                dir_.y = currentPath_.directions.get(pathVertexIndex).y;
+            }
+
+            if (dir_.x > 0) dir_.x = 1;
+            if (dir_.x < 0) dir_.x = -1;
+            if (dir_.y > 0) dir_.y = 1;
+            if (dir_.y < 0) dir_.y = -1;
+
+            currentPath_ = null;
         }
+    }
 
-        if (dir_.x > 0) dir_.x = 1;
-        if (dir_.x < 0) dir_.x = -1;
-        if (dir_.y > 0) dir_.y = 1;
-        if (dir_.y < 0) dir_.y = -1;
+    public void collidesWithPath(ArrayList<GameObject> gameObjects) {
+        for (GameObject o : gameObjects) {
+            try {
+                Path path = (Path)o;
+                if (path != currentPath_) {
+                    for (int i = 0; i < path.vertices.size(); i++) {
+                        if (i != pathVertexIndex) {
+                            int nextVertexIndex;
+                            if (i + 1 < path.vertices.size())
+                                nextVertexIndex = i + 1;
+                            else
+                                nextVertexIndex = 0;
 
-        currentPath_ = null;
+                            Vector2 playerPos = new Vector2(posX_, posY_);
+                            Vector2 segStart = new Vector2(path.vertices.get(i).x, path.vertices.get(i).y);
+                            Vector2 segEnd = new Vector2(path.vertices.get(nextVertexIndex).x, path.vertices.get(nextVertexIndex).y);
+
+                            if (Utils.segmentsIntersection(previousPos, playerPos, segStart, segEnd) != null) {
+                                currentPath_ = path;
+                                pathVertexIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
     }
 }
