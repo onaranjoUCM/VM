@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 
-import es.ucm.gdv.engine.Font;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
     //Castear a Graphics2D en rotate y scale
@@ -13,15 +12,18 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     java.awt.Graphics graphics;
     JFrame window;
+    Engine engine_;
 
-    public Graphics(JFrame w) {
+    public Graphics(JFrame w, Engine engine) {
         super();
         window = w;
+        engine_ = engine;
     }
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
-        return null;
+        Font f = new Font(filename, size, isBold, engine_);
+        return f;
     }
 
     @Override
@@ -71,8 +73,17 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
-    public void drawText(String text, int x, int y) {
+    public void setFont(es.ucm.gdv.engine.Font f) {
+        if (graphics != null){
+            graphics.setFont(((Font)f).getFont());
+        }
+    }
 
+    @Override
+    public void drawText(String text, int x, int y) {
+        if (graphics.getFont() != null) {
+            graphics.drawString(text, (int)x, y);
+        }
     }
 
     @Override

@@ -11,6 +11,7 @@ public class OffTheLineLogic {
     Input input;
     LevelReader lr;
     Player player;
+    Font f_;
 
     int nItems;
     boolean levelFinished;
@@ -27,6 +28,7 @@ public class OffTheLineLogic {
         graphics = e.getGraphics();
         lastItemTime = System.nanoTime();
         input = i;//new Input();
+        f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
     }
 
     public void handleInput() {
@@ -76,6 +78,9 @@ public class OffTheLineLogic {
         for (GameObject object : gameObjects) {
             object.render(graphics);
         }
+        graphics.scale(1f , -1f);
+        graphics.setFont(f_);
+        graphics.drawText("OFF THE LINE", -200,-200);
     }
 
     void adjustToWindow() {

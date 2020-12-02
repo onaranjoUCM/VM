@@ -8,7 +8,7 @@ public class Engine implements es.ucm.gdv.engine.Engine {
 
     public Engine() {
         graphics_ = new es.ucm.gdv.engine.android.Graphics();
-        font_ = new es.ucm.gdv.engine.android.Font();
+        //font_ = new es.ucm.gdv.engine.android.Font();
     }
 
     @Override

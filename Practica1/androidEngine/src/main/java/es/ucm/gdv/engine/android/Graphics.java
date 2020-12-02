@@ -71,6 +71,11 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
+    public void setFont(Font f) {
+
+    }
+
+    @Override
     public void drawText(String text, int x, int y) {
 
     }

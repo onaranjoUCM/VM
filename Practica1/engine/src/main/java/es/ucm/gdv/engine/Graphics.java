@@ -11,6 +11,7 @@ public interface Graphics {
     void setColor(int r, int g, int b);
     void drawLine(int x1, int y1, int x2, int y2);
     void fillRect(int x1, int y1, int x2, int y2);
+    void setFont(Font f);
     void drawText(String text, int x, int y);
     int getWidth();
     int getHeight();
