@@ -15,7 +15,7 @@ import es.ucm.gdv.engine.desktop.Engine;
 public class Main {
         public static void main (String[] args){
             Input i = new Input();
-            Window w = new Window("OFF THE LINE", 800, 600, i);
+            Window w = new Window("OFF THE LINE", 640, 480, i);
             w.createBufferStrategy(2);
             BufferStrategy strategy = w.getBufferStrategy();
 

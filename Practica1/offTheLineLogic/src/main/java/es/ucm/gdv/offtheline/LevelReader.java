@@ -38,7 +38,7 @@ public class LevelReader {
         }
     }
 
-    ArrayList<GameObject> loadLevel(int levelIndex) {
+    ArrayList<GameObject> loadLevel(int levelIndex, boolean mode) {
         nItems = 0;
         boolean playerAdded = false;
         Path playerPath = null;
@@ -171,7 +171,7 @@ public class LevelReader {
         gameObjects.add(new Lives(50,-150, 100, 20, 5));
 
         // Add player last to render on top of everything
-        gameObjects.add(new Player(playerPath, 10, 10, 0.05f, 45));
+        gameObjects.add(new Player(playerPath, 10, 10, 0.05f, 45, mode));
 
         return gameObjects;
     }

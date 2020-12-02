@@ -3,28 +3,34 @@ package es.ucm.gdv.offtheline;
 import java.util.ArrayList;
 
 import es.ucm.gdv.engine.Graphics;
-import es.ucm.gdv.offtheline.Utils;
 
 public class Player extends GameObject {
-    private float speed_;
-    private float moveSpeed_ = 250; // 400 in hard mode
-    public float radius_;
-    private float angle_, angle2_;
-    private Vector2 dir_;
-    private Path currentPath_;
+    boolean hardMode_;
+
+    float moveSpeed_;
+    float rotationSpeed_;
+
+    float radius_;
+    float angle_, angle2_;
+
+    Path currentPath_;
+    Vector2 dir_;
+    Vector2 previousPos;
     int pathVertexIndex = 0;
     int nextVertexIndex = 1;
 
-    Vector2 previousPos;
-
-    public Player(Path path, int W, int H, float speed, float angle){
+    public Player(Path path, int W, int H, float speed, float angle, boolean mode){
         super(path.vertices.get(0).x, path.vertices.get(0).y, W, H);
-        dir_ = new Vector2(0, 0);
-        speed_= speed;
+        hardMode_ = mode;
+        moveSpeed_ = (hardMode_) ? 250 : 400;
+        rotationSpeed_ = speed;
+
         radius_ = (W < H) ? W : H;
         angle_ = angle;
         angle2_ = angle_ - 90;
+
         currentPath_ = path;
+        dir_ = new Vector2(0, 0);
         previousPos = new Vector2(posX_, posY_);
     }
 
@@ -33,6 +39,7 @@ public class Player extends GameObject {
         // If on a path, follow it
         updateDirection();
 
+        // Save previous position for collisions
         previousPos.update(posX_, posY_);
 
         // Update position
@@ -44,8 +51,8 @@ public class Player extends GameObject {
             updateCurrentVertex();
 
         // Update spin angle
-        angle_ += speed_;
-        angle2_+= speed_;
+        angle_ += rotationSpeed_;
+        angle2_+= rotationSpeed_;
     }
 
     @Override
@@ -57,12 +64,10 @@ public class Player extends GameObject {
         g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaDerecha
     }
 
-    public void setPath(Path path) {
-        currentPath_ = path;
-    }
-
+    // Sets the player direction to that of the path he is in
     private void updateDirection() {
         if (currentPath_ != null) {
+            // Last vertex = first vertex
             if (pathVertexIndex + 1 < currentPath_.vertices.size())
                 nextVertexIndex = pathVertexIndex + 1;
             else
@@ -88,6 +93,7 @@ public class Player extends GameObject {
         }
     }
 
+    // This method is called when player reaches a path vertex
     private void updateCurrentVertex() {
         if (currentPath_ != null) {
             posX_  = currentPath_.vertices.get(nextVertexIndex).x;
@@ -98,10 +104,7 @@ public class Player extends GameObject {
         }
     }
 
-    public boolean isFlying() {
-        return currentPath_ == null;
-    }
-
+    // Checks if the player has skipped a vertex by going too fast
     private boolean skippedTarget() {
         if (currentPath_ != null) {
             float originX = currentPath_.vertices.get(pathVertexIndex).x;
@@ -122,6 +125,7 @@ public class Player extends GameObject {
         return false;
     }
 
+    // Sets the player direction to cross the path segment
     public void jump() {
         if (currentPath_ != null) {
             float x = currentPath_.vertices.get(nextVertexIndex).x - currentPath_.vertices.get(pathVertexIndex).x;
@@ -135,6 +139,7 @@ public class Player extends GameObject {
                 dir_.y = currentPath_.directions.get(pathVertexIndex).y;
             }
 
+            moveSpeed_ = 1500;
             if (dir_.x > 0) dir_.x = 1;
             if (dir_.x < 0) dir_.x = -1;
             if (dir_.y > 0) dir_.y = 1;
@@ -144,6 +149,7 @@ public class Player extends GameObject {
         }
     }
 
+    // Checks if the last player movement has made him cross a path segment
     public void collidesWithPath(ArrayList<GameObject> gameObjects) {
         for (GameObject o : gameObjects) {
             try {
@@ -164,6 +170,7 @@ public class Player extends GameObject {
                             if (Utils.segmentsIntersection(previousPos, playerPos, segStart, segEnd) != null) {
                                 currentPath_ = path;
                                 pathVertexIndex = i;
+                                moveSpeed_ = (hardMode_) ? 250 : 400;
                                 break;
                             }
                         }
@@ -173,5 +180,21 @@ public class Player extends GameObject {
                 continue;
             }
         }
+    }
+
+    public boolean collidesWithEnemy(ArrayList<GameObject> gameObjects) {
+        for (GameObject o : gameObjects) {
+            try {
+                Enemy enemy = (Enemy)o;
+                Vector2 playerPos = new Vector2(posX_, posY_);
+                if (Utils.segmentsIntersection(previousPos, playerPos, enemy.vertexA, enemy.vertexB) != null) {
+                    System.out.println("OUCH");
+                    return true;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        return false;
     }
 }

@@ -17,8 +17,9 @@ public class OffTheLineLogic {
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 2;
+    int currentLevel = 4;
     int timeToSkipLevel = 3;
+    boolean mode = false;
 
     int W_,H_;
 
@@ -96,12 +97,14 @@ public class OffTheLineLogic {
 
     void checkCollisions(float startX, float startY, float endX, float endY) {
         player.collidesWithPath(gameObjects);
+        if(player.collidesWithEnemy(gameObjects))
+            ; // Lose a life
     }
 
     void loadLevel(int level) {
         if (gameObjects != null)
             gameObjects.clear();
-        gameObjects = lr.loadLevel(level);
+        gameObjects = lr.loadLevel(level, mode);
         player = (Player)gameObjects.get(gameObjects.size() - 1);
         nItems = lr.nItems;
         levelFinished = false;
