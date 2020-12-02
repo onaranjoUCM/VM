@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         public MySurfaceView(Context context) {
             super(context);
             _holder = getHolder();
-            _engine = new Engine();
+            _engine = new Engine(context);
             _input = new es.ucm.gdv.engine.android.Input();
 
             setOnTouchListener((OnTouchListener) _input);

@@ -1,13 +1,17 @@
 package es.ucm.gdv.engine.android;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 import java.io.InputStream;
 
 public class Engine implements es.ucm.gdv.engine.Engine {
     Graphics graphics_;
     Font font_;
 
-    public Engine() {
-        graphics_ = new es.ucm.gdv.engine.android.Graphics();
+    public Engine(Context context) {
+        AssetManager assetManager = context.getAssets();
+        graphics_ = new es.ucm.gdv.engine.android.Graphics(assetManager);
         //font_ = new es.ucm.gdv.engine.android.Font();
     }
 

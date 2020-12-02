@@ -1,11 +1,9 @@
 package es.ucm.gdv.engine.android;
 
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
-import es.ucm.gdv.engine.Font;
-
 public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     //IMPORTANTEEEEEEEEEEE
@@ -14,15 +12,19 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
 
     Canvas _canvas;
     Paint _paint;
+    AssetManager assetManager_;
 
-    public Graphics() {
+    public Graphics(AssetManager assetManager) {
         super();
         _paint = new Paint();
+        assetManager_ = assetManager;
     }
 
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
-        return null;
+        Font f = new Font(assetManager_, filename, size, isBold);
+        setFont(f);
+        return f;
     }
 
     @Override
@@ -71,13 +73,17 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
-    public void setFont(Font f) {
-
+    public void setFont(es.ucm.gdv.engine.Font f) {
+        if (f != null) {
+            _paint.setTypeface(((Font) f).getFont());
+            _paint.setFakeBoldText(((Font) f).isBold());
+            _paint.setTextSize(((Font) f).getSize());
+        }
     }
 
     @Override
     public void drawText(String text, int x, int y) {
-
+        _canvas.drawText(text, x, y, _paint);
     }
 
     @Override
