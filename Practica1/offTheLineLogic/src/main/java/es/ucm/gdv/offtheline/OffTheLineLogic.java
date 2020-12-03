@@ -10,19 +10,20 @@ public class OffTheLineLogic {
     Graphics graphics;
     Input input;
     LevelReader lr;
-    Player player;
+    Player player_;
     Font f_;
 
     int nItems;
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 0;
+    int currentLevel = 5;
     int timeToSkipLevel = 2;
-    boolean mode = false;
+    boolean hardMode = false;
     boolean pauseGame;
+    Lives lives_;
 
-    int W_,H_;
+    int W_, H_;
 
     public OffTheLineLogic(Engine e, InputStream stream, Input i) {
         graphics = e.getGraphics();
@@ -32,6 +33,9 @@ public class OffTheLineLogic {
         //loadMenu();
         lastItemTime = System.nanoTime();
         input = i;//new Input();
+
+        lives_ = new Lives(50,150, 100, 20, (hardMode) ? 5 : 5);
+        gameObjects.add(lives_);
     }
 
     public void handleInput() {
@@ -56,7 +60,7 @@ public class OffTheLineLogic {
                             }
                         }
                         if(!pauseGame && !tick)
-                            ((Player) gameObjects.get(gameObjects.size() - 1)).jump();
+                            player_.jump();
                         System.out.println("Eje X: " + t.posX);
                         System.out.println("Eje Y: " + t.posY);
                         break;
@@ -71,8 +75,8 @@ public class OffTheLineLogic {
     public void update(double deltaTime) {
         float oldPlayerX = 0, oldPlayerY = 0;
         if(!pauseGame) {
-            oldPlayerX = player.posX_;
-            oldPlayerY = player.posY_;
+            oldPlayerX = player_.posX_;
+            oldPlayerY = player_.posY_;
         }
 
         for (GameObject object : gameObjects) {
@@ -80,7 +84,7 @@ public class OffTheLineLogic {
         }
 
         if(!pauseGame) {
-            checkCollisions(oldPlayerX, oldPlayerY, player.posX_, player.posY_);
+            checkCollisions(oldPlayerX, oldPlayerY, player_.posX_, player_.posY_);
 
             if (levelFinished) {
                 if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {
@@ -115,12 +119,16 @@ public class OffTheLineLogic {
     }
 
     void checkCollisions(float startX, float startY, float endX, float endY) {
-        player.collidesWithPath(gameObjects);
+        player_.collidesWithPath(gameObjects);
 
-        if (player.collidesWithEnemy(gameObjects))
-            ; // Lose a life
+        if (player_.collidesWithEnemy(gameObjects)) {
+            lives_.take_life();
+            Path firstPath = (Path)gameObjects.get(0);
+            player_.setPosition(firstPath.segments.get(0).pointA_);
+            player_.setClockWise(true);
+        }
 
-        Coin c = player.collidesWithCoin(gameObjects);
+        Coin c = player_.collidesWithCoin(gameObjects);
         if (c != null) {
             nItems--;
             gameObjects.remove(c);
@@ -134,8 +142,13 @@ public class OffTheLineLogic {
     void loadLevel(int level) {
         if (gameObjects != null)
             gameObjects.clear();
-        gameObjects = lr.loadLevel(level, mode);
-        player = (Player)gameObjects.get(gameObjects.size() - 1);
+
+        gameObjects = lr.loadLevel(level, hardMode);
+
+        // Add player last to render on top of everything
+        player_ = new Player((Path)gameObjects.get(0), 10, 10, 0.05f, 45, hardMode);
+        gameObjects.add(player_);
+
         nItems = lr.nItems;
         levelFinished = false;
         lastItemTime = 0;

@@ -168,11 +168,6 @@ public class LevelReader {
             }
         }
 
-        gameObjects.add(new Lives(50,-150, 100, 20, 5));
-
-        // Add player last to render on top of everything
-        gameObjects.add(new Player(playerPath, 10, 10, 0.05f, 45, mode));
-
         return gameObjects;
     }
 }

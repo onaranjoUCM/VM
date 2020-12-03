@@ -191,4 +191,13 @@ public class Player extends GameObject {
         }
         return null;
     }
+
+    public void setPosition(Vector2 pos) {
+        posX_ = pos.x;
+        posY_ = pos.y;
+    }
+
+    public void setClockWise (boolean c) {
+        clockwise = c;
+    }
 }
