@@ -11,8 +11,9 @@ public class Button extends GameObject {
     int colorR_;
     int colorG_;
     int colorB_;
+    int id_;
 
-    public Button(float posX, float posY, int W, int H, String fontfile, String text, int colorR, int colorG, int colorB, Graphics g){
+    public Button(float posX, float posY, int W, int H, int id, String fontfile, String text, int colorR, int colorG, int colorB, Graphics g){
         super(posX, posY, W, H);
         text_ = text;
         fontfile_ = fontfile;
@@ -20,6 +21,7 @@ public class Button extends GameObject {
         colorG_ = colorG;
         colorB_ = colorB;
         f_ = g.newFont(fontfile_, H_,true);
+        id_ = id;
     }
     @Override
     public void update(double deltaTime) {
@@ -40,5 +42,9 @@ public class Button extends GameObject {
         g.setColor(colorR_, colorG_, colorB_);
         g.drawText(text_, (int)posX_,(int)posY_);
         g.scale(1f , -1f);
+    }
+
+    public int getId_(){
+        return id_;
     }
 }

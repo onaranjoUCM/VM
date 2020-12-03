@@ -25,6 +25,10 @@ public class OffTheLineLogic {
 
     int W_, H_;
 
+    public static final int PlayEasy = 0;
+    public static final int PlayHard = 1;
+    public static final int ReturnMenu = 2;
+
     public OffTheLineLogic(Engine e, InputStream stream, Input i) {
         graphics = e.getGraphics();
         f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
@@ -56,7 +60,15 @@ public class OffTheLineLogic {
                                 Button b = (Button)object;
                                 if(b.button_pressed(t.posX, t.posY)){
                                     System.out.println("Pulsado");
-                                    newGame();
+                                    if(b.getId_() == PlayEasy){
+                                        EasyGame();
+                                    }
+                                    else if(b.getId_() == PlayHard){
+                                        HardGame();
+                                    }
+                                    else if(b.getId_() == ReturnMenu){
+                                        ReturnMenu();
+                                    }
                                     tick = true;
                                     break;
                                 }
@@ -160,9 +172,23 @@ public class OffTheLineLogic {
         lastItemTime = 0;
     }
 
+    void EasyGame(){
+        hardMode = false;
+        newGame();
+    }
+
+    void HardGame(){
+        hardMode = true;
+        newGame();
+    }
+
+    void ReturnMenu(){
+        loadMenu();
+    }
+
     void newGame(){
         loadLevel(currentLevel);
-        lives_ = new Lives(50,150, 100, 20, (hardMode) ? 5 : 5);
+        lives_ = new Lives(50,150, 100, 20, (hardMode) ? 10 : 5);
         gameObjects.add(lives_);
     }
 
@@ -170,17 +196,19 @@ public class OffTheLineLogic {
         pauseGame = true;
         gameObjects = new ArrayList<GameObject>();
         gameObjects.add(new Text(-250,-100, 60, "Bungee-Regular.ttf", "OFF THE LINE", 50,50,255, graphics));
-        gameObjects.add(new Button(-250,50, 180,20,"Bungee-Regular.ttf", "EASY MODE", 255,255,255, graphics));
-        gameObjects.add(new Button(-250,100, 180,20, "Bungee-Regular.ttf", "HARD MODE", 255,255,255, graphics));
+        gameObjects.add(new Button(-250,50, 180,20, PlayEasy,"Bungee-Regular.ttf", "EASY MODE", 255,255,255, graphics));
+        gameObjects.add(new Button(-250,100, 180,20, PlayHard,"Bungee-Regular.ttf", "HARD MODE", 255,255,255, graphics));
         levelFinished = false;
     }
 
     void GameOverMenu(){
         gameObjects.add(new Text(-125,-100, 40, "Bungee-Regular.ttf", "GAME OVER", 255,0,0, graphics));
+        gameObjects.add(new Button(-250,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
     }
 
     void WinMenu(){
         gameObjects.add(new Text(-50,-100, 40, "Bungee-Regular.ttf", "WIN", 255,255,0, graphics));
+        gameObjects.add(new Button(-250,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
     }
 
     void killPlayer() {
