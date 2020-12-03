@@ -20,7 +20,7 @@ public class Enemy extends GameObject {
 
     public Enemy(float posX, float posY, int length, float angle, float speed, float offsetX, float offsetY, float time1, float time2){
         super(posX, posY, length, 0);
-        length_ = length;
+        length_ = length - 1;   // PROVISIONAL
         speed_ = speed;
         angle_ = angle;
         time1_ = time1;
@@ -34,7 +34,7 @@ public class Enemy extends GameObject {
         setLimits();
 
         if(offsetX != 0 || offsetY!= 0) {
-            offset_.update(posX_ + offsetX, posY_ + offsetY);
+            offset_.set(posX_ + offsetX, posY_ + offsetY);
             int x = ((int)offset_.x - (int)posX_)^2 + ((int)offset_.y - (int)posY_)^2;
             float magnitude = (float)Math.sqrt(x);
             moveSpeed_ = magnitude/time1_;
@@ -69,8 +69,8 @@ public class Enemy extends GameObject {
         if((dir_.x > 0 && posX_ >= offset_.x) || (dir_.y > 0 && posY_ >= offset_.y) || (dir_.x < 0 && posX_ <= offset_.x) || (dir_.y < 0 && posY_ <= offset_.y)){
             float auxX = offset_.x;
             float auxY = offset_.y;
-            offset_.update(posIni.x, posIni.y);
-            posIni.update(auxX, auxY);
+            offset_.set(posIni.x, posIni.y);
+            posIni.set(auxX, auxY);
             dir_.x = 0;
             dir_.y = 0;
             timeNow_ = time2_;
@@ -118,7 +118,7 @@ public class Enemy extends GameObject {
     }
 
     private void setLimits() {
-        vertexA.update((float)(posIni.x + (length_ / 2 * Math.cos(angle_))), (float)(posIni.y + (length_ / 2 * Math.sin(angle_))));
-        vertexB.update((float)(posIni.x + (-length_ / 2 * Math.cos(angle_))), (float)(posIni.y + (-length_ / 2 * Math.sin(angle_))));
+        vertexA.set((float)(posIni.x + (length_ / 2 * Math.cos(angle_))), (float)(posIni.y + (length_ / 2 * Math.sin(angle_))));
+        vertexB.set((float)(posIni.x + (-length_ / 2 * Math.cos(angle_))), (float)(posIni.y + (-length_ / 2 * Math.sin(angle_))));
     }
 }

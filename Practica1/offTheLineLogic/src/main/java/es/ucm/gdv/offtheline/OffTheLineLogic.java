@@ -88,7 +88,7 @@ public class OffTheLineLogic {
         float w = graphics.getWidth();
         float h = graphics.getHeight();
 
-        float inc = (w < h) ? w / 800 : h / 600;
+        float inc = (w < h) ? w / 640 : h / 480;
 
         graphics.scale(1f * inc, -1f * inc);
         W_ = graphics.getWidth();

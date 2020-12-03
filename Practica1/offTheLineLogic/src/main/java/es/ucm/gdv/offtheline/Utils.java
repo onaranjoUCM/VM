@@ -84,4 +84,18 @@ public class Utils {
     static Vector2 segmentFromTwoPoints(Vector2 A, Vector2 B) {
         return new Vector2(B.x - A.x, B.y - A.y);
     }
+
+    static Vector2 directionFromTwoPoints(Vector2 A, Vector2 B) {
+        float num = (B.y - A.y);
+        float den = (B.x - A.x);
+
+        double angle = Math.toDegrees(Math.atan(num / den));
+        if ((B.x < A.x)) angle += 180;
+
+        return new Vector2((float)Math.cos(Math.toRadians(angle)), (float)Math.sin(Math.toRadians(angle)));
+    }
+
+    static float distanceBetweenTwoPoints(Vector2 A, Vector2 B) {
+        return (float)Math.sqrt((A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y));
+    }
 }

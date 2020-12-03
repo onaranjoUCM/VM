@@ -9,8 +9,13 @@ public class Vector2 {
         y = y_;
     }
 
-    public void update(float x_, float y_) {
+    public void set(float x_, float y_) {
         x = x_;
         y = y_;
+    }
+
+    public void set(Vector2 d) {
+        x = d.x;
+        y = d.y;
     }
 }
