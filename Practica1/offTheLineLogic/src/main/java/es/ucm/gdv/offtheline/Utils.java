@@ -77,6 +77,32 @@ public class Utils {
         }
     }
 
+    // From https://stackoverflow.com/questions/40352842/calculate-distance-along-line-closest-to-other-point-aka-project
+    static Vector2 getClosestPointOnSegment(Vector2 segA, Vector2 segB, Vector2 point)     {
+        double xDelta = segB.x - segA.x;
+        double yDelta = segB.y - segA.y;
+
+        if ((xDelta == 0) && (yDelta == 0))
+            throw new IllegalArgumentException("Segment start equals segment end");
+
+        double u = ((point.x - segA.x) * xDelta + (point.y - segA.y) * yDelta) / (xDelta * xDelta + yDelta * yDelta);
+
+        final Vector2 closestPoint;
+        if (u < 0)
+            closestPoint = segA;
+        else if (u > 1)
+            closestPoint = segB;
+        else
+            closestPoint = new Vector2((int) Math.round(segA.x + u * xDelta), (int) Math.round(segA.y + u * yDelta));
+
+        return closestPoint;
+    }
+
+    static float sqrDistancePointSegment(Segment seg, Vector2 point) {
+        Vector2 closestSegPoint = getClosestPointOnSegment(seg.pointA_, seg.pointB_, point);
+        return sqrDistanceBetweenTwoPoints(closestSegPoint, point);
+    }
+
     static double module(Vector2 A, Vector2 B) {
         return Math.sqrt((B.x-A.x)*(B.x-A.x) + (B.y-A.y)*(B.y-A.y));
     }
@@ -95,7 +121,7 @@ public class Utils {
         return new Vector2((float)Math.cos(Math.toRadians(angle)), (float)Math.sin(Math.toRadians(angle)));
     }
 
-    static float distanceBetweenTwoPoints(Vector2 A, Vector2 B) {
-        return (float)Math.sqrt((A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y));
+    static float sqrDistanceBetweenTwoPoints(Vector2 A, Vector2 B) {
+        return (float)(A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y);
     }
 }

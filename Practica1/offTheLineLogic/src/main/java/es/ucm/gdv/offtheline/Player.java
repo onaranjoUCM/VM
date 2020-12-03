@@ -16,8 +16,6 @@ public class Player extends GameObject {
     Path currentPath_;
     Vector2 dir_;
     Vector2 previousPos;
-    //int pathVertexIndex = 0;
-    //int nextVertexIndex = 1;
     boolean clockwise = false;
 
     public Player(Path path, int W, int H, float speed, float angle, boolean mode) {
@@ -170,7 +168,6 @@ public class Player extends GameObject {
                 Enemy enemy = (Enemy)o;
                 Vector2 playerPos = new Vector2(posX_, posY_);
                 if (Utils.segmentsIntersection(previousPos, playerPos, enemy.vertexA, enemy.vertexB) != null) {
-                    System.out.println("OUCH");
                     return true;
                 }
             } catch (Exception e) {
@@ -178,5 +175,20 @@ public class Player extends GameObject {
             }
         }
         return false;
+    }
+
+    public Coin collidesWithCoin(ArrayList<GameObject> gameObjects) {
+        for (GameObject o : gameObjects) {
+            try {
+                Coin coin = (Coin)o;
+                Segment playerMoved = new Segment(new Vector2(posX_, posY_), previousPos);
+                if (Utils.sqrDistancePointSegment(playerMoved, new Vector2(coin.posX_, coin.posY_)) < 400) {
+                    return coin;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        return null;
     }
 }

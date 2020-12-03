@@ -21,6 +21,6 @@ public class Segment {
         pointA_ = A;
         pointB_ = B;
         dir_ = Utils.directionFromTwoPoints(A, B);
-        length = Utils.distanceBetweenTwoPoints(A, B);
+        length = (float)Math.sqrt(Utils.sqrDistanceBetweenTwoPoints(A, B));
     }
 }
