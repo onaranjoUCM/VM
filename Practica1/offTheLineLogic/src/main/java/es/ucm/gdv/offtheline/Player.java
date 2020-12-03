@@ -16,6 +16,7 @@ public class Player extends GameObject {
     Path currentPath_;
     Vector2 dir_;
     Vector2 previousPos;
+    Vector2 jumpPoint_;
     boolean clockwise = false;
 
     public Player(Path path, int W, int H, float speed, float angle, boolean mode) {
@@ -32,6 +33,7 @@ public class Player extends GameObject {
         currentSegment_ = path.segments.get(0);
         currentSegmentIndex_ = 0;
         dir_ = new Vector2(0, 0);
+        jumpPoint_ = new Vector2(0, 0);
         previousPos = new Vector2(posX_, posY_);
     }
 
@@ -128,6 +130,7 @@ public class Player extends GameObject {
     // Sets the player direction to cross the path segment
     public void jump() {
         if (currentSegment_ != null) {
+            jumpPoint_.set(posX_, posY_);
             dir_.set(currentSegment_.jumpDir_);
             moveSpeed_ = 1500;
             clockwise = !clockwise;
@@ -138,6 +141,9 @@ public class Player extends GameObject {
 
     // Checks if the last player movement has made him cross a path segment
     public void collidesWithPath(ArrayList<GameObject> gameObjects) {
+        if (Utils.sqrDistanceBetweenTwoPoints(new Vector2(posX_, posY_), jumpPoint_) < 25)
+            return;
+
         for (GameObject o : gameObjects) {
             try {
                 Path path = (Path)o;
@@ -192,12 +198,13 @@ public class Player extends GameObject {
         return null;
     }
 
-    public void setPosition(Vector2 pos) {
-        posX_ = pos.x;
-        posY_ = pos.y;
-    }
-
-    public void setClockWise (boolean c) {
-        clockwise = c;
+    public void reset(Path path) {
+        currentPath_ = path;
+        currentSegment_ = currentPath_.segments.get(0);
+        currentSegmentIndex_ = 0;
+        posX_ = currentSegment_.pointA_.x;
+        posY_ = currentSegment_.pointA_.y;
+        clockwise = true;
+        moveSpeed_ = (hardMode_) ? 400 : 250;
     }
 }

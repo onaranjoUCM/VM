@@ -59,10 +59,8 @@ public class Enemy extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(255, 0, 0);
-        int x = (int) (posX_ + Math.cos(angle_) * (W_ / 2));
-        int y = (int) (posY_ - Math.sin(angle_) * (W_ / 2));
-        g.drawLine((int) posX_, (int) posY_, (int) (posX_ + Math.cos(Math.toRadians (angle_)) * (W_ / 2)), (int) (posY_ + Math.sin(Math.toRadians (angle_)) * (W_ / 2))); //Linea1
-        g.drawLine((int) posX_, (int) posY_, (int) (posX_ - Math.cos(Math.toRadians (angle_)) * (W_ / 2)), (int) (posY_ + Math.sin(Math.toRadians (-angle_)) * (W_ / 2))); //Linea2
+        g.drawLine((int) posX_, (int) posY_, (int) vertexA.x, (int) vertexA.y); //Linea1
+        g.drawLine((int) posX_, (int) posY_, (int) vertexB.x, (int) vertexB.y); //Linea2
     }
 
     private void updateDirection(double deltaTime) {
@@ -118,7 +116,7 @@ public class Enemy extends GameObject {
     }
 
     private void setLimits() {
-        vertexA.set((float)(posIni.x + (length_ / 2 * Math.cos(angle_))), (float)(posIni.y + (length_ / 2 * Math.sin(angle_))));
-        vertexB.set((float)(posIni.x + (-length_ / 2 * Math.cos(angle_))), (float)(posIni.y + (-length_ / 2 * Math.sin(angle_))));
+        vertexA.set((float)(posX_ + Math.cos(Math.toRadians (angle_)) * (W_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (angle_)) * (W_ / 2)));
+        vertexB.set((float)(posX_ - Math.cos(Math.toRadians (angle_)) * (W_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (-angle_)) * (W_ / 2)));
     }
 }

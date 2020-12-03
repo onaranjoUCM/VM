@@ -17,7 +17,7 @@ public class OffTheLineLogic {
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 0;
+    int currentLevel = 6;
     int timeToSkipLevel = 2;
     boolean hardMode = false;
     boolean pauseGame;
@@ -90,6 +90,9 @@ public class OffTheLineLogic {
         }
 
         if(!pauseGame) {
+            if (Utils.sqrDistanceBetweenTwoPoints(new Vector2(player_.posX_, player_.posY_), new Vector2(0, 0)) > 700 * 700)
+                killPlayer();
+
             checkCollisions(oldPlayerX, oldPlayerY, player_.posX_, player_.posY_);
 
             if (levelFinished) {
@@ -127,12 +130,8 @@ public class OffTheLineLogic {
     void checkCollisions(float startX, float startY, float endX, float endY) {
         player_.collidesWithPath(gameObjects);
 
-        if (player_.collidesWithEnemy(gameObjects)) {
-            lives_.take_life();
-            Path firstPath = (Path)gameObjects.get(0);
-            player_.setPosition(firstPath.segments.get(0).pointA_);
-            player_.setClockWise(true);
-        }
+        if (player_.collidesWithEnemy(gameObjects))
+            killPlayer();
 
         Coin c = player_.collidesWithCoin(gameObjects);
         if (c != null) {
@@ -182,5 +181,10 @@ public class OffTheLineLogic {
 
     void WinMenu(){
         gameObjects.add(new Text(-50,-100, 40, "Bungee-Regular.ttf", "WIN", 255,255,0, graphics));
+    }
+
+    void killPlayer() {
+        lives_.take_life();
+        player_.reset((Path)gameObjects.get(0));
     }
 }
