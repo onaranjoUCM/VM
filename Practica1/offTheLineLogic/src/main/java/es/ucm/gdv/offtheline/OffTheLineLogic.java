@@ -17,7 +17,7 @@ public class OffTheLineLogic {
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 5;
+    int currentLevel = 0;
     int timeToSkipLevel = 2;
     boolean hardMode = false;
     boolean pauseGame;
@@ -29,13 +29,12 @@ public class OffTheLineLogic {
         graphics = e.getGraphics();
         f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
         lr = new LevelReader(stream);
-        loadLevel(currentLevel);
-        //loadMenu();
+        //loadLevel(currentLevel);
+        loadMenu();
         lastItemTime = System.nanoTime();
         input = i;//new Input();
 
-        lives_ = new Lives(50,150, 100, 20, (hardMode) ? 5 : 5);
-        gameObjects.add(lives_);
+
     }
 
     public void handleInput() {
@@ -46,13 +45,20 @@ public class OffTheLineLogic {
                         boolean tick = false;
                         t.posX -= W_/2;
                         t.posY -= H_/2;
+                        /*float increX = (float)W_/640;
+                        float increY = (float)H_/480;
+                        t.posX -= W_/2;
+                        t.posY -= H_/2;
+                        t.posX /= increX;
+                        t.posY /= increY;*/
                         for (GameObject object : gameObjects){
                             try {
                                 Button b = (Button)object;
                                 if(b.button_pressed(t.posX, t.posY)){
                                     System.out.println("Pulsado");
-                                    //loadLevel(currentLevel);
+                                    newGame();
                                     tick = true;
+                                    break;
                                 }
                             }
                             catch (Exception e) {
@@ -140,6 +146,7 @@ public class OffTheLineLogic {
     }
 
     void loadLevel(int level) {
+        pauseGame = false;
         if (gameObjects != null)
             gameObjects.clear();
 
@@ -152,6 +159,12 @@ public class OffTheLineLogic {
         nItems = lr.nItems;
         levelFinished = false;
         lastItemTime = 0;
+    }
+
+    void newGame(){
+        loadLevel(currentLevel);
+        lives_ = new Lives(50,150, 100, 20, (hardMode) ? 5 : 5);
+        gameObjects.add(lives_);
     }
 
     void loadMenu(){
