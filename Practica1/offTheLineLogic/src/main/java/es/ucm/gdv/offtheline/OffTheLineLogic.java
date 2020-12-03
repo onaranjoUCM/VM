@@ -17,19 +17,21 @@ public class OffTheLineLogic {
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 6;
+    int currentLevel = 0;
     int timeToSkipLevel = 2;
     boolean mode = false;
+    boolean pauseGame;
 
     int W_,H_;
 
     public OffTheLineLogic(Engine e, InputStream stream, Input i) {
+        graphics = e.getGraphics();
+        f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
         lr = new LevelReader(stream);
         loadLevel(currentLevel);
-        graphics = e.getGraphics();
+        //loadMenu();
         lastItemTime = System.nanoTime();
         input = i;//new Input();
-        f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
     }
 
     public void handleInput() {
@@ -37,9 +39,24 @@ public class OffTheLineLogic {
             for(TouchEvent t : input.getEvents()) {
                 switch (t.type) {
                     case 1: // Pulsacion
+                        boolean tick = false;
                         t.posX -= W_/2;
                         t.posY -= H_/2;
-                        ((Player) gameObjects.get(gameObjects.size() - 1)).jump();
+                        for (GameObject object : gameObjects){
+                            try {
+                                Button b = (Button)object;
+                                if(b.button_pressed(t.posX, t.posY)){
+                                    System.out.println("Pulsado");
+                                    //loadLevel(currentLevel);
+                                    tick = true;
+                                }
+                            }
+                            catch (Exception e) {
+                                continue;
+                            }
+                        }
+                        if(!pauseGame && !tick)
+                            ((Player) gameObjects.get(gameObjects.size() - 1)).jump();
                         System.out.println("Eje X: " + t.posX);
                         System.out.println("Eje Y: " + t.posY);
                         break;
@@ -52,21 +69,26 @@ public class OffTheLineLogic {
     }
 
     public void update(double deltaTime) {
-        float oldPlayerX = player.posX_;
-        float oldPlayerY = player.posY_;
+        float oldPlayerX = 0, oldPlayerY = 0;
+        if(!pauseGame) {
+            oldPlayerX = player.posX_;
+            oldPlayerY = player.posY_;
+        }
 
         for (GameObject object : gameObjects) {
             object.update(deltaTime);
         }
 
-        checkCollisions(oldPlayerX, oldPlayerY, player.posX_, player.posY_);
+        if(!pauseGame) {
+            checkCollisions(oldPlayerX, oldPlayerY, player.posX_, player.posY_);
 
-        if (levelFinished) {
-            if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {
-                if (currentLevel < 19)
-                    loadLevel(++currentLevel);
-                else
-                    ;// Pantalla final
+            if (levelFinished) {
+                if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {
+                    if (currentLevel < 19)
+                        loadLevel(++currentLevel);
+                    else
+                        ;// Pantalla final
+                }
             }
         }
     }
@@ -79,9 +101,6 @@ public class OffTheLineLogic {
         for (GameObject object : gameObjects) {
             object.render(graphics);
         }
-        graphics.scale(1f , -1f);
-        graphics.setFont(f_);
-        graphics.drawText("OFF THE LINE", -200,-200);
     }
 
     void adjustToWindow() {
@@ -120,5 +139,22 @@ public class OffTheLineLogic {
         nItems = lr.nItems;
         levelFinished = false;
         lastItemTime = 0;
+    }
+
+    void loadMenu(){
+        pauseGame = true;
+        gameObjects = new ArrayList<GameObject>();
+        gameObjects.add(new Text(-250,-100, 60, "Bungee-Regular.ttf", "OFF THE LINE", 50,50,255, graphics));
+        gameObjects.add(new Button(-250,50, 180,20,"Bungee-Regular.ttf", "EASY MODE", 255,255,255, graphics));
+        gameObjects.add(new Button(-250,100, 180,20, "Bungee-Regular.ttf", "HARD MODE", 255,255,255, graphics));
+        levelFinished = false;
+    }
+
+    void GameOverMenu(){
+        gameObjects.add(new Text(-125,-100, 40, "Bungee-Regular.ttf", "GAME OVER", 255,0,0, graphics));
+    }
+
+    void WinMenu(){
+        gameObjects.add(new Text(-50,-100, 40, "Bungee-Regular.ttf", "WIN", 255,255,0, graphics));
     }
 }
