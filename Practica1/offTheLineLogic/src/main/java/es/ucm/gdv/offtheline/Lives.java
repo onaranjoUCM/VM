@@ -41,11 +41,12 @@ public class Lives extends GameObject {
     public Lives(float posX, float posY, int W, int H, int nLive){
         super(posX, posY, W, H);
         nLive_ = nLive;
-        int x = 0;
+        float x = 0;
+        float incre = W/nLive;
         lives = new Live[nLive];
         for(int i=0; i<nLive_;i++){
             lives[i] = new Live(posX + x, posY, H, H, true);
-            x += 50;
+            x += incre;
         }
         currentNLive_ = nLive_;
     }

@@ -17,7 +17,7 @@ public class OffTheLineLogic {
     boolean levelFinished;
     long lastItemTime;
 
-    int currentLevel = 6;
+    int currentLevel = 0;
     int timeToSkipLevel = 2;
     boolean hardMode = false;
     boolean pauseGame;
@@ -47,14 +47,14 @@ public class OffTheLineLogic {
                 switch (t.type) {
                     case 1: // Pulsacion
                         boolean tick = false;
+                        float increX = (float)640/W_;//(float)W_/640;
+                        float increY = (float)480/H_;//(float)H_/480;
                         t.posX -= W_/2;
                         t.posY -= H_/2;
-                        /*float increX = (float)W_/640;
-                        float increY = (float)H_/480;
-                        t.posX -= W_/2;
-                        t.posY -= H_/2;
-                        t.posX /= increX;
-                        t.posY /= increY;*/
+                        if(increX != 1 && increY!=1) {
+                            t.posX *= increX;
+                            t.posY *= increY;
+                        }
                         for (GameObject object : gameObjects){
                             try {
                                 Button b = (Button)object;
@@ -188,7 +188,7 @@ public class OffTheLineLogic {
 
     void newGame(){
         loadLevel(currentLevel);
-        lives_ = new Lives(50,150, 100, 20, (hardMode) ? 10 : 5);
+        lives_ = new Lives(50,150, 210, 15, (hardMode) ? 10 : 5);
         gameObjects.add(lives_);
     }
 
