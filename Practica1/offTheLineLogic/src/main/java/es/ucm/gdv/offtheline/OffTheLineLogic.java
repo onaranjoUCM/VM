@@ -22,6 +22,7 @@ public class OffTheLineLogic {
     boolean hardMode = false;
     boolean pauseGame;
     Lives lives_;
+    String mode_;
 
     int W_, H_;
 
@@ -109,7 +110,7 @@ public class OffTheLineLogic {
                     if (currentLevel < 19)
                         loadLevel(++currentLevel);
                     else
-                        ;// Pantalla final
+                        WinMenu();
                 }
             }
         }
@@ -172,11 +173,13 @@ public class OffTheLineLogic {
 
     void EasyGame(){
         hardMode = false;
+        mode_ = "Easy Mode";
         newGame();
     }
 
     void HardGame(){
         hardMode = true;
+        mode_ = "Hard Mode";
         newGame();
     }
 
@@ -186,6 +189,7 @@ public class OffTheLineLogic {
 
     void newGame(){
         lives_ = new Lives(50,180, 210, 15, (hardMode) ? 5 : 10);
+        currentLevel = 0;
         loadLevel(currentLevel);
     }
 
@@ -200,16 +204,24 @@ public class OffTheLineLogic {
 
     void GameOverMenu(){
         gameObjects.add(new Text(-125,-100, 40, "Bungee-Regular.ttf", "GAME OVER", 255,0,0, graphics));
-        gameObjects.add(new Button(-250,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
+        gameObjects.add(new Text(-125,-50, 20, "Bungee-Regular.ttf", mode_, 255,255,255, graphics));
+        gameObjects.add(new Text(-125,0, 20, "Bungee-Regular.ttf", "Score: "+ (currentLevel + 1), 255,255,255, graphics));
+        gameObjects.add(new Button(-70,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
+        pauseGame = true;
     }
 
     void WinMenu(){
         gameObjects.add(new Text(-50,-100, 40, "Bungee-Regular.ttf", "WIN", 255,255,0, graphics));
-        gameObjects.add(new Button(-250,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
+        gameObjects.add(new Button(-70,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
+        pauseGame = true;
+        levelFinished = false;
     }
 
     void killPlayer() {
         lives_.take_life();
-        loadLevel(currentLevel);
+        if(lives_.game_Over())
+            GameOverMenu();
+        else
+            loadLevel(currentLevel);
     }
 }
