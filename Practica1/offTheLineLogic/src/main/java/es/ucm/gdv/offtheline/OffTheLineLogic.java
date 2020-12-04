@@ -33,12 +33,9 @@ public class OffTheLineLogic {
         graphics = e.getGraphics();
         f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
         lr = new LevelReader(stream);
-        //loadLevel(currentLevel);
         loadMenu();
         lastItemTime = System.nanoTime();
-        input = i;//new Input();
-
-
+        input = i;
     }
 
     public void handleInput() {
@@ -47,10 +44,10 @@ public class OffTheLineLogic {
                 switch (t.type) {
                     case 1: // Pulsacion
                         boolean tick = false;
-                        float increX = (float)640/W_;//(float)W_/640;
-                        float increY = (float)480/H_;//(float)H_/480;
-                        t.posX -= W_/2;
-                        t.posY -= H_/2;
+                        float increX = (float)640 / W_;
+                        float increY = (float)480 / H_;
+                        t.posX -= W_ / 2;
+                        t.posY -= H_ / 2;
                         if(increX != 1 && increY!=1) {
                             t.posX *= increX;
                             t.posY *= increY;
@@ -163,9 +160,10 @@ public class OffTheLineLogic {
 
         gameObjects = lr.loadLevel(level, hardMode);
 
-        // Add player last to render on top of everything
         player_ = new Player((Path)gameObjects.get(0), 10, 10, 0.05f, 45, hardMode);
         gameObjects.add(player_);
+
+        gameObjects.add(lives_);
 
         nItems = lr.nItems;
         levelFinished = false;
@@ -187,9 +185,8 @@ public class OffTheLineLogic {
     }
 
     void newGame(){
+        lives_ = new Lives(50,180, 210, 15, (hardMode) ? 5 : 10);
         loadLevel(currentLevel);
-        lives_ = new Lives(50,150, 210, 15, (hardMode) ? 10 : 5);
-        gameObjects.add(lives_);
     }
 
     void loadMenu(){
@@ -213,6 +210,6 @@ public class OffTheLineLogic {
 
     void killPlayer() {
         lives_.take_life();
-        player_.reset((Path)gameObjects.get(0));
+        loadLevel(currentLevel);
     }
 }

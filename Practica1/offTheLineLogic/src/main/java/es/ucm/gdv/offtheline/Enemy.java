@@ -19,7 +19,7 @@ public class Enemy extends GameObject {
     Vector2 vertexB;
 
     public Enemy(float posX, float posY, int length, float angle, float speed, float offsetX, float offsetY, float time1, float time2){
-        super(posX, posY, length, 0);
+        super(posX, posY, 0, 0);
         length_ = length - 1;   // PROVISIONAL
         speed_ = speed;
         angle_ = angle;
@@ -35,9 +35,8 @@ public class Enemy extends GameObject {
 
         if(offsetX != 0 || offsetY!= 0) {
             offset_.set(posX_ + offsetX, posY_ + offsetY);
-            int x = ((int)offset_.x - (int)posX_)^2 + ((int)offset_.y - (int)posY_)^2;
-            float magnitude = (float)Math.sqrt(x);
-            moveSpeed_ = magnitude/time1_;
+            float dist = (float)Math.sqrt(Utils.sqrDistanceBetweenTwoPoints(new Vector2(posX_, posY_), new Vector2(offsetX, offsetY)));
+            moveSpeed_ = dist/time1_;
         }
         stop_ = true;
     }
@@ -46,8 +45,14 @@ public class Enemy extends GameObject {
     public void update(double deltaTime) {
         if(offset_.x != 0 || offset_.y != 0) {
             updateDirection(deltaTime);
-            posX_ += moveSpeed_ *deltaTime * dir_.x;
-            posY_ += moveSpeed_ * deltaTime * dir_.y;
+            float incX = (float)(moveSpeed_ * deltaTime * dir_.x);
+            float incY = (float)(moveSpeed_ * deltaTime * dir_.y);
+            posX_ += incX;
+            posY_ += incY;
+            vertexA.x += incX;
+            vertexB.x += incX;
+            vertexA.y += incY;
+            vertexB.y += incY;
         }
 
         if (speed_ != 0) {
@@ -59,8 +64,8 @@ public class Enemy extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(255, 0, 0);
-        g.drawLine((int) posX_, (int) posY_, (int) vertexA.x, (int) vertexA.y); //Linea1
-        g.drawLine((int) posX_, (int) posY_, (int) vertexB.x, (int) vertexB.y); //Linea2
+        g.drawLine((int) posX_, (int) posY_, (int) (posX_ + Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (int) (posY_ + Math.sin(Math.toRadians (angle_)) * (length_ / 2))); //Linea1
+        g.drawLine((int) posX_, (int) posY_, (int) (posX_ - Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (int) (posY_ + Math.sin(Math.toRadians (-angle_)) * (length_ / 2))); //Linea2
     }
 
     private void updateDirection(double deltaTime) {
@@ -116,7 +121,7 @@ public class Enemy extends GameObject {
     }
 
     private void setLimits() {
-        vertexA.set((float)(posX_ + Math.cos(Math.toRadians (angle_)) * (W_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (angle_)) * (W_ / 2)));
-        vertexB.set((float)(posX_ - Math.cos(Math.toRadians (angle_)) * (W_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (-angle_)) * (W_ / 2)));
+        vertexA.set((float)(posX_ + Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (angle_)) * (length_ / 2)));
+        vertexB.set((float)(posX_ - Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (-angle_)) * (length_ / 2)));
     }
 }

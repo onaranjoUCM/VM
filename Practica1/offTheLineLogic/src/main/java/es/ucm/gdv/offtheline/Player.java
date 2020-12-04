@@ -17,7 +17,7 @@ public class Player extends GameObject {
     Vector2 dir_;
     Vector2 previousPos;
     Vector2 jumpPoint_;
-    boolean clockwise = false;
+    boolean clockwise = true;
 
     public Player(Path path, int W, int H, float speed, float angle, boolean mode) {
         super(path.segments.get(0).pointA_.x, path.segments.get(0).pointA_.y, W, H);
@@ -188,7 +188,7 @@ public class Player extends GameObject {
             try {
                 Coin coin = (Coin)o;
                 Segment playerMoved = new Segment(new Vector2(posX_, posY_), previousPos);
-                if (Utils.sqrDistancePointSegment(playerMoved, new Vector2(coin.posX_, coin.posY_)) < 400) {
+                if (Utils.sqrDistancePointSegment(playerMoved, new Vector2(coin.posX_, coin.posY_)) < 196) {
                     return coin;
                 }
             } catch (Exception e) {
@@ -196,15 +196,5 @@ public class Player extends GameObject {
             }
         }
         return null;
-    }
-
-    public void reset(Path path) {
-        currentPath_ = path;
-        currentSegment_ = currentPath_.segments.get(0);
-        currentSegmentIndex_ = 0;
-        posX_ = currentSegment_.pointA_.x;
-        posY_ = currentSegment_.pointA_.y;
-        clockwise = true;
-        moveSpeed_ = (hardMode_) ? 400 : 250;
     }
 }
