@@ -18,7 +18,7 @@ public class OffTheLineLogic {
     long lastItemTime;
 
     int currentLevel = 0;
-    int timeToSkipLevel = 2;
+    float timeToSkipLevel = 1.5f;
     boolean hardMode = false;
     boolean pauseGame;
     Lives lives_;
@@ -56,15 +56,15 @@ public class OffTheLineLogic {
                         for (GameObject object : gameObjects){
                             try {
                                 Button b = (Button)object;
-                                if(b.button_pressed(t.posX, t.posY)){
+                                if(b.button_pressed(t.posX, t.posY)) {
                                     System.out.println("Pulsado");
-                                    if(b.getId_() == PlayEasy){
+                                    if(b.getId_() == PlayEasy) {
                                         EasyGame();
                                     }
-                                    else if(b.getId_() == PlayHard){
+                                    else if(b.getId_() == PlayHard) {
                                         HardGame();
                                     }
-                                    else if(b.getId_() == ReturnMenu){
+                                    else if(b.getId_() == ReturnMenu) {
                                         ReturnMenu();
                                     }
                                     tick = true;
@@ -161,7 +161,7 @@ public class OffTheLineLogic {
 
         gameObjects = lr.loadLevel(level, hardMode);
 
-        player_ = new Player((Path)gameObjects.get(0), 10, 10, 0.05f, 45, hardMode);
+        player_ = new Player((Path)gameObjects.get(0), 10, 10, 45, hardMode);
         gameObjects.add(player_);
 
         gameObjects.add(lives_);

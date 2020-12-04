@@ -5,7 +5,6 @@ import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import es.ucm.gdv.engine.desktop.Input;
 import  es.ucm.gdv.engine.desktop.Window;

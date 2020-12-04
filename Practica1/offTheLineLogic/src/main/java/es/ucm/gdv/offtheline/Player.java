@@ -19,11 +19,11 @@ public class Player extends GameObject {
     Vector2 jumpPoint_;
     boolean clockwise = true;
 
-    public Player(Path path, int W, int H, float speed, float angle, boolean mode) {
+    public Player(Path path, int W, int H, float angle, boolean mode) {
         super(path.segments.get(0).pointA_.x, path.segments.get(0).pointA_.y, W, H);
         hardMode_ = mode;
         moveSpeed_ = (hardMode_) ? 400 : 250;
-        rotationSpeed_ = speed;
+        rotationSpeed_ = 500;
 
         radius_ = (W < H) ? W : H;
         angle_ = angle;
@@ -54,8 +54,8 @@ public class Player extends GameObject {
             updateCurrentVertex();
 
         // Update spin angle
-        angle_ += rotationSpeed_;
-        angle2_+= rotationSpeed_;
+        angle_ += rotationSpeed_ * deltaTime;
+        angle2_+= rotationSpeed_ * deltaTime;
     }
 
     @Override
@@ -141,7 +141,7 @@ public class Player extends GameObject {
 
     // Checks if the last player movement has made him cross a path segment
     public void collidesWithPath(ArrayList<GameObject> gameObjects) {
-        if (Utils.sqrDistanceBetweenTwoPoints(new Vector2(posX_, posY_), jumpPoint_) < 25)
+        if (Utils.sqrDistanceBetweenTwoPoints(new Vector2(posX_, posY_), jumpPoint_) < 900)
             return;
 
         for (GameObject o : gameObjects) {
@@ -152,10 +152,14 @@ public class Player extends GameObject {
                         if (i != currentSegmentIndex_) {
                             Vector2 playerPos = new Vector2(posX_, posY_);
                             Segment seg = path.segments.get(i);
-                            if (Utils.segmentsIntersection(previousPos, playerPos, seg.pointA_, seg.pointB_) != null) {
+
+                            Vector2 collisionPoint = Utils.segmentsIntersection(previousPos, playerPos, seg.pointA_, seg.pointB_);
+                            if (collisionPoint != null) {
                                 currentPath_ = path;
                                 currentSegment_ = seg;
                                 currentSegmentIndex_ = i;
+                                posX_ = collisionPoint.x;
+                                posY_ = collisionPoint.y;
                                 moveSpeed_ = (hardMode_) ? 400 : 250;
                                 break;
                             }

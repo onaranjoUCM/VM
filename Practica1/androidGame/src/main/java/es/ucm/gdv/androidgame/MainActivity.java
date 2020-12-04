@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
         }
 
         @Override

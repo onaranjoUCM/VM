@@ -15,7 +15,7 @@ public class Coin extends GameObject {
         radius_ = radius;
         angle_ = angle;
 
-        spinSpeed_ = 0.05f;
+        spinSpeed_ = 500;
         spinAngle_ = 45;
         spinAngle2_ = spinAngle_ - 90;
     }
@@ -29,8 +29,8 @@ public class Coin extends GameObject {
             posY_ = (float) (radius_ * Math.sin(Math.toRadians(angle_)));
         }
 
-        spinAngle_ += spinSpeed_;
-        spinAngle2_+= spinSpeed_;
+        spinAngle_ += spinSpeed_ * deltaTime;
+        spinAngle2_+= spinSpeed_ * deltaTime;
     }
 
     @Override
