@@ -161,6 +161,9 @@ public class OffTheLineLogic {
 
         gameObjects = lr.loadLevel(level, hardMode);
 
+        String title = "Level " + (currentLevel + 1) + " - " + lr.name;
+        gameObjects.add(new Text(-300,-170, 20, "BungeeHairline-Regular.ttf", title, 255,255,255, graphics));
+
         player_ = new Player((Path)gameObjects.get(0), 10, 10, 45, hardMode);
         gameObjects.add(player_);
 
@@ -189,11 +192,11 @@ public class OffTheLineLogic {
 
     void newGame(){
         lives_ = new Lives(50,180, 210, 15, (hardMode) ? 5 : 10);
-        currentLevel = 0;
+        currentLevel = 5;
         loadLevel(currentLevel);
     }
 
-    void loadMenu(){
+    void loadMenu() {
         pauseGame = true;
         gameObjects = new ArrayList<GameObject>();
         gameObjects.add(new Text(-250,-100, 60, "Bungee-Regular.ttf", "OFF THE LINE", 50,50,255, graphics));
@@ -202,17 +205,20 @@ public class OffTheLineLogic {
         levelFinished = false;
     }
 
-    void GameOverMenu(){
-        gameObjects.add(new Text(-125,-100, 40, "Bungee-Regular.ttf", "GAME OVER", 255,0,0, graphics));
-        gameObjects.add(new Text(-125,-50, 20, "Bungee-Regular.ttf", mode_, 255,255,255, graphics));
-        gameObjects.add(new Text(-125,0, 20, "Bungee-Regular.ttf", "Score: "+ (currentLevel + 1), 255,255,255, graphics));
-        gameObjects.add(new Button(-70,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
+    void GameOverMenu() {
+        gameObjects.add(new MenuBackground(-320, 20, 640, 130, 50, 50, 50));
+        gameObjects.add(new Text(-125,-110, 40, "Bungee-Regular.ttf", "GAME OVER", 255,0,0, graphics));
+        gameObjects.add(new Text(-60,-70, 20, "Bungee-Regular.ttf", mode_, 255,255,255, graphics));
+        gameObjects.add(new Text(-45,-40, 20, "Bungee-Regular.ttf", "Score: "+ (currentLevel + 1), 255,255,255, graphics));
+        gameObjects.add(new Button(-100,80, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return to Menu", 255,255,255, graphics));
         pauseGame = true;
     }
 
-    void WinMenu(){
-        gameObjects.add(new Text(-50,-100, 40, "Bungee-Regular.ttf", "WIN", 255,255,0, graphics));
-        gameObjects.add(new Button(-70,100, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return Menu", 255,255,255, graphics));
+    void WinMenu() {
+        gameObjects.add(new MenuBackground(-320, 20, 640, 130, 50, 50, 50));
+        gameObjects.add(new Text(-220,-100, 40, "Bungee-Regular.ttf", "CONGRATULATIONS", 255,255,0, graphics));
+        gameObjects.add(new Text(-140,-70, 20, "Bungee-Regular.ttf", mode_ + " completed", 255,255,255, graphics));
+        gameObjects.add(new Button(-100,-40, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return to Menu", 255,255,255, graphics));
         pauseGame = true;
         levelFinished = false;
     }

@@ -15,6 +15,7 @@ import java.util.List;
 public class LevelReader {
     JSONArray fullFile;
     int nItems;
+    String name;
 
     LevelReader(InputStream inputStream) {
         nItems = 0;
@@ -45,7 +46,7 @@ public class LevelReader {
         ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
         JSONObject level = (JSONObject) fullFile.get(levelIndex);
-        String name = (String) level.get("name");
+        name = (String) level.get("name");
         String time = (String) level.get("time");
 
         // PATHS

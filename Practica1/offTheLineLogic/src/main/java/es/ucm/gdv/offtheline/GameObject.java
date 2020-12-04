@@ -3,11 +3,11 @@ package es.ucm.gdv.offtheline;
 import es.ucm.gdv.engine.Graphics;
 
 public abstract class GameObject {
-    public GameObject(float posX, float posY, int W, int Y){
+    public GameObject(float posX, float posY, int W, int H){
         posX_= posX;
         posY_= posY;
         W_= W;
-        H_= Y;
+        H_= H;
     }
     public abstract void update(double deltaTime);
 
