@@ -192,7 +192,7 @@ public class OffTheLineLogic {
 
     void newGame(){
         lives_ = new Lives(50,180, 210, 15, (hardMode) ? 5 : 10);
-        currentLevel = 5;
+        currentLevel = 0;
         loadLevel(currentLevel);
     }
 
