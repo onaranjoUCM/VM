@@ -49,9 +49,15 @@ public class OffTheLineLogic {
                         float increY = (float)480 / H_;
                         t.posX -= W_ / 2;
                         t.posY -= H_ / 2;
-                        if(increX != 1 && increY!=1) {
-                            t.posX *= increX;
+                        int diferenciaW = W_ - 640;
+                        int diferenciaH = H_ - 480;
+                        if(diferenciaH < diferenciaW){
+                            t.posX *= increY;
                             t.posY *= increY;
+                        }
+                        else{
+                            t.posX *= increX;
+                            t.posY *= increX;
                         }
                         for (GameObject object : gameObjects){
                             try {
@@ -130,9 +136,14 @@ public class OffTheLineLogic {
         float w = graphics.getWidth();
         float h = graphics.getHeight();
 
-        float inc = (w < h) ? w / 640 : h / 480;
+        float incX = w / 640;
+        float incY = h / 480;
+        if (640 * incY < w) {
+            graphics.scale(incY, -incY);
+        } else {
+            graphics.scale(incX, -incX);
+        }
 
-        graphics.scale(1f * inc, -1f * inc);
         W_ = graphics.getWidth();
         H_ = graphics.getHeight();
     }
