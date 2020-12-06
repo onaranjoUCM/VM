@@ -3,8 +3,6 @@ package es.ucm.gdv.engine.android;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.List;
-
 import es.ucm.gdv.engine.TouchEvent;
 
 public class Input extends es.ucm.gdv.engine.Input implements View.OnTouchListener {

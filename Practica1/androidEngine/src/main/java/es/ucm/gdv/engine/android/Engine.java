@@ -12,7 +12,6 @@ public class Engine implements es.ucm.gdv.engine.Engine {
     public Engine(Context context) {
         AssetManager assetManager = context.getAssets();
         graphics_ = new es.ucm.gdv.engine.android.Graphics(assetManager);
-        //font_ = new es.ucm.gdv.engine.android.Font();
     }
 
     @Override

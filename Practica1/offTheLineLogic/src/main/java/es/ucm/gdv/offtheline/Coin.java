@@ -22,13 +22,14 @@ public class Coin extends GameObject {
 
     @Override
     public void update(double deltaTime) {
+        // Rotate around a point
         angle_ += speed_ * deltaTime;
-
         if (radius_ != 0) {
             posX_ = (float) (radius_ * Math.cos(Math.toRadians(angle_)));
             posY_ = (float) (radius_ * Math.sin(Math.toRadians(angle_)));
         }
 
+        // Spin
         spinAngle_ += spinSpeed_ * deltaTime;
         spinAngle2_+= spinSpeed_ * deltaTime;
     }

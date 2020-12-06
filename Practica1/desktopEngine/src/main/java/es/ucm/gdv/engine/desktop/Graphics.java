@@ -5,11 +5,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 
-
 public class Graphics implements es.ucm.gdv.engine.Graphics {
-    //Castear a Graphics2D en rotate y scale
-    //NO DEBE HEREDAR DE JFRAME
-
     java.awt.Graphics graphics;
     JFrame window;
     Engine engine_;
@@ -48,14 +44,10 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
-    public void save() {
-
-    }
+    public void save() { }
 
     @Override
-    public void restore() {
-
-    }
+    public void restore() { }
 
     @Override
     public void setColor(int r, int g, int b) {

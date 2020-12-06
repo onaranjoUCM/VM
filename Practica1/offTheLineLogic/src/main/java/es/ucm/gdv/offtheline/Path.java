@@ -23,13 +23,16 @@ public class Path extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(255, 255, 255);
+        // Draw a line from every vertex to the next
         for (int i = 1; i < vertices.size(); i++) {
             g.drawLine((int)vertices.get(i-1).x,(int) vertices.get(i - 1).y, (int)vertices.get(i).x, (int)vertices.get(i).y);
         }
 
+        // Draw a line from the last vertex to the first
         g.drawLine((int)vertices.get(0).x,(int) vertices.get(0).y, (int)vertices.get(vertices.size() - 1).x, (int)vertices.get(vertices.size() - 1).y);
     }
 
+    // Load the segments array from the vertex data
     private void fillSegments() {
         segments = new ArrayList<>();
         for(int i = 0; i < vertices.size(); i++) {

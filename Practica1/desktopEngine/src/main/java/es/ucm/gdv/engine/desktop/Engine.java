@@ -1,6 +1,5 @@
 package es.ucm.gdv.engine.desktop;
 
-import java.awt.image.BufferStrategy;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -14,7 +13,6 @@ public class Engine implements es.ucm.gdv.engine.Engine {
     public Engine(JFrame window) {
         super();
         graphics_ = new es.ucm.gdv.engine.desktop.Graphics(window, this);
-        //font_ = new es.ucm.gdv.engine.desktop.Font();
     }
 
     @Override

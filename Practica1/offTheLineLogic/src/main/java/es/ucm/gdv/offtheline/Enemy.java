@@ -44,6 +44,7 @@ public class Enemy extends GameObject {
 
     @Override
     public void update(double deltaTime) {
+        // Move between two points
         if(offset_.x != 0 || offset_.y != 0) {
             updateDirection(deltaTime);
             float incX = 0;
@@ -60,6 +61,7 @@ public class Enemy extends GameObject {
             vertexB.y += incY;
         }
 
+        // Spin
         if (speed_ != 0) {
             angle_ += speed_ * deltaTime;
             setLimits();
@@ -72,8 +74,9 @@ public class Enemy extends GameObject {
         g.drawLine((int) posX_, (int) posY_, (int) (posX_ + Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (int) (posY_ + Math.sin(Math.toRadians (angle_)) * (length_ / 2))); //Linea1
         g.drawLine((int) posX_, (int) posY_, (int) (posX_ - Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (int) (posY_ + Math.sin(Math.toRadians (-angle_)) * (length_ / 2))); //Linea2
     }
-    void calculateDir(){
-        // Calculate direction
+
+    // Calculate direction
+    void calculateDir() {
         float x1 = posX_;
         float y1 = posY_;
         float x2 = offset_.x;
@@ -126,6 +129,7 @@ public class Enemy extends GameObject {
         }
     }
 
+    // Calculate the ends of the segment
     private void setLimits() {
         vertexA.set((float)(posX_ + Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (angle_)) * (length_ / 2)));
         vertexB.set((float)(posX_ - Math.cos(Math.toRadians (angle_)) * (length_ / 2)), (float)(posY_ + Math.sin(Math.toRadians (-angle_)) * (length_ / 2)));

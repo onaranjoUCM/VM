@@ -14,11 +14,10 @@ import java.util.List;
 
 public class LevelReader {
     JSONArray fullFile;
-    int nItems;
+    int nItems = 0;
     String name;
 
     LevelReader(InputStream inputStream) {
-        nItems = 0;
         JSONParser jsonParser = new JSONParser();
         try {
             fullFile = (JSONArray)jsonParser.parse(
@@ -30,6 +29,7 @@ public class LevelReader {
         }
     }
 
+    // Reads a number from file and returns it as float
     float readFloat(Object o) {
         try {
             return (Long) o;
@@ -41,13 +41,11 @@ public class LevelReader {
 
     ArrayList<GameObject> loadLevel(int levelIndex, boolean mode) {
         nItems = 0;
-        boolean playerAdded = false;
-        Path playerPath = null;
         ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-
         JSONObject level = (JSONObject) fullFile.get(levelIndex);
+
+        // LEVEL NAME
         name = (String) level.get("name");
-        String time = (String) level.get("time");
 
         // PATHS
         JSONArray paths = (JSONArray) level.get("paths");
@@ -80,10 +78,6 @@ public class LevelReader {
             }
 
             Path aux = new Path(vertexList, directionsList);
-            if(!playerAdded) {
-                playerPath = aux;
-                playerAdded = true;
-            }
             gameObjects.add(aux);
         }
 

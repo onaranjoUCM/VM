@@ -6,26 +6,31 @@ import java.util.ArrayList;
 import es.ucm.gdv.engine.*;
 
 public class OffTheLineLogic {
-    ArrayList<GameObject> gameObjects;
+    // Logic components
     Graphics graphics;
     Input input;
     LevelReader lr;
+
+    // GameObjects
+    ArrayList<GameObject> gameObjects;
     Player player_;
     Font f_;
+    Lives lives_;
 
+    // Level progression control
     int nItems;
     boolean levelFinished;
     long lastItemTime;
-
     int currentLevel = 0;
     float timeToSkipLevel = 1.5f;
-    boolean hardMode = false;
-    boolean pauseGame;
-    Lives lives_;
-    String mode_;
 
+    // Game configuration
+    boolean hardMode = false;
+    boolean gamePaused;
+    String mode_;
     int W_, H_;
 
+    // Button function IDs
     public static final int PlayEasy = 0;
     public static final int PlayHard = 1;
     public static final int ReturnMenu = 2;
@@ -39,55 +44,17 @@ public class OffTheLineLogic {
         input = i;
     }
 
+    // ==================== MAIN LOOP FUNCTIONS ====================
+
     public void handleInput() {
         if(input.getEvents().size() > 0){
             for(TouchEvent t : input.getEvents()) {
-                switch (t.type) {
-                    case 1: // Pulsacion
-                        boolean tick = false;
-                        float increX = (float)640 / W_;
-                        float increY = (float)480 / H_;
-                        t.posX -= W_ / 2;
-                        t.posY -= H_ / 2;
-                        int diferenciaW = W_ - 640;
-                        int diferenciaH = H_ - 480;
-                        if(diferenciaH < diferenciaW){
-                            t.posX *= increY;
-                            t.posY *= increY;
-                        }
-                        else{
-                            t.posX *= increX;
-                            t.posY *= increX;
-                        }
-                        for (GameObject object : gameObjects){
-                            try {
-                                Button b = (Button)object;
-                                if(b.button_pressed(t.posX, t.posY)) {
-                                    System.out.println("Pulsado");
-                                    if(b.getId_() == PlayEasy) {
-                                        EasyGame();
-                                    }
-                                    else if(b.getId_() == PlayHard) {
-                                        HardGame();
-                                    }
-                                    else if(b.getId_() == ReturnMenu) {
-                                        ReturnMenu();
-                                    }
-                                    tick = true;
-                                    break;
-                                }
-                            }
-                            catch (Exception e) {
-                                continue;
-                            }
-                        }
-                        if(!pauseGame && !tick)
-                            player_.jump();
-                        System.out.println("Eje X: " + t.posX);
-                        System.out.println("Eje Y: " + t.posY);
-                        break;
-                    default:
-                        break;
+                if (t.type == 1) { // Mouse click or finger tap
+                    if (gamePaused) {
+                        checkButtonClick(t);
+                    } else {
+                        player_.jump();
+                    }
                 }
             }
             input.getEvents().clear();
@@ -95,22 +62,20 @@ public class OffTheLineLogic {
     }
 
     public void update(double deltaTime) {
-        float oldPlayerX = 0, oldPlayerY = 0;
-        if(!pauseGame) {
-            oldPlayerX = player_.posX_;
-            oldPlayerY = player_.posY_;
-        }
-
+        // Update every gameobject
         for (GameObject object : gameObjects) {
             object.update(deltaTime);
         }
 
-        if(!pauseGame) {
+        if(!gamePaused) {
+            // Player jumps off the map
             if (Utils.sqrDistanceBetweenTwoPoints(new Vector2(player_.posX_, player_.posY_), new Vector2(0, 0)) > 700 * 700)
                 killPlayer();
 
-            checkCollisions(oldPlayerX, oldPlayerY, player_.posX_, player_.posY_);
+            // Check player collisions
+            checkCollisions();
 
+            // Check if level is complete and if it should move to next level
             if (levelFinished) {
                 if ((System.nanoTime() - lastItemTime) / 1.0E9 > timeToSkipLevel) {
                     if (currentLevel < 19)
@@ -124,6 +89,7 @@ public class OffTheLineLogic {
 
     public void render() {
         graphics.clear(0, 0, 0);
+
         graphics.translate(graphics.getWidth() / 2, graphics.getHeight()/2);
         adjustToWindow();
 
@@ -132,28 +98,58 @@ public class OffTheLineLogic {
         }
     }
 
-    void adjustToWindow() {
-        float w = graphics.getWidth();
-        float h = graphics.getHeight();
+    // ==================== AUXILIARY FUNCTIONS ====================
 
-        float incX = w / 640;
-        float incY = h / 480;
-        if (640 * incY < w) {
-            graphics.scale(incY, -incY);
-        } else {
-            graphics.scale(incX, -incX);
+    // Checks if click events are made over button boundaries
+    private void checkButtonClick(TouchEvent t) {
+        // Transform click coordinates to current resolution
+        float increX = (float)640 / W_;
+        float increY = (float)480 / H_;
+        t.posX -= W_ / 2;
+        t.posY -= H_ / 2;
+        int difW = W_ - 640;
+        int difH = H_ - 480;
+        if(difH < difW){
+            t.posX *= increY;
+            t.posY *= increY;
+        } else{
+            t.posX *= increX;
+            t.posY *= increX;
         }
 
-        W_ = graphics.getWidth();
-        H_ = graphics.getHeight();
+        // Check click coordinates with every button
+        for (GameObject object : gameObjects) {
+            try {
+                Button b = (Button)object;
+                if(b.button_pressed(t.posX, t.posY)) {
+                    if(b.getId_() == PlayEasy) {
+                        EasyGame();
+                    }
+                    else if(b.getId_() == PlayHard) {
+                        HardGame();
+                    }
+                    else if(b.getId_() == ReturnMenu) {
+                        loadMenu();
+                    }
+                    break;
+                }
+            }
+            catch (Exception e) {
+                continue;
+            }
+        }
     }
 
-    void checkCollisions(float startX, float startY, float endX, float endY) {
+    // Checks player collisions
+    void checkCollisions() {
+        // Check collisions with paths
         player_.collidesWithPath(gameObjects);
 
+        // Check collisions with enemies
         if (player_.collidesWithEnemy(gameObjects))
             killPlayer();
 
+        // Check collisions with coins
         Coin c = player_.collidesWithCoin(gameObjects);
         if (c != null) {
             nItems--;
@@ -165,50 +161,90 @@ public class OffTheLineLogic {
         }
     }
 
+    // Loads a given level
     void loadLevel(int level) {
-        pauseGame = false;
+        // Reset variables
+        gamePaused = false;
+        levelFinished = false;
+        lastItemTime = 0;
+
+        // Clear gameObjects list
         if (gameObjects != null)
             gameObjects.clear();
 
+        // Load level gameObjects
         gameObjects = lr.loadLevel(level, hardMode);
+        nItems = lr.nItems;
 
+        // Create and add level name label
         String title = "Level " + (currentLevel + 1) + " - " + lr.name;
         gameObjects.add(new Text(-300,-170, 20, "BungeeHairline-Regular.ttf", title, 255,255,255, graphics));
 
+        // Create and add player
         player_ = new Player((Path)gameObjects.get(0), 10, 10, 45, hardMode);
         gameObjects.add(player_);
 
+        // Add lives since they persist between levels
         gameObjects.add(lives_);
 
-        nItems = lr.nItems;
-        levelFinished = false;
-        lastItemTime = 0;
     }
 
+    // Scales and transforms the game to fit screen resolution
+    void adjustToWindow() {
+        float w = graphics.getWidth();
+        float h = graphics.getHeight();
+
+        float incX = w / 640;
+        float incY = h / 480;
+
+        // Check whether we should adjust to width or height
+        if (640 * incY < w)
+            graphics.scale(incY, -incY);
+        else
+            graphics.scale(incX, -incX);
+
+        // Store new dimensions
+        W_ = graphics.getWidth();
+        H_ = graphics.getHeight();
+    }
+
+    // Removes a life and checks if game is over
+    void killPlayer() {
+        lives_.take_life();
+        if(lives_.game_Over())
+            GameOverMenu();
+        else
+            loadLevel(currentLevel);
+    }
+
+    // ==================== BUTTON FUNCTIONS ====================
+
+    // Sets mode to easy (Called from buttons)
     void EasyGame(){
         hardMode = false;
         mode_ = "Easy Mode";
         newGame();
     }
 
+    // Sets mode to hard (Called from buttons)
     void HardGame(){
         hardMode = true;
         mode_ = "Hard Mode";
         newGame();
     }
 
-    void ReturnMenu(){
-        loadMenu();
-    }
-
+    // Loads a new game
     void newGame(){
         lives_ = new Lives(50,180, 210, 15, (hardMode) ? 5 : 10);
         currentLevel = 0;
         loadLevel(currentLevel);
     }
 
+    // ==================== MENU FUNCTIONS ====================
+
+    // Loads main menu (Called from buttons and at the start of the game)
     void loadMenu() {
-        pauseGame = true;
+        gamePaused = true;
         gameObjects = new ArrayList<GameObject>();
         gameObjects.add(new Text(-250,-100, 60, "Bungee-Regular.ttf", "OFF THE LINE", 50,50,255, graphics));
         gameObjects.add(new Text(-250,-50, 20, "Bungee-Regular.ttf", "A GAME COPIED TO BRYAN PERFETTO", 50,50,255, graphics));
@@ -219,29 +255,23 @@ public class OffTheLineLogic {
         levelFinished = false;
     }
 
+    // Shows GAME OVER menu
     void GameOverMenu() {
         gameObjects.add(new MenuBackground(-320, 20, 640, 130, 50, 50, 50));
         gameObjects.add(new Text(-125,-110, 40, "Bungee-Regular.ttf", "GAME OVER", 255,0,0, graphics));
         gameObjects.add(new Text(-60,-70, 20, "Bungee-Regular.ttf", mode_, 255,255,255, graphics));
         gameObjects.add(new Text(-45,-40, 20, "Bungee-Regular.ttf", "Score: "+ (currentLevel + 1), 255,255,255, graphics));
         gameObjects.add(new Button(-100,80, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return to Menu", 255,255,255, graphics));
-        pauseGame = true;
+        gamePaused = true;
     }
 
+    // Shows WIN menu
     void WinMenu() {
         gameObjects.add(new MenuBackground(-320, 20, 640, 130, 50, 50, 50));
         gameObjects.add(new Text(-220,-100, 40, "Bungee-Regular.ttf", "CONGRATULATIONS", 255,255,0, graphics));
         gameObjects.add(new Text(-140,-70, 20, "Bungee-Regular.ttf", mode_ + " completed", 255,255,255, graphics));
         gameObjects.add(new Button(-100,-40, 180,20, ReturnMenu,"Bungee-Regular.ttf", "Return to Menu", 255,255,255, graphics));
-        pauseGame = true;
+        gamePaused = true;
         levelFinished = false;
-    }
-
-    void killPlayer() {
-        lives_.take_life();
-        if(lives_.game_Over())
-            GameOverMenu();
-        else
-            loadLevel(currentLevel);
     }
 }

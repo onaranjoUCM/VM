@@ -11,6 +11,7 @@ public class Text extends GameObject {
     int colorG_;
     int colorB_;
     int size_;
+
     public Text(float posX, float posY, int size, String fontfile, String text, int colorR, int colorG, int colorB, Graphics g){
         super(posX, posY, 0, 0);
         text_ = text;
@@ -22,10 +23,9 @@ public class Text extends GameObject {
         size_ = size;
         f_ = g.newFont(fontfile_, size_,true);
     }
-    @Override
-    public void update(double deltaTime) {
 
-    }
+    @Override
+    public void update(double deltaTime) { }
 
     @Override
     public void render(Graphics g) {

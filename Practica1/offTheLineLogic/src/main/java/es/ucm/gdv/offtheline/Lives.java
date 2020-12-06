@@ -2,14 +2,17 @@ package es.ucm.gdv.offtheline;
 
 import es.ucm.gdv.engine.Graphics;
 
+// Object to represent a single live in the HUD
 class Live extends GameObject {
     boolean live_;
+
     public Live(float posX, float posY, int W, int H, boolean live){
         super(posX, posY, W, H);
         live_ = live;
     }
-    public void update(double deltaTime) {
-    }
+
+    public void update(double deltaTime) { }
+
     public void render(Graphics g) {
         if(live_) {
             g.setColor(0, 0, 255);
@@ -34,10 +37,12 @@ class Live extends GameObject {
     }
 }
 
+// Object to store and handle multiple lives in the HUD
 public class Lives extends GameObject {
     int nLive_;
     int currentNLive_;
     Live[] lives;
+
     public Lives(float posX, float posY, int W, int H, int nLive){
         super(posX, posY, W, H);
         nLive_ = nLive;
@@ -50,8 +55,9 @@ public class Lives extends GameObject {
         }
         currentNLive_ = nLive_;
     }
-    public void update(double deltaTime) {
-    }
+
+    public void update(double deltaTime) { }
+
     public void render(Graphics g) {
         for(int i=0; i<nLive_;i++){
             lives[i].render(g);
@@ -67,6 +73,7 @@ public class Lives extends GameObject {
             }
         }
     }
+
     public boolean game_Over(){
         if(currentNLive_ == 0){
             return  true;

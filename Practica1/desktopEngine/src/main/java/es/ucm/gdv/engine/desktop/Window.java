@@ -1,12 +1,10 @@
 package es.ucm.gdv.engine.desktop;
 
 import java.awt.Color;
-import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
 public class Window extends JFrame {
-    BufferStrategy strategy;
     public Window(String titulo, int W, int H, Input i){
         super(titulo);
         setSize(W, H);

@@ -1,7 +1,7 @@
 package es.ucm.gdv.offtheline;
 
 public class Utils {
-
+    // Checks if two lines intersect and returns the intersection point
     static Vector2 segmentsIntersection(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2) {
         if (intersect(start1, end1, start2, end2))
             return lineLineIntersection(start1, end1, start2, end2);
@@ -9,7 +9,8 @@ public class Utils {
             return null;
     }
 
-    // From https://github.com/steveshogren/VectorMath/blob/master/src/com/example/android/lasergame/Intersection.java
+    // Checks if two lines intersect
+    // Source: https://github.com/steveshogren/VectorMath/blob/master/src/com/example/android/lasergame/Intersection.java
     static boolean intersect(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2) {
         double A1 = end1.y - start1.y;
         double B1 = start1.x - end1.x;
@@ -49,7 +50,8 @@ public class Utils {
         }
     }
 
-    // From https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
+    // Returns the intersection point of two lines (Assumes the lines DO intersect)
+    // Source: https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
     static Vector2 lineLineIntersection(Vector2 start1, Vector2 end1, Vector2 start2, Vector2 end2) {
         // Line AB represented as a1x + b1y = c1
         double a1 = end1.y - start1.y;
@@ -77,7 +79,8 @@ public class Utils {
         }
     }
 
-    // From https://stackoverflow.com/questions/40352842/calculate-distance-along-line-closest-to-other-point-aka-project
+    // Returns the point in a line closest to a given point
+    // Source: https://stackoverflow.com/questions/40352842/calculate-distance-along-line-closest-to-other-point-aka-project
     static Vector2 getClosestPointOnSegment(Vector2 segA, Vector2 segB, Vector2 point)     {
         double xDelta = segB.x - segA.x;
         double yDelta = segB.y - segA.y;
@@ -98,19 +101,13 @@ public class Utils {
         return closestPoint;
     }
 
+    // Returns the square of the distance between a point and a line
     static float sqrDistancePointSegment(Segment seg, Vector2 point) {
         Vector2 closestSegPoint = getClosestPointOnSegment(seg.pointA_, seg.pointB_, point);
         return sqrDistanceBetweenTwoPoints(closestSegPoint, point);
     }
 
-    static double module(Vector2 A, Vector2 B) {
-        return Math.sqrt((B.x-A.x)*(B.x-A.x) + (B.y-A.y)*(B.y-A.y));
-    }
-
-    static Vector2 segmentFromTwoPoints(Vector2 A, Vector2 B) {
-        return new Vector2(B.x - A.x, B.y - A.y);
-    }
-
+    // Returns the direction of the vector made from two given points
     static Vector2 directionFromTwoPoints(Vector2 A, Vector2 B) {
         float num = (B.y - A.y);
         float den = (B.x - A.x);
@@ -121,6 +118,7 @@ public class Utils {
         return new Vector2((float)Math.cos(Math.toRadians(angle)), (float)Math.sin(Math.toRadians(angle)));
     }
 
+    // Returns the square of the distance between two points
     static float sqrDistanceBetweenTwoPoints(Vector2 A, Vector2 B) {
         return (float)(A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y);
     }

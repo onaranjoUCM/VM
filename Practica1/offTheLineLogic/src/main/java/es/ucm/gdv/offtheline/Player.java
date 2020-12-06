@@ -106,6 +106,7 @@ public class Player extends GameObject {
         return false;
     }
 
+    // Returns the player to the vertex position and updates next target
     // This method is called when player reaches a path vertex
     private void updateCurrentVertex() {
         if (currentSegment_ != null) {
@@ -172,6 +173,7 @@ public class Player extends GameObject {
         }
     }
 
+    // Checks if the last player movement has made him cross an enemy
     public boolean collidesWithEnemy(ArrayList<GameObject> gameObjects) {
         for (GameObject o : gameObjects) {
             try {
@@ -187,6 +189,7 @@ public class Player extends GameObject {
         return false;
     }
 
+    // Checks if the last player movement has took him close enough to a coin
     public Coin collidesWithCoin(ArrayList<GameObject> gameObjects) {
         for (GameObject o : gameObjects) {
             try {

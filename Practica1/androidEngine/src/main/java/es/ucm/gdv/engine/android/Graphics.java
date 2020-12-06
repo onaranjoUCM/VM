@@ -5,11 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 public class Graphics implements es.ucm.gdv.engine.Graphics {
-
-    //IMPORTANTEEEEEEEEEEE
-    //por tanto en lugar de hacer que vuestro Graphics herede de SurfaceView, organizarlo para que en el momento de pintar tenga el canvas donde hacerlo
-    //o hacérselo llegar en cada frame*/
-
     Canvas _canvas;
     Paint _paint;
     AssetManager assetManager_;

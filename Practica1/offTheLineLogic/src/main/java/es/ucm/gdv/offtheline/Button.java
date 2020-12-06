@@ -28,7 +28,8 @@ public class Button extends GameObject {
 
     }
 
-    public boolean button_pressed(int clickX, int clickY){
+    public boolean button_pressed(int clickX, int clickY) {
+        // Check if the click event was captured inside the button boundaries
         if(clickX >= posX_ && clickX <= W_+ posX_ && clickY <= posY_ && clickY >= posY_ - H_ ){
             return true;
         }
