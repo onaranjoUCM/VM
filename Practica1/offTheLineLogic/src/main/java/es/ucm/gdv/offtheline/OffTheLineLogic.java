@@ -211,8 +211,11 @@ public class OffTheLineLogic {
         pauseGame = true;
         gameObjects = new ArrayList<GameObject>();
         gameObjects.add(new Text(-250,-100, 60, "Bungee-Regular.ttf", "OFF THE LINE", 50,50,255, graphics));
+        gameObjects.add(new Text(-250,-50, 20, "Bungee-Regular.ttf", "A GAME COPIED TO BRYAN PERFETTO", 50,50,255, graphics));
         gameObjects.add(new Button(-250,50, 180,20, PlayEasy,"Bungee-Regular.ttf", "EASY MODE", 255,255,255, graphics));
+        gameObjects.add(new Text(-120,50, 12, "Bungee-Regular.ttf", "(SLOW SPEED, 10 LIVES)", 100,100,100, graphics));
         gameObjects.add(new Button(-250,100, 180,20, PlayHard,"Bungee-Regular.ttf", "HARD MODE", 255,255,255, graphics));
+        gameObjects.add(new Text(-110,100, 12, "Bungee-Regular.ttf", "(FAST SPEED, 5 LIVES)", 100,100,100, graphics));
         levelFinished = false;
     }
 
