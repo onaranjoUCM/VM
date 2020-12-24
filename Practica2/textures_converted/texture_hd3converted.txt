@@ -1,0 +1,336 @@
+      name: assisted_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1399
+        width: 176
+        height: 150
+        ====================
+      name: cancel_icon
+      rect:
+        serializedVersion: 2
+        x: 1947
+        y: 1232
+        width: 99
+        height: 95
+        ====================
+      name: categories_button_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 3
+        width: 756
+        height: 227
+        ====================
+      name: character
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 903
+        width: 90
+        height: 90
+        ====================
+      name: check_button_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 486
+        width: 223
+        height: 223
+        ====================
+      name: classic
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 234
+        width: 684
+        height: 207
+        ====================
+      name: classic_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 445
+        width: 684
+        height: 207
+        ====================
+      name: clock
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1553
+        width: 150
+        height: 150
+        ====================
+      name: enemies
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 656
+        width: 684
+        height: 207
+        ====================
+      name: enemies_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 867
+        width: 684
+        height: 207
+        ====================
+      name: enemy1
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 997
+        width: 90
+        height: 90
+        ====================
+      name: enemy1
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 1091
+        width: 90
+        height: 90
+        ====================
+      name: enemy2
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 1331
+        width: 90
+        height: 90
+        ====================
+      name: enemy2
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 1425
+        width: 90
+        height: 90
+        ====================
+      name: fog
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 1078
+        width: 684
+        height: 207
+        ====================
+      name: fog_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 1289
+        width: 684
+        height: 207
+        ====================
+      name: hint
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1707
+        width: 144
+        height: 156
+        ====================
+      name: hint_icon_big_pressed
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 1553
+        width: 110
+        height: 150
+        ====================
+      name: home_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1532
+        y: 1922
+        width: 110
+        height: 90
+        ====================
+      name: ice_floor_new
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 1500
+        width: 684
+        height: 207
+        ====================
+      name: ice_floor_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 1711
+        width: 684
+        height: 207
+        ====================
+      name: leaderboard_icon
+      rect:
+        serializedVersion: 2
+        x: 1646
+        y: 1922
+        width: 112
+        height: 88
+        ====================
+      name: lock
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1867
+        width: 150
+        height: 150
+        ====================
+      name: manual_icon
+      rect:
+        serializedVersion: 2
+        x: 1922
+        y: 1707
+        width: 110
+        height: 150
+        ====================
+      name: manual_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 1861
+        width: 110
+        height: 150
+        ====================
+      name: minimize_icon_old
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 176
+        width: 90
+        height: 53
+        ====================
+      name: pause
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 3
+        width: 172
+        height: 169
+        ====================
+      name: pause_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 713
+        width: 172
+        height: 169
+        ====================
+      name: play
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 234
+        width: 214
+        height: 248
+        ====================
+      name: play_active
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 1922
+        width: 107
+        height: 124
+        ====================
+      name: play_icon
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 1922
+        width: 105
+        height: 120
+        ====================
+      name: play_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 1922
+        width: 105
+        height: 120
+        ====================
+      name: reset_icon
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 713
+        width: 88
+        height: 91
+        ====================
+      name: reset_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 808
+        width: 88
+        height: 91
+        ====================
+      name: restore
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 886
+        width: 172
+        height: 169
+        ====================
+      name: restore_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1059
+        width: 172
+        height: 169
+        ====================
+      name: settings
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 1922
+        width: 113
+        height: 110
+        ====================
+      name: star_medium
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1232
+        width: 169
+        height: 163
+        ====================
+      name: unlock_fog_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 3
+        width: 1080
+        height: 501
+        ====================
+      name: unlock_ice_floor_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 508
+        width: 1080
+        height: 501
+        ====================
+      name: unlock_level_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1013
+        width: 1080
+        height: 501
+        ====================
+      name: unlock_time_trial_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1518
+        width: 1080
+        height: 501
+        ====================

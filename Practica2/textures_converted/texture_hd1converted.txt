@@ -1,0 +1,256 @@
+      name: arrow_down
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 2010
+        width: 36
+        height: 31
+        ====================
+      name: arrow_left
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2010
+        width: 31
+        height: 36
+        ====================
+      name: arrow_right
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 2010
+        width: 31
+        height: 36
+        ====================
+      name: arrow_up
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 2010
+        width: 36
+        height: 31
+        ====================
+      name: bullet
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 2010
+        width: 30
+        height: 30
+        ====================
+      name: button_big
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 3
+        width: 265
+        height: 265
+        ====================
+      name: button_big_pressed
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 272
+        width: 265
+        height: 265
+        ====================
+      name: buy_one_pressed
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 777
+        width: 819
+        height: 249
+        ====================
+      name: buy_three
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 1030
+        width: 819
+        height: 249
+        ====================
+      name: buy_three_pressed
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 1283
+        width: 819
+        height: 249
+        ====================
+      name: buy_two
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 1536
+        width: 819
+        height: 249
+        ====================
+      name: buy_two_pressed
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 1789
+        width: 819
+        height: 249
+        ====================
+      name: close_button_white_circled_pressed
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 665
+        width: 99
+        height: 99
+        ====================
+      name: hint_icon_small
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 1005
+        width: 73
+        height: 100
+        ====================
+      name: hint_icon_small_pressed
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 1109
+        width: 73
+        height: 100
+        ====================
+      name: leaderboard_active
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 1280
+        width: 51
+        height: 44
+        ====================
+      name: level_bar
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 3
+        width: 1749
+        height: 327
+        ====================
+      name: level_bar_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 334
+        width: 1749
+        height: 327
+        ====================
+      name: level_lock
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 777
+        width: 77
+        height: 110
+        ====================
+      name: level_lock_pressed
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 891
+        width: 77
+        height: 110
+        ====================
+      name: like_icon
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 665
+        width: 104
+        height: 100
+        ====================
+      name: ok_button_white_circled
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 665
+        width: 105
+        height: 105
+        ====================
+      name: ok_button_white_circled_pressed
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 665
+        width: 105
+        height: 105
+        ====================
+      name: personalized_ads_off_icon
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 665
+        width: 64
+        height: 63
+        ====================
+      name: personalized_ads_on_icon
+      rect:
+        serializedVersion: 2
+        x: 1969
+        y: 1213
+        width: 64
+        height: 63
+        ====================
+      name: privacy_icon
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 541
+        width: 36
+        height: 50
+        ====================
+      name: privacy_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 595
+        width: 36
+        height: 50
+        ====================
+      name: reward_video_inactive
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 665
+        width: 105
+        height: 108
+        ====================
+      name: star_big
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 541
+        width: 241
+        height: 232
+        ====================
+      name: store_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 665
+        width: 1140
+        height: 1341
+        ====================
+      name: trace_line
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 2010
+        width: 24
+        height: 24
+        ====================
+      name: trap
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 649
+        width: 30
+        height: 60
+        ====================

@@ -1,0 +1,264 @@
+      name: cancel_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 1206
+        width: 99
+        height: 95
+        ====================
+      name: cart_icon
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 1206
+        width: 108
+        height: 82
+        ====================
+      name: cart_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 1206
+        width: 109
+        height: 82
+        ====================
+      name: categories_lock
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1206
+        width: 101
+        height: 144
+        ====================
+      name: categories_lock_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 181
+        width: 101
+        height: 144
+        ====================
+      name: enemy3
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1904
+        width: 90
+        height: 90
+        ====================
+      name: enemy3
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 119
+        width: 90
+        height: 90
+        ====================
+      name: leaderboard_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 27
+        width: 112
+        height: 88
+        ====================
+      name: maximize_icon
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1354
+        width: 97
+        height: 98
+        ====================
+      name: maximize_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 329
+        width: 97
+        height: 98
+        ====================
+      name: maze_more_logo
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 532
+        width: 1324
+        height: 248
+        ====================
+      name: memorygames
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 784
+        width: 684
+        height: 207
+        ====================
+      name: memorygames_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 27
+        width: 684
+        height: 207
+        ====================
+      name: ok_icon
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 1206
+        width: 102
+        height: 94
+        ====================
+      name: ok_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 1206
+        width: 102
+        height: 94
+        ====================
+      name: puzzlerama
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 995
+        width: 684
+        height: 207
+        ====================
+      name: puzzlerama_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 238
+        width: 684
+        height: 207
+        ====================
+      name: rate_us_icon
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1456
+        width: 101
+        height: 88
+        ====================
+      name: rate_us_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1548
+        width: 101
+        height: 88
+        ====================
+      name: setting_white
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 1304
+        width: 90
+        height: 90
+        ====================
+      name: sound
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1640
+        width: 102
+        height: 84
+        ====================
+      name: sound_off_icon
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 1304
+        width: 90
+        height: 90
+        ====================
+      name: sound_off_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 1305
+        width: 90
+        height: 90
+        ====================
+      name: sound_pressed
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1728
+        width: 102
+        height: 84
+        ====================
+      name: sound_white
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1816
+        width: 102
+        height: 84
+        ====================
+      name: time_trial
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1206
+        width: 684
+        height: 207
+        ====================
+      name: time_trial_pressed
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1417
+        width: 684
+        height: 207
+        ====================
+      name: traps
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1628
+        width: 684
+        height: 207
+        ====================
+      name: traps_pressed
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1839
+        width: 684
+        height: 207
+        ====================
+      name: unlock
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 27
+        width: 150
+        height: 150
+        ====================
+      name: unlock_traps_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 27
+        width: 1080
+        height: 501
+        ====================
+      name: wordsearch
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 784
+        width: 684
+        height: 207
+        ====================
+      name: wordsearch_pressed
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 995
+        width: 684
+        height: 207
+        ====================
