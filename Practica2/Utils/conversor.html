@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta charset="UTF-8">
+		<title>Conversor</title>
+	</head>
+	
+	<body>
+		<p>
+			Selecciona los ficheros. Deben estar todos los de la categoría
+			(<tt>1.json</tt>, <tt>2.json</tt>, ...). Una vez seleccionados,
+			aparecerá debajo el JSON de todos ellos, en orden, cada uno en
+			una línea. Copia el contenido a un fichero de texto y sepáralo
+			en ficheros independientes con un script.
+		</p>
+		<form name="uploadForm">
+			<div>
+				<input id="uploadInput" type="file" name="myFiles" multiple>
+				Número de ficheros seleccionados: <span id="fileNum">0</span>
+			</div>
+		</form>
+		<pre id="json"></pre>
+		
+		<script>
+			/**
+			 * Recibe un array de ficheros (https://developer.mozilla.org/en-US/docs/Web/API/File) y devuelve el
+			 * que se llama <id>.json. Si no lo encuentra, saltará una excepción.
+			 */
+			function findFile(files, id) {
+					let i = 0;
+					while(i < files.length && files[i].name != `${id}.json`)
+							++i;
+					return files[i]; // Si no está, excepción
+			}
+
+			/**
+			 * Recibe un array de ficheros (https://developer.mozilla.org/en-US/docs/Web/API/File) que deben
+			 * llamarse 1.json, 2.json, ... (aunque se permite que lleguen en cualquier orden). Asume que cada
+			 * uno es "código JavaScript" definiendo una variable, pero sin la asignación. Escribe en
+			 * el elemento id="json" del HTML actual la versión en JSON de cada uno de esos ficheros, cada uno e
+			 * una línea en orden 1.json, 2.json, ...
+			 */
+			async function process(files) {
+					let output = "";
+					// Direcciones de las trampas.
+					let d='d';
+					let l='l';
+					let r='r';
+					let u='u';
+					for (let i = 1; i <= files.length; i++) {
+							try {
+									var text = await findFile(files, i).text();
+							}
+							catch(e) {
+									// Ops. No está el fichero i-ésimo.
+									document.getElementById("json").innerHTML = `No se ha encontrado ${i}.json`;
+									return;
+							}
+							// Lo "ejecutamos", haciendo la asignación en una variable temporal.
+							eval("a=" + text);
+							// Convertimos a JSON y acumulamos en la cadena del resultado.
+							output += JSON.stringify(a);
+							output += '\n';
+					}
+					document.getElementById("json").innerHTML = output;
+			}
+
+			/**
+			 * Evento llamado al seleccionar ficheros. Lanzamos el procesamiento.
+			 */
+			function updateFiles() {
+					document.getElementById("json").innerHTML = "";
+					process(this.files);
+					document.getElementById("fileNum").innerHTML = this.files.length;
+			}
+
+			// Capturamos el evento de cambio de los ficheros seleccionados
+			document.getElementById("uploadInput").addEventListener("change", updateFiles, false);
+		</script>
+	</body>
+</html>
