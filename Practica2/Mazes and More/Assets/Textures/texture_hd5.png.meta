@@ -1,7 +1,106 @@
 fileFormatVersion: 2
 guid: 8fbc8e8b437f61e409fc901ad8d4455b
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4969135578637189156
+    second: cancel_icon_pressed
+  - first:
+      213: 1552550165946626445
+    second: cart_icon
+  - first:
+      213: 6959711206614513397
+    second: cart_icon_pressed
+  - first:
+      213: 2110089751485869225
+    second: categories_lock
+  - first:
+      213: -2183553294277283233
+    second: categories_lock_pressed
+  - first:
+      213: 553676963081837918
+    second: enemy31
+  - first:
+      213: 7024324178815994143
+    second: enemy32
+  - first:
+      213: -6303926635806255633
+    second: leaderboard_icon_pressed
+  - first:
+      213: 1243956181923444537
+    second: maximize_icon
+  - first:
+      213: 2298684042784994238
+    second: maximize_icon_pressed
+  - first:
+      213: 2648370140006883107
+    second: maze_more_logo
+  - first:
+      213: -8867755441408741681
+    second: memorygames
+  - first:
+      213: 4458992664714353281
+    second: memorygames_pressed
+  - first:
+      213: 6433069540111105876
+    second: ok_icon
+  - first:
+      213: -8000254182150022252
+    second: ok_icon_pressed
+  - first:
+      213: -7333644352048760693
+    second: puzzlerama
+  - first:
+      213: -2177889142078400580
+    second: puzzlerama_pressed
+  - first:
+      213: -1763740505128795676
+    second: rate_us_icon
+  - first:
+      213: 4962730440388657192
+    second: rate_us_icon_pressed
+  - first:
+      213: 3184622434961581442
+    second: setting_white
+  - first:
+      213: 914997509922644074
+    second: sound
+  - first:
+      213: 7050396363999879295
+    second: sound_off_icon
+  - first:
+      213: 46820121335778571
+    second: sound_off_icon_pressed
+  - first:
+      213: -2259997648967547647
+    second: sound_pressed
+  - first:
+      213: 5981922356239696432
+    second: sound_white
+  - first:
+      213: -5856690127440403225
+    second: time_trial
+  - first:
+      213: 6979615615196663644
+    second: time_trial_pressed
+  - first:
+      213: -363493045870221176
+    second: traps
+  - first:
+      213: 4135951417106526336
+    second: traps_pressed
+  - first:
+      213: 1699828326005039348
+    second: unlock
+  - first:
+      213: 3710383772457968691
+    second: unlock_traps_window_bg
+  - first:
+      213: -7353426275302158515
+    second: wordsearch
+  - first:
+      213: 1388353967568209915
+    second: wordsearch_pressed
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -23,6 +122,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -57,6 +157,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -85,7 +186,700 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: cancel_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 1206
+        width: 99
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 420cc6d2b7ae5f440800000000000000
+      internalID: 4969135578637189156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cart_icon
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 1206
+        width: 108
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d81f8317624cb8510800000000000000
+      internalID: 1552550165946626445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cart_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 1206
+        width: 109
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f63091e77cd59060800000000000000
+      internalID: 6959711206614513397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: categories_lock
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1206
+        width: 101
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ace181037b884d10800000000000000
+      internalID: 2110089751485869225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: categories_lock_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 181
+        width: 101
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f52f77a09d572b1e0800000000000000
+      internalID: -2183553294277283233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy3
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1904
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d5fc0b34e0fa700800000000000000
+      internalID: 553676963081837918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy3
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 119
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f19c389cf996b7160800000000000000
+      internalID: 7024324178815994143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboard_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 27
+        width: 112
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe515a6df14f388a0800000000000000
+      internalID: -6303926635806255633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maximize_icon
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1354
+        width: 97
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937b2b38e8b634110800000000000000
+      internalID: 1243956181923444537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maximize_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 329
+        width: 97
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb3fe0d35f096ef10800000000000000
+      internalID: 2298684042784994238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_more_logo
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 532
+        width: 1324
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f9cd45c96e0c420800000000000000
+      internalID: 2648370140006883107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: memorygames
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 784
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce6bcfc8676fe480800000000000000
+      internalID: -8867755441408741681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: memorygames_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 27
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18a1f5c243681ed30800000000000000
+      internalID: 4458992664714353281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ok_icon
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 1206
+        width: 102
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45f35b1b9aad64950800000000000000
+      internalID: 6433069540111105876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ok_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 1206
+        width: 102
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b5d10653369f090800000000000000
+      internalID: -8000254182150022252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzlerama
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 995
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b88751f2159a93a90800000000000000
+      internalID: -7333644352048760693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzlerama_pressed
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 238
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb79c3e3d5596c1e0800000000000000
+      internalID: -2177889142078400580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rate_us_icon
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1456
+        width: 101
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e184d3fa5fe587e0800000000000000
+      internalID: -1763740505128795676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rate_us_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1548
+        width: 101
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8204267ba092fd440800000000000000
+      internalID: 4962730440388657192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting_white
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 1304
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 285ef935b3d023c20800000000000000
+      internalID: 3184622434961581442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sound
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1640
+        width: 102
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a606e4d2369b2bc00800000000000000
+      internalID: 914997509922644074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sound_off_icon
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 1304
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f702be1732a08d160800000000000000
+      internalID: 7050396363999879295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sound_off_icon_pressed
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 1305
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0d4f8cf6a656a000800000000000000
+      internalID: 46820121335778571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sound_pressed
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1728
+        width: 102
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 105421cbc10e2a0e0800000000000000
+      internalID: -2259997648967547647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sound_white
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1816
+        width: 102
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03282ad70be040350800000000000000
+      internalID: 5981922356239696432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: time_trial
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1206
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e4a062fb5bd8bea0800000000000000
+      internalID: -5856690127440403225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: time_trial_pressed
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1417
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5f01942c639cd060800000000000000
+      internalID: 6979615615196663644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: traps
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1628
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 888a49a200d94faf0800000000000000
+      internalID: -363493045870221176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: traps_pressed
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1839
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08078e096e9d56930800000000000000
+      internalID: 4135951417106526336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: unlock
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 27
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f06dae3bd0079710800000000000000
+      internalID: 1699828326005039348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: unlock_traps_window_bg
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 27
+        width: 1080
+        height: 501
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3342bb1f16eed7330800000000000000
+      internalID: 3710383772457968691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wordsearch
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 784
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f479243c163f990800000000000000
+      internalID: -7353426275302158515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wordsearch_pressed
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 995
+        width: 684
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf74863e39c644310800000000000000
+      internalID: 1388353967568209915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
