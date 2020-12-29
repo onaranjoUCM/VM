@@ -6,26 +6,24 @@ namespace MazesAndMore
 {
     public class Map
     {
-        JSONMap map;
-        JSONPoint test;
+        JSONMap jsonMap;
 
-        public Map(string json)
+        public Map(TextAsset json)
         {
-            //map = JsonUtility.FromJson<JSONMap>("/Levels/classic/0.json");
-            test = JsonUtility.FromJson<JSONPoint>("/Levels/classic/0.json");
+            jsonMap = (JSONMap)JsonUtility.FromJson<JSONMap>(json.text);
         }
     }
 
     [System.Serializable]
     public class JSONMap
     {
-        int r;
-        int c;
-        //JSONPoint s;
-        //JSONPoint f;
-        //List<JSONPoint> h;
-        //List<JSONWall> w;
-        //List<JSONPoint> i;
+        public int r;
+        public int c;
+        public JSONPoint s;
+        public JSONPoint f;
+        public List<JSONPoint> h;
+        public List<JSONWall> w;
+        public List<JSONPoint> i;
     }
 
     [System.Serializable]
