@@ -1,0 +1,105 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace MazesAndMore
+{
+    public class MenuLevelManager : MonoBehaviour
+    {
+        public Button botonNivel;
+        public Button botonBlock;
+        public Canvas canvas;
+        int nNiveles;
+        private int c;
+        float height;
+        float width;
+        private bool[] pass;
+        private Button[,] botones;
+        GameManager gamemanager;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            
+        }
+
+        public void init(GameManager g)
+        {
+            //SOLUCIONAR ESTO
+            height = 600;
+            width = 800;
+
+            Camera cam = Camera.main;
+            float camW = height * cam.aspect;
+            float camH = 2f * cam.orthographicSize;
+
+            float h1 = height / camH;
+            float w1 = width / camW;
+
+            float midH = (h1 * (camH / 2)) / 2;
+            float midW = (w1 * (camW / 2)) / 2;
+
+            height = midH;
+            width = midW;
+
+            gamemanager = g;
+            nNiveles = gamemanager.getnNiveles();
+            Debug.Log("Numero de niveles: " + nNiveles);
+
+            botones = new Button[5, nNiveles / 5];
+
+            pass = new bool[nNiveles];
+            for (int i = 0; i < nNiveles; i++)
+            {
+                pass[i] = false;
+            }
+
+            pass[0] = true; //DE PRUEBA
+
+            putButtons();
+        }
+
+            // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        void putButtons()
+        {
+            Camera cam = Camera.main;
+            for (int j = 0; j < nNiveles / 5; j++)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Button boton;
+                    if (pass[c])
+                    {
+                        //botonNivel.GetComponent<Text>().text = "c";
+                        boton = botonNivel;
+                    }
+                    else
+                    {
+                        boton = botonBlock;
+                    }
+
+                    Button b = Instantiate(boton, new Vector3(0, 0, 0), Quaternion.identity);
+
+                    float scale = width / height;
+                    int increX = (Screen.width - 20) / 6;
+
+                    b.gameObject.transform.SetParent(transform);
+                    b.transform.position = new Vector3(increX * (i + 1), Screen.height - (j + 1) * 60 , 0);
+
+
+                    botones[i, j] = b;
+                    if (pass[c])
+                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(1));
+
+                    c++;
+                }
+            }
+        }
+    }
+}

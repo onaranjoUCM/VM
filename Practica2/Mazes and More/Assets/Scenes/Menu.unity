@@ -258,6 +258,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04b6698fa9c08bd499937c867bee7f47, type: 3}
+--- !u!114 &163247633 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 814204432531510523, guid: 04b6698fa9c08bd499937c867bee7f47,
+    type: 3}
+  m_PrefabInstance: {fileID: 163247631}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cbd78a5fdcc6d42995368e9821f5f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &194295210
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +430,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 200435637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 163247633}
+        m_TargetAssemblyTypeName: MazesAndMore.GameManager, Assembly-CSharp
+        m_MethodName: sceneNivelesHielo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &200435637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,7 +804,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1428407008}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 163247633}
+        m_TargetAssemblyTypeName: MazesAndMore.GameManager, Assembly-CSharp
+        m_MethodName: sceneNivelesClassic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1428407008
 MonoBehaviour:
   m_ObjectHideFlags: 0
