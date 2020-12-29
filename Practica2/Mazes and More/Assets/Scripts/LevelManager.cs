@@ -19,6 +19,7 @@ namespace MazesAndMore {
             }
 #endif
             boardManager.init(this);
+            boardManager.setMap(new Map(level));
         }
 
         // Update is called once per frame

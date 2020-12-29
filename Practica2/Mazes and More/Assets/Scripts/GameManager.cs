@@ -24,7 +24,7 @@ namespace MazesAndMore
             }
 
             // Resto de la inicializacion
-            Map map = new Map(levelPackages[0].levels[0]);
+            _instance = this;
         }
 
         // Update is called once per frame

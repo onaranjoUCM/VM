@@ -38,7 +38,22 @@ namespace MazesAndMore
 
         public void enableStart()
         {
+            goal.gameObject.SetActive(true);
+        }
 
+        public void disableStart()
+        {
+            goal.gameObject.SetActive(false);
+        }
+
+        public void enableFinish()
+        {
+            goal.gameObject.SetActive(true);
+        }
+
+        public void disableFinish()
+        {
+            goal.gameObject.SetActive(false);
         }
 
         public void enableTopWall()
