@@ -22,7 +22,7 @@ namespace MazesAndMore
             rows = jsonMap.r;
             cols = jsonMap.c;
             start = jsonMap.s;
-            finish = jsonMap.s;
+            finish = jsonMap.f;
             hints = jsonMap.h;
             walls = jsonMap.w;
             ice = jsonMap.i;
