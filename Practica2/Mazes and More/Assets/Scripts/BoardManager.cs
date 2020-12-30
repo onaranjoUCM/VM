@@ -26,7 +26,6 @@ namespace MazesAndMore {
                 {
                     _tiles[i, j] = Instantiate(tilePrefab, new Vector3(i, j, 0), Quaternion.identity);
                     _tiles[i, j].transform.parent = gameObject.transform;
-                    _tiles[i, j].enableIce(); // PROVISIONAL
                 }
             }
 
@@ -34,14 +33,22 @@ namespace MazesAndMore {
             _tiles[(int)map.start.x, (int)map.start.y].enableStart();
             _tiles[(int)map.finish.x, (int)map.finish.y].enableFinish();
 
+            // Set walls
             setWalls(map);
 
             // Adjust to window
-            transform.Translate(Vector3.left * (map.cols / 2));
-            transform.Translate(Vector3.down * (map.rows / 2));
-            // TODO: Rescale
+            Vector3 scale = transform.localScale;
+            float scaleFactor = (float)(5.625 / map.cols);
+            transform.localScale = new Vector3(scale.x * scaleFactor, scale.y * scaleFactor, scale.z);
+            transform.Translate(Vector3.left * (map.cols / 2) * scaleFactor);
+            transform.Translate(Vector3.down * (map.rows / 2) * scaleFactor);
         }
-
+        /*
+        public bool canMove(int x, int y, int dir)
+        {
+            return _tiles[x, y].openSides[dir];
+        }
+        */
         private void setWalls(Map map)
         {
             foreach (JSONWall wall in map.walls)

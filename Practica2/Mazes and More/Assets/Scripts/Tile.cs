@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace MazesAndMore
 {
+    public enum SIDE
+    {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
+    }
+
     public class Tile : MonoBehaviour
     {
         public SpriteRenderer iceFloor;
@@ -18,6 +26,9 @@ namespace MazesAndMore
         public SpriteRenderer segment_up;
         public SpriteRenderer segment_down;
 
+        bool[] openSides = { true, true, true, true };
+        int numberOfOpenSides = 4;
+
         void Start()
         {
 #if UNITY_EDITOR
@@ -30,6 +41,11 @@ namespace MazesAndMore
             }
 #endif
         }
+        
+        public int getNumberOfOpenSides()
+        {
+            return numberOfOpenSides;
+        }
 
         // Misc
         public void enableIce() { iceFloor.gameObject.SetActive(true); }
@@ -37,10 +53,26 @@ namespace MazesAndMore
         public void enableFinish() { finish.gameObject.SetActive(true); }
 
         // Walls
-        public void enableLeftWall() { wall_left.gameObject.SetActive(true); }
-        public void enableRightWall() { wall_right.gameObject.SetActive(true); }
-        public void enableUpWall() { wall_up.gameObject.SetActive(true); }
-        public void enableDownWall() { wall_down.gameObject.SetActive(true); }
+        public void enableLeftWall() { 
+            wall_left.gameObject.SetActive(true);
+            openSides[(int)SIDE.LEFT] = false;
+            numberOfOpenSides--;
+        }
+        public void enableRightWall() { 
+            wall_right.gameObject.SetActive(true);
+            openSides[(int)SIDE.RIGHT] = false;
+            numberOfOpenSides--;
+        }
+        public void enableUpWall() { 
+            wall_up.gameObject.SetActive(true);
+            openSides[(int)SIDE.UP] = false;
+            numberOfOpenSides--;
+        }
+        public void enableDownWall() { 
+            wall_down.gameObject.SetActive(true);
+            openSides[(int)SIDE.DOWN] = false;
+            numberOfOpenSides--;
+        }
 
         // Player segments
         public void enableLeftSegment() { segment_left.gameObject.SetActive(true); }
