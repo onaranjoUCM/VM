@@ -4,14 +4,6 @@ using UnityEngine;
 
 namespace MazesAndMore
 {
-    public enum SIDE
-    {
-        LEFT,
-        RIGHT,
-        UP,
-        DOWN
-    }
-
     public class Tile : MonoBehaviour
     {
         public SpriteRenderer iceFloor;
@@ -26,8 +18,14 @@ namespace MazesAndMore
         public SpriteRenderer segment_up;
         public SpriteRenderer segment_down;
 
-        bool[] openSides = { true, true, true, true };
+        [HideInInspector]
+        public bool[] openSides = { true, true, true, true };
+        [HideInInspector]
         int numberOfOpenSides = 4;
+        [HideInInspector]
+        public int x;
+        [HideInInspector]
+        public int y;
 
         void Start()
         {
@@ -41,15 +39,11 @@ namespace MazesAndMore
             }
 #endif
         }
-        
-        public int getNumberOfOpenSides()
-        {
-            return numberOfOpenSides;
-        }
 
         // Misc
         public void enableIce() { iceFloor.gameObject.SetActive(true); }
         public void enableStart() { start.gameObject.SetActive(true); }
+        public void disableStart() { start.gameObject.SetActive(false); }
         public void enableFinish() { finish.gameObject.SetActive(true); }
 
         // Walls
@@ -75,14 +69,35 @@ namespace MazesAndMore
         }
 
         // Player segments
-        public void enableLeftSegment() { segment_left.gameObject.SetActive(true); }
-        public void enableRightSegment() { segment_right.gameObject.SetActive(true); }
-        public void enableUpSegment() { segment_up.gameObject.SetActive(true); }
-        public void enableDownSegment() { segment_down.gameObject.SetActive(true); }
+        public void toggleLeftSegment() { 
+            if (segment_left.gameObject.activeSelf)
+                segment_left.gameObject.SetActive(false);
+            else
+                segment_left.gameObject.SetActive(true);
+        }
 
-        public void disableLeftSegment() { segment_left.gameObject.SetActive(false); }
-        public void disableRightSegment() { segment_right.gameObject.SetActive(false); }
-        public void disableUpSegment() { segment_up.gameObject.SetActive(false); }
-        public void disableDownSegment() { segment_down.gameObject.SetActive(false); }
+        public void toggleRightSegment()
+        {
+            if (segment_right.gameObject.activeSelf)
+                segment_right.gameObject.SetActive(false);
+            else
+                segment_right.gameObject.SetActive(true);
+        }
+
+        public void toggleUpSegment()
+        {
+            if (segment_up.gameObject.activeSelf)
+                segment_up.gameObject.SetActive(false);
+            else
+                segment_up.gameObject.SetActive(true);
+        }
+
+        public void toggleDownSegment()
+        {
+            if (segment_down.gameObject.activeSelf)
+                segment_down.gameObject.SetActive(false);
+            else
+                segment_down.gameObject.SetActive(true);
+        }
     }
 }

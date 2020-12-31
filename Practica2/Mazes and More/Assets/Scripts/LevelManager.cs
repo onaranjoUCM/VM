@@ -8,8 +8,6 @@ namespace MazesAndMore {
         public TextAsset level; // PROVISIONAL
         public BoardManager boardManager;
 
-        Vector2 currentPos;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -23,31 +21,22 @@ namespace MazesAndMore {
             boardManager.init(this);
             Map map = new Map(level);
             boardManager.setMap(map);
-            currentPos = new Vector2(map.start.x, map.start.y);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey("up"))
-            {
-                /*if (boardManager.canMove(currentPos.x, currentPos.y, 0))    // TODO: Usar enum SIDE en el 3º parametro
-                {
-                    boardManager.moveUp();
-                    currentPos.y += 1;
-                }*/
+            if (Input.GetKey("up") && boardManager.canMove((int)SIDE.UP)) {
+                boardManager.movePlayer((int)SIDE.UP);
             } 
-            else if (Input.GetKey("down"))
-            {
-                // TODO
+            else if (Input.GetKey("down") && boardManager.canMove((int)SIDE.DOWN)) {
+                boardManager.movePlayer((int)SIDE.DOWN);
             }
-            else if (Input.GetKey("left"))
-            {
-                // TODO
+            else if (Input.GetKey("left") && boardManager.canMove((int)SIDE.LEFT)) {
+                boardManager.movePlayer((int)SIDE.LEFT);
             }
-            else if (Input.GetKey("right"))
-            {
-                // TODO
+            else if (Input.GetKey("right") && boardManager.canMove((int)SIDE.RIGHT)) {
+                boardManager.movePlayer((int)SIDE.RIGHT);
             }
         }
     }

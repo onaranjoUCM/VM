@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MazesAndMore {
     public class BoardManager : MonoBehaviour
@@ -9,6 +7,8 @@ namespace MazesAndMore {
 
         private Tile[,] _tiles;
         private LevelManager _levelManager;
+
+        Tile playerTile;
 
         public void init(LevelManager levelManager)
         {
@@ -26,12 +26,15 @@ namespace MazesAndMore {
                 {
                     _tiles[i, j] = Instantiate(tilePrefab, new Vector3(i, j, 0), Quaternion.identity);
                     _tiles[i, j].transform.parent = gameObject.transform;
+                    _tiles[i, j].x = i;
+                    _tiles[i, j].y = j;
                 }
             }
 
             // Set start and finish
             _tiles[(int)map.start.x, (int)map.start.y].enableStart();
             _tiles[(int)map.finish.x, (int)map.finish.y].enableFinish();
+            playerTile = _tiles[(int)map.start.x, (int)map.start.y];
 
             // Set walls
             setWalls(map);
@@ -43,12 +46,64 @@ namespace MazesAndMore {
             transform.Translate(Vector3.left * (map.cols / 2) * scaleFactor);
             transform.Translate(Vector3.down * (map.rows / 2) * scaleFactor);
         }
-        /*
-        public bool canMove(int x, int y, int dir)
+
+        public bool canMove(int dir)
         {
-            return _tiles[x, y].openSides[dir];
+            // Check LEFT wall
+            if (dir == (int)SIDE.LEFT)
+                return playerTile.openSides[(int)SIDE.LEFT];
+
+            // Since there are only LEFT and UP walls, to check RIGHT
+            // we need to check the LEFT wall of the tile on the right
+            if (dir == (int)SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
+                    return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)SIDE.LEFT];
+
+            // Check UP wall
+            if (dir == (int)SIDE.UP)
+                return playerTile.openSides[dir];
+
+            // Since there are only LEFT and UP walls, to check DOWN
+            // we need to check the UP wall of the tile underneath
+            if (dir == (int)SIDE.DOWN && playerTile.y - 1 >= 0)
+                return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)SIDE.UP];
+
+            // If we reach here it means we are trying to move RIGHT or DOWN out of the maze
+            return false;
         }
-        */
+
+        public void movePlayer(int dir)
+        {
+            Tile newTile = null;
+            if (dir == (int)SIDE.LEFT)
+            {
+                newTile = _tiles[playerTile.x - 1, playerTile.y];
+                newTile.toggleRightSegment();
+                playerTile.toggleLeftSegment();
+            }
+            else if (dir == (int)SIDE.RIGHT)
+            {
+                newTile = _tiles[playerTile.x + 1, playerTile.y];
+                newTile.toggleLeftSegment();
+                playerTile.toggleRightSegment();
+            }
+            else if (dir == (int)SIDE.UP)
+            {
+                newTile = _tiles[playerTile.x, playerTile.y + 1];
+                newTile.toggleDownSegment();
+                playerTile.toggleUpSegment();
+            }
+            else if (dir == (int)SIDE.DOWN)
+            {
+                newTile = _tiles[playerTile.x, playerTile.y - 1];
+                newTile.toggleUpSegment();
+                playerTile.toggleDownSegment();
+            }
+
+            playerTile.disableStart();
+            newTile.enableStart();
+            playerTile = newTile;
+        }
+
         private void setWalls(Map map)
         {
             foreach (JSONWall wall in map.walls)
