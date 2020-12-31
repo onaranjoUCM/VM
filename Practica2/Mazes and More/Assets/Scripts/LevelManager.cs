@@ -8,7 +8,10 @@ namespace MazesAndMore {
         public TextAsset level; // PROVISIONAL
         public BoardManager boardManager;
 
-        // Start is called before the first frame update
+        public GameObject player;
+        public float playerSpeed = 5;
+        private Vector3 target;
+
         void Start()
         {
 #if UNITY_EDITOR
@@ -21,23 +24,35 @@ namespace MazesAndMore {
             boardManager.init(this);
             Map map = new Map(level);
             boardManager.setMap(map);
+
+            player.transform.position = boardManager.getTile((int)map.start.x, (int)map.start.y).transform.position;
+            target = player.transform.position;
         }
 
-        // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey("up") && boardManager.canMove((int)SIDE.UP)) {
-                boardManager.movePlayer((int)SIDE.UP);
-            } 
-            else if (Input.GetKey("down") && boardManager.canMove((int)SIDE.DOWN)) {
-                boardManager.movePlayer((int)SIDE.DOWN);
+            if (player.transform.position == target)
+            {
+                if (Input.GetKey("up") && boardManager.canMove((int)SIDE.UP))
+                {
+                    target = boardManager.movePlayer((int)SIDE.UP);
+                }
+                else if (Input.GetKey("down") && boardManager.canMove((int)SIDE.DOWN))
+                {
+                    target = boardManager.movePlayer((int)SIDE.DOWN);
+                }
+                else if (Input.GetKey("left") && boardManager.canMove((int)SIDE.LEFT))
+                {
+                    target = boardManager.movePlayer((int)SIDE.LEFT);
+                }
+                else if (Input.GetKey("right") && boardManager.canMove((int)SIDE.RIGHT))
+                {
+                    target = boardManager.movePlayer((int)SIDE.RIGHT);
+                }
             }
-            else if (Input.GetKey("left") && boardManager.canMove((int)SIDE.LEFT)) {
-                boardManager.movePlayer((int)SIDE.LEFT);
-            }
-            else if (Input.GetKey("right") && boardManager.canMove((int)SIDE.RIGHT)) {
-                boardManager.movePlayer((int)SIDE.RIGHT);
-            }
+
+            float step = playerSpeed * Time.deltaTime;
+            player.transform.position = Vector3.MoveTowards(player.transform.position, target, step);
         }
     }
 }

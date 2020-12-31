@@ -71,7 +71,7 @@ namespace MazesAndMore {
             return false;
         }
 
-        public void movePlayer(int dir)
+        public Vector3 movePlayer(int dir)
         {
             Tile newTile = null;
             if (dir == (int)SIDE.LEFT)
@@ -100,8 +100,8 @@ namespace MazesAndMore {
             }
 
             playerTile.disableStart();
-            newTile.enableStart();
             playerTile = newTile;
+            return newTile.transform.position;
         }
 
         private void setWalls(Map map)
@@ -129,6 +129,11 @@ namespace MazesAndMore {
                         _tiles[x - 1, y - 1].enableRightWall();
                 }
             }
+        }
+
+        public Tile getTile(int x, int y)
+        {
+            return _tiles[x, y];
         }
     }
 }
