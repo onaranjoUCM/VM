@@ -147,6 +147,10 @@ MonoBehaviour:
   segment_right: {fileID: 8034759030823890728}
   segment_up: {fileID: 4093175385427638595}
   segment_down: {fileID: 7958790665850210338}
+  openSides: 01010101
+  numberOfOpenSides: 4
+  x: 0
+  y: 0
 --- !u!1 &2294580559840743424
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,8 +302,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 323669291
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -3714223025549352440, guid: a3404f0495c8c5442b02f982404418d3,
     type: 3}

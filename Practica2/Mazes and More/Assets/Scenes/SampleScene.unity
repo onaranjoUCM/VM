@@ -155,8 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 4900000, guid: 25a4cb5fd070a2046b93736516737a13, type: 3}
   boardManager: {fileID: 805658759}
-  player: {fileID: 1177221785}
-  playerSpeed: 5
 --- !u!4 &127514209
 Transform:
   m_ObjectHideFlags: 0
@@ -305,6 +303,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7582123444744596919}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1177221788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177221785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6dc148e006938341bacea609c5fde22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardManager: {fileID: 805658759}
+  speed: 5
 --- !u!1001 &6874713353409634290
 PrefabInstance:
   m_ObjectHideFlags: 0

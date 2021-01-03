@@ -1,10 +1,15 @@
 ﻿namespace MazesAndMore
 {
-    public enum SIDE
+    public static class Utils
     {
-        LEFT,
-        RIGHT,
-        UP,
-        DOWN
+        public enum SIDE
+        {
+            LEFT,
+            RIGHT,
+            UP,
+            DOWN
+        }
+
+        public static int[] opposite = { 1, 0, 3, 2 };
     }
 }

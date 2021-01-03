@@ -20,8 +20,8 @@ namespace MazesAndMore
 
         [HideInInspector]
         public bool[] openSides = { true, true, true, true };
-        [HideInInspector]
-        int numberOfOpenSides = 4;
+        //[HideInInspector]
+        public int numberOfOpenSides = 4;
         [HideInInspector]
         public int x;
         [HideInInspector]
@@ -49,22 +49,32 @@ namespace MazesAndMore
         // Walls
         public void enableLeftWall() { 
             wall_left.gameObject.SetActive(true);
-            openSides[(int)SIDE.LEFT] = false;
+            openSides[(int)Utils.SIDE.LEFT] = false;
             numberOfOpenSides--;
         }
         public void enableRightWall() { 
             wall_right.gameObject.SetActive(true);
-            openSides[(int)SIDE.RIGHT] = false;
-            numberOfOpenSides--;
+            blockRightWall();
         }
         public void enableUpWall() { 
             wall_up.gameObject.SetActive(true);
-            openSides[(int)SIDE.UP] = false;
+            openSides[(int)Utils.SIDE.UP] = false;
             numberOfOpenSides--;
         }
         public void enableDownWall() { 
             wall_down.gameObject.SetActive(true);
-            openSides[(int)SIDE.DOWN] = false;
+            blockDownWall();
+        }
+
+        public void blockDownWall()
+        {
+            openSides[(int)Utils.SIDE.DOWN] = false;
+            numberOfOpenSides--;
+        }
+
+        public void blockRightWall()
+        {
+            openSides[(int)Utils.SIDE.RIGHT] = false;
             numberOfOpenSides--;
         }
 

@@ -32,7 +32,6 @@ namespace MazesAndMore {
             }
 
             // Set start and finish
-            _tiles[(int)map.start.x, (int)map.start.y].enableStart();
             _tiles[(int)map.finish.x, (int)map.finish.y].enableFinish();
             playerTile = _tiles[(int)map.start.x, (int)map.start.y];
 
@@ -50,57 +49,57 @@ namespace MazesAndMore {
         public bool canMove(int dir)
         {
             // Check LEFT wall
-            if (dir == (int)SIDE.LEFT)
-                return playerTile.openSides[(int)SIDE.LEFT];
+            if (dir == (int)Utils.SIDE.LEFT)
+                return playerTile.openSides[(int)Utils.SIDE.LEFT];
 
             // Since there are only LEFT and UP walls, to check RIGHT
             // we need to check the LEFT wall of the tile on the right
-            if (dir == (int)SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
-                    return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)SIDE.LEFT];
+            if (dir == (int)Utils.SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
+                    return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)Utils.SIDE.LEFT];
 
             // Check UP wall
-            if (dir == (int)SIDE.UP)
+            if (dir == (int)Utils.SIDE.UP)
                 return playerTile.openSides[dir];
 
             // Since there are only LEFT and UP walls, to check DOWN
             // we need to check the UP wall of the tile underneath
-            if (dir == (int)SIDE.DOWN && playerTile.y - 1 >= 0)
-                return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)SIDE.UP];
+            if (dir == (int)Utils.SIDE.DOWN && playerTile.y - 1 >= 0)
+                return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)Utils.SIDE.UP];
 
             // If we reach here it means we are trying to move RIGHT or DOWN out of the maze
             return false;
         }
 
-        public Vector3 movePlayer(int dir)
+        public Vector3 movePlayer(int dir, float speed)
         {
             Tile newTile = null;
-            if (dir == (int)SIDE.LEFT)
+            if (dir == (int)Utils.SIDE.LEFT)
             {
                 newTile = _tiles[playerTile.x - 1, playerTile.y];
                 newTile.toggleRightSegment();
                 playerTile.toggleLeftSegment();
             }
-            else if (dir == (int)SIDE.RIGHT)
+            else if (dir == (int)Utils.SIDE.RIGHT)
             {
                 newTile = _tiles[playerTile.x + 1, playerTile.y];
                 newTile.toggleLeftSegment();
                 playerTile.toggleRightSegment();
             }
-            else if (dir == (int)SIDE.UP)
+            else if (dir == (int)Utils.SIDE.UP)
             {
                 newTile = _tiles[playerTile.x, playerTile.y + 1];
                 newTile.toggleDownSegment();
                 playerTile.toggleUpSegment();
             }
-            else if (dir == (int)SIDE.DOWN)
+            else if (dir == (int)Utils.SIDE.DOWN)
             {
                 newTile = _tiles[playerTile.x, playerTile.y - 1];
                 newTile.toggleUpSegment();
                 playerTile.toggleDownSegment();
             }
 
-            playerTile.disableStart();
             playerTile = newTile;
+
             return newTile.transform.position;
         }
 
@@ -115,7 +114,11 @@ namespace MazesAndMore {
                 if (y == wall.d.y)
                 {
                     if (y > 0)
+                    {
                         _tiles[x, y - 1].enableUpWall();
+                        if (y < map.rows)
+                            _tiles[x, y].blockDownWall();
+                    }
                     else
                         _tiles[x, y].enableDownWall();
                 }
@@ -124,7 +127,11 @@ namespace MazesAndMore {
                 if (x == wall.d.x)
                 {
                     if (x < map.cols)
+                    {
                         _tiles[x, y - 1].enableLeftWall();
+                        if (x - 1 >= 0)
+                            _tiles[x - 1, y - 1].blockRightWall();
+                    }
                     else
                         _tiles[x - 1, y - 1].enableRightWall();
                 }
@@ -134,6 +141,11 @@ namespace MazesAndMore {
         public Tile getTile(int x, int y)
         {
             return _tiles[x, y];
+        }
+
+        public Tile getPlayerTile()
+        {
+            return playerTile;
         }
     }
 }
