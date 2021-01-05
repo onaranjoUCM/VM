@@ -38,7 +38,7 @@ namespace MazesAndMore {
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            if (boardManager.getPlayerTile().openSides[i] && i != Utils.opposite[direction])
+                            if (boardManager.getPlayerTile().openSides[i] && i != Tile.opposite[direction])
                             {
                                 startMoving(i);
                                 break;
@@ -53,14 +53,14 @@ namespace MazesAndMore {
 
             // Player is not moving, so it can recieve move commands
             } else {
-                if (Input.GetKey("up") && boardManager.canMove((int)Utils.SIDE.UP))
-                    startMoving((int)Utils.SIDE.UP);
-                else if (Input.GetKey("down") && boardManager.canMove((int)Utils.SIDE.DOWN))
-                    startMoving((int)Utils.SIDE.DOWN);
-                else if (Input.GetKey("left") && boardManager.canMove((int)Utils.SIDE.LEFT))
-                    startMoving((int)Utils.SIDE.LEFT);
-                else if (Input.GetKey("right") && boardManager.canMove((int)Utils.SIDE.RIGHT))
-                    startMoving((int)Utils.SIDE.RIGHT);
+                if (Input.GetKey("up") && boardManager.canMove((int)Tile.SIDE.UP))
+                    startMoving((int)Tile.SIDE.UP);
+                else if (Input.GetKey("down") && boardManager.canMove((int)Tile.SIDE.DOWN))
+                    startMoving((int)Tile.SIDE.DOWN);
+                else if (Input.GetKey("left") && boardManager.canMove((int)Tile.SIDE.LEFT))
+                    startMoving((int)Tile.SIDE.LEFT);
+                else if (Input.GetKey("right") && boardManager.canMove((int)Tile.SIDE.RIGHT))
+                    startMoving((int)Tile.SIDE.RIGHT);
             }
         }
 
@@ -68,7 +68,7 @@ namespace MazesAndMore {
         {
             moving = true;
             direction = dir;
-            target = boardManager.movePlayer(dir, speed);
+            target = boardManager.findTarget(dir);
         }
     }
 }

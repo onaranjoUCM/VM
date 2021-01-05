@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelPackage : ScriptableObject
 {
     public TextAsset[] levels;
-    Color color;
+    public Color color;
     // Boton normal
     // Boton pulsado
 }

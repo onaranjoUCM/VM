@@ -6,6 +6,9 @@ namespace MazesAndMore
 {
     public class Tile : MonoBehaviour
     {
+        public enum SIDE { LEFT, RIGHT, UP, DOWN }
+        public static int[] opposite = { 1, 0, 3, 2 };
+
         public SpriteRenderer iceFloor;
         public SpriteRenderer start;
         public SpriteRenderer finish;
@@ -19,8 +22,10 @@ namespace MazesAndMore
         public SpriteRenderer segment_down;
 
         [HideInInspector]
+        public int[] timesSegmentCrossed = { 0, 0, 0, 0 };
+        [HideInInspector]
         public bool[] openSides = { true, true, true, true };
-        //[HideInInspector]
+        [HideInInspector]
         public int numberOfOpenSides = 4;
         [HideInInspector]
         public int x;
@@ -40,6 +45,14 @@ namespace MazesAndMore
 #endif
         }
 
+        public void setSegmentColor(Color c)
+        {
+            segment_up.color = c;
+            segment_down.color = c;
+            segment_left.color = c;
+            segment_right.color = c;
+        }
+
         // Misc
         public void enableIce() { iceFloor.gameObject.SetActive(true); }
         public void enableStart() { start.gameObject.SetActive(true); }
@@ -49,7 +62,7 @@ namespace MazesAndMore
         // Walls
         public void enableLeftWall() { 
             wall_left.gameObject.SetActive(true);
-            openSides[(int)Utils.SIDE.LEFT] = false;
+            openSides[(int)SIDE.LEFT] = false;
             numberOfOpenSides--;
         }
         public void enableRightWall() { 
@@ -58,7 +71,7 @@ namespace MazesAndMore
         }
         public void enableUpWall() { 
             wall_up.gameObject.SetActive(true);
-            openSides[(int)Utils.SIDE.UP] = false;
+            openSides[(int)SIDE.UP] = false;
             numberOfOpenSides--;
         }
         public void enableDownWall() { 
@@ -68,18 +81,19 @@ namespace MazesAndMore
 
         public void blockDownWall()
         {
-            openSides[(int)Utils.SIDE.DOWN] = false;
+            openSides[(int)SIDE.DOWN] = false;
             numberOfOpenSides--;
         }
 
         public void blockRightWall()
         {
-            openSides[(int)Utils.SIDE.RIGHT] = false;
+            openSides[(int)SIDE.RIGHT] = false;
             numberOfOpenSides--;
         }
 
         // Player segments
-        public void toggleLeftSegment() { 
+        public void toggleLeftSegment()
+        {
             if (segment_left.gameObject.activeSelf)
                 segment_left.gameObject.SetActive(false);
             else
@@ -109,5 +123,14 @@ namespace MazesAndMore
             else
                 segment_down.gameObject.SetActive(true);
         }
+
+        public void enableLeftSegment() { segment_left.gameObject.SetActive(true); }
+        public void enableRightSegment() { segment_right.gameObject.SetActive(true); }
+        public void enableUpSegment() { segment_up.gameObject.SetActive(true); }
+        public void enableDownSegment() { segment_down.gameObject.SetActive(true); }
+        public void disableLeftSegment() { segment_left.gameObject.SetActive(false); }
+        public void disableRightSegment() { segment_right.gameObject.SetActive(false); }
+        public void disableUpSegment() { segment_up.gameObject.SetActive(false); }
+        public void disableDownSegment() { segment_down.gameObject.SetActive(false); }
     }
 }

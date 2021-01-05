@@ -5,6 +5,7 @@ namespace MazesAndMore {
     {
         public TextAsset level; // PROVISIONAL
         public BoardManager boardManager;
+        public GameObject player;
 
         void Start()
         {
@@ -16,8 +17,8 @@ namespace MazesAndMore {
             }
 #endif
             boardManager.init(this);
-            Map map = new Map(level);
-            boardManager.setMap(map);
+            boardManager.setMap(new Map(level));
+            boardManager.activateHint(0);
         }
     }
 }

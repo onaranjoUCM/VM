@@ -5,6 +5,7 @@ namespace MazesAndMore {
     {
         public Tile tilePrefab;
 
+        Map _map;
         private Tile[,] _tiles;
         private LevelManager _levelManager;
 
@@ -17,6 +18,7 @@ namespace MazesAndMore {
 
         public void setMap(Map map)
         {
+            _map = map;
             _tiles = new Tile[map.cols, map.rows];
 
             // Instantiate tiles
@@ -49,49 +51,49 @@ namespace MazesAndMore {
         public bool canMove(int dir)
         {
             // Check LEFT wall
-            if (dir == (int)Utils.SIDE.LEFT)
-                return playerTile.openSides[(int)Utils.SIDE.LEFT];
+            if (dir == (int)Tile.SIDE.LEFT)
+                return playerTile.openSides[(int)Tile.SIDE.LEFT];
 
             // Since there are only LEFT and UP walls, to check RIGHT
             // we need to check the LEFT wall of the tile on the right
-            if (dir == (int)Utils.SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
-                    return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)Utils.SIDE.LEFT];
+            if (dir == (int)Tile.SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
+                    return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)Tile.SIDE.LEFT];
 
             // Check UP wall
-            if (dir == (int)Utils.SIDE.UP)
+            if (dir == (int)Tile.SIDE.UP)
                 return playerTile.openSides[dir];
 
             // Since there are only LEFT and UP walls, to check DOWN
             // we need to check the UP wall of the tile underneath
-            if (dir == (int)Utils.SIDE.DOWN && playerTile.y - 1 >= 0)
-                return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)Utils.SIDE.UP];
+            if (dir == (int)Tile.SIDE.DOWN && playerTile.y - 1 >= 0)
+                return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)Tile.SIDE.UP];
 
             // If we reach here it means we are trying to move RIGHT or DOWN out of the maze
             return false;
         }
 
-        public Vector3 movePlayer(int dir, float speed)
+        public Vector3 findTarget(int dir)
         {
             Tile newTile = null;
-            if (dir == (int)Utils.SIDE.LEFT)
+            if (dir == (int)Tile.SIDE.LEFT)
             {
                 newTile = _tiles[playerTile.x - 1, playerTile.y];
                 newTile.toggleRightSegment();
                 playerTile.toggleLeftSegment();
             }
-            else if (dir == (int)Utils.SIDE.RIGHT)
+            else if (dir == (int)Tile.SIDE.RIGHT)
             {
                 newTile = _tiles[playerTile.x + 1, playerTile.y];
                 newTile.toggleLeftSegment();
                 playerTile.toggleRightSegment();
             }
-            else if (dir == (int)Utils.SIDE.UP)
+            else if (dir == (int)Tile.SIDE.UP)
             {
                 newTile = _tiles[playerTile.x, playerTile.y + 1];
                 newTile.toggleDownSegment();
                 playerTile.toggleUpSegment();
             }
-            else if (dir == (int)Utils.SIDE.DOWN)
+            else if (dir == (int)Tile.SIDE.DOWN)
             {
                 newTile = _tiles[playerTile.x, playerTile.y - 1];
                 newTile.toggleUpSegment();
@@ -146,6 +148,47 @@ namespace MazesAndMore {
         public Tile getPlayerTile()
         {
             return playerTile;
+        }
+
+        public void activateHint(int n)
+        {
+            JSONPoint prevPoint = _map.start;
+            for (int i = n; i < _map.hints.Count; i++)
+            {
+                JSONPoint p = _map.hints[i];
+                Tile prevTile = _tiles[(int)prevPoint.x, (int)prevPoint.y];
+                Tile pTile = _tiles[(int)p.x, (int)p.y];
+                prevTile.setSegmentColor(Color.yellow);
+                pTile.setSegmentColor(Color.yellow);
+                
+                if (prevPoint.x == p.x) // Vertical segment
+                {
+                    if (prevPoint.y < p.y)
+                    {
+                        prevTile.toggleUpSegment();
+                        pTile.toggleDownSegment();
+                    } else
+                    {
+                        prevTile.toggleDownSegment();
+                        pTile.toggleUpSegment();
+                    }
+
+                }
+                else
+                {   // Horizontal segment
+                    if (prevPoint.x < p.x)
+                    {
+                        prevTile.toggleRightSegment();
+                        pTile.toggleLeftSegment();
+                    }
+                    else
+                    {
+                        prevTile.toggleLeftSegment();
+                        pTile.toggleRightSegment();
+                    }
+                }
+                prevPoint = p;
+            }
         }
     }
 }
