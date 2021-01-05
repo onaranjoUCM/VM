@@ -18,7 +18,7 @@ namespace MazesAndMore
 
         public Map(TextAsset json)
         {
-            JSONMap jsonMap = (JSONMap)JsonUtility.FromJson<JSONMap>(json.text);
+            JSONMap jsonMap = JsonUtility.FromJson<JSONMap>(json.text);
             rows = jsonMap.r;
             cols = jsonMap.c;
             start = jsonMap.s;

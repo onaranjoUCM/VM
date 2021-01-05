@@ -6,25 +6,28 @@ namespace MazesAndMore
 {
     public class Tile : MonoBehaviour
     {
-        public enum SIDE { LEFT, RIGHT, UP, DOWN }
+        public enum SIDE { LEFT, RIGHT, UP, DOWN, ALL }
         public static int[] opposite = { 1, 0, 3, 2 };
+        Color playerColor;
+        Color hintColor;
 
         public SpriteRenderer iceFloor;
         public SpriteRenderer start;
         public SpriteRenderer finish;
+
         public SpriteRenderer wall_left;
         public SpriteRenderer wall_right;
         public SpriteRenderer wall_up;
         public SpriteRenderer wall_down;
-        public SpriteRenderer segment_left;
-        public SpriteRenderer segment_right;
-        public SpriteRenderer segment_up;
-        public SpriteRenderer segment_down;
+        
+        public SpriteRenderer[] segments;
 
         [HideInInspector]
         public int[] timesSegmentCrossed = { 0, 0, 0, 0 };
         [HideInInspector]
         public bool[] openSides = { true, true, true, true };
+        [HideInInspector]
+        public bool[] hintedSegments = { false, false, false, false };
         [HideInInspector]
         public int numberOfOpenSides = 4;
         [HideInInspector]
@@ -37,7 +40,7 @@ namespace MazesAndMore
 #if UNITY_EDITOR
             if (iceFloor == null || start == null || finish == null ||
                 wall_left == null || wall_right == null || wall_up == null || wall_down == null || 
-                segment_left == null || segment_right == null || segment_up == null || segment_down == null)  {
+                segments[0] == null || segments[1] == null || segments[2] == null || segments[3] == null)  {
                 Debug.LogError("Missing sprite");
                 gameObject.SetActive(false);
                 return;
@@ -45,12 +48,33 @@ namespace MazesAndMore
 #endif
         }
 
-        public void setSegmentColor(Color c)
+        public void checkSegments() {
+            for (int i = 0; i < segments.Length; i++)
+            {
+                if (timesSegmentCrossed[i] != 0)
+                {
+                    enableSegment(i);
+                    segments[i].color = playerColor;
+                }
+                else
+                    if (hintedSegments[i])
+                    segments[i].color = hintColor;
+                else
+                    disableSegment(i);
+            }
+        }
+
+        public void setSegmentColor(int side, Color c)
         {
-            segment_up.color = c;
-            segment_down.color = c;
-            segment_left.color = c;
-            segment_right.color = c;
+            if (side == (int)SIDE.ALL)
+            {
+                foreach (SpriteRenderer segment in segments)
+                    segment.color = c;
+            }
+            else
+            {
+                segments[side].color = c;
+            }
         }
 
         // Misc
@@ -92,45 +116,24 @@ namespace MazesAndMore
         }
 
         // Player segments
-        public void toggleLeftSegment()
+        public void enableSegment(int dir) { segments[dir].gameObject.SetActive(true); }
+        public void disableSegment(int dir) { segments[dir].gameObject.SetActive(false); }
+
+        // Hints
+        public void hintSegment(int side)
         {
-            if (segment_left.gameObject.activeSelf)
-                segment_left.gameObject.SetActive(false);
-            else
-                segment_left.gameObject.SetActive(true);
+            hintedSegments[side] = true;
+            enableSegment(side);
         }
 
-        public void toggleRightSegment()
+        public void setPlayerColor(Color c)
         {
-            if (segment_right.gameObject.activeSelf)
-                segment_right.gameObject.SetActive(false);
-            else
-                segment_right.gameObject.SetActive(true);
+            playerColor = c;
         }
 
-        public void toggleUpSegment()
+        public void setHintColor(Color c)
         {
-            if (segment_up.gameObject.activeSelf)
-                segment_up.gameObject.SetActive(false);
-            else
-                segment_up.gameObject.SetActive(true);
+            hintColor = c;
         }
-
-        public void toggleDownSegment()
-        {
-            if (segment_down.gameObject.activeSelf)
-                segment_down.gameObject.SetActive(false);
-            else
-                segment_down.gameObject.SetActive(true);
-        }
-
-        public void enableLeftSegment() { segment_left.gameObject.SetActive(true); }
-        public void enableRightSegment() { segment_right.gameObject.SetActive(true); }
-        public void enableUpSegment() { segment_up.gameObject.SetActive(true); }
-        public void enableDownSegment() { segment_down.gameObject.SetActive(true); }
-        public void disableLeftSegment() { segment_left.gameObject.SetActive(false); }
-        public void disableRightSegment() { segment_right.gameObject.SetActive(false); }
-        public void disableUpSegment() { segment_up.gameObject.SetActive(false); }
-        public void disableDownSegment() { segment_down.gameObject.SetActive(false); }
     }
 }

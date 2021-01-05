@@ -7,6 +7,7 @@ namespace MazesAndMore {
 
         Map _map;
         private Tile[,] _tiles;
+
         private LevelManager _levelManager;
 
         Tile playerTile;
@@ -16,7 +17,7 @@ namespace MazesAndMore {
             _levelManager = levelManager;
         }
 
-        public void setMap(Map map)
+        public void setMap(Map map, Color segmentsColor)
         {
             _map = map;
             _tiles = new Tile[map.cols, map.rows];
@@ -30,6 +31,9 @@ namespace MazesAndMore {
                     _tiles[i, j].transform.parent = gameObject.transform;
                     _tiles[i, j].x = i;
                     _tiles[i, j].y = j;
+                    _tiles[i, j].setSegmentColor((int)Tile.SIDE.ALL, segmentsColor);
+                    _tiles[i, j].setPlayerColor(segmentsColor);
+                    _tiles[i, j].setHintColor(Color.yellow);
                 }
             }
 
@@ -78,28 +82,30 @@ namespace MazesAndMore {
             if (dir == (int)Tile.SIDE.LEFT)
             {
                 newTile = _tiles[playerTile.x - 1, playerTile.y];
-                newTile.toggleRightSegment();
-                playerTile.toggleLeftSegment();
+                newTile.timesSegmentCrossed[(int)Tile.SIDE.RIGHT]++;
+                playerTile.timesSegmentCrossed[(int)Tile.SIDE.LEFT]++;
             }
             else if (dir == (int)Tile.SIDE.RIGHT)
             {
                 newTile = _tiles[playerTile.x + 1, playerTile.y];
-                newTile.toggleLeftSegment();
-                playerTile.toggleRightSegment();
+                newTile.timesSegmentCrossed[(int)Tile.SIDE.LEFT]--;
+                playerTile.timesSegmentCrossed[(int)Tile.SIDE.RIGHT]--;
             }
             else if (dir == (int)Tile.SIDE.UP)
             {
                 newTile = _tiles[playerTile.x, playerTile.y + 1];
-                newTile.toggleDownSegment();
-                playerTile.toggleUpSegment();
+                newTile.timesSegmentCrossed[(int)Tile.SIDE.DOWN]++;
+                playerTile.timesSegmentCrossed[(int)Tile.SIDE.UP]++;
             }
             else if (dir == (int)Tile.SIDE.DOWN)
             {
                 newTile = _tiles[playerTile.x, playerTile.y - 1];
-                newTile.toggleUpSegment();
-                playerTile.toggleDownSegment();
+                newTile.timesSegmentCrossed[(int)Tile.SIDE.UP]--;
+                playerTile.timesSegmentCrossed[(int)Tile.SIDE.DOWN]--;
             }
 
+            newTile.checkSegments();
+            playerTile.checkSegments();
             playerTile = newTile;
 
             return newTile.transform.position;
@@ -150,6 +156,7 @@ namespace MazesAndMore {
             return playerTile;
         }
 
+        // PROVISIONAL. (Pendiente de averiguar el funcionamiento exacto de las pistas)
         public void activateHint(int n)
         {
             JSONPoint prevPoint = _map.start;
@@ -158,33 +165,38 @@ namespace MazesAndMore {
                 JSONPoint p = _map.hints[i];
                 Tile prevTile = _tiles[(int)prevPoint.x, (int)prevPoint.y];
                 Tile pTile = _tiles[(int)p.x, (int)p.y];
-                prevTile.setSegmentColor(Color.yellow);
-                pTile.setSegmentColor(Color.yellow);
                 
                 if (prevPoint.x == p.x) // Vertical segment
                 {
                     if (prevPoint.y < p.y)
                     {
-                        prevTile.toggleUpSegment();
-                        pTile.toggleDownSegment();
+                        prevTile.setSegmentColor((int)Tile.SIDE.UP, Color.yellow);
+                        prevTile.hintSegment((int)Tile.SIDE.UP);
+                        pTile.setSegmentColor((int)Tile.SIDE.DOWN, Color.yellow);
+                        pTile.hintSegment((int)Tile.SIDE.DOWN);
                     } else
                     {
-                        prevTile.toggleDownSegment();
-                        pTile.toggleUpSegment();
+                        prevTile.setSegmentColor((int)Tile.SIDE.DOWN, Color.yellow);
+                        prevTile.hintSegment((int)Tile.SIDE.DOWN);
+                        pTile.setSegmentColor((int)Tile.SIDE.UP, Color.yellow);
+                        pTile.hintSegment((int)Tile.SIDE.UP);
                     }
-
                 }
                 else
                 {   // Horizontal segment
                     if (prevPoint.x < p.x)
                     {
-                        prevTile.toggleRightSegment();
-                        pTile.toggleLeftSegment();
+                        prevTile.setSegmentColor((int)Tile.SIDE.RIGHT, Color.yellow);
+                        prevTile.hintSegment((int)Tile.SIDE.RIGHT); ;
+                        pTile.setSegmentColor((int)Tile.SIDE.LEFT, Color.yellow);
+                        pTile.hintSegment((int)Tile.SIDE.LEFT);
                     }
                     else
                     {
-                        prevTile.toggleLeftSegment();
-                        pTile.toggleRightSegment();
+                        prevTile.setSegmentColor((int)Tile.SIDE.LEFT, Color.yellow);
+                        prevTile.hintSegment((int)Tile.SIDE.LEFT);
+                        pTile.setSegmentColor((int)Tile.SIDE.RIGHT, Color.yellow);
+                        pTile.hintSegment((int)Tile.SIDE.RIGHT);
                     }
                 }
                 prevPoint = p;

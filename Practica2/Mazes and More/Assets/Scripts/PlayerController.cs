@@ -45,8 +45,6 @@ namespace MazesAndMore {
                             }
                         }
                     }
-
-                    // Player is still in the way to his target
                 }
                 else
                     transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
@@ -69,6 +67,11 @@ namespace MazesAndMore {
             moving = true;
             direction = dir;
             target = boardManager.findTarget(dir);
+        }
+
+        public void setColor(Color c)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = c;
         }
     }
 }

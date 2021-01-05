@@ -143,11 +143,14 @@ MonoBehaviour:
   wall_right: {fileID: 1221722205106591466}
   wall_up: {fileID: 2310757076538134517}
   wall_down: {fileID: 4946183869874595032}
-  segment_left: {fileID: 4074115732385665438}
-  segment_right: {fileID: 8034759030823890728}
-  segment_up: {fileID: 4093175385427638595}
-  segment_down: {fileID: 7958790665850210338}
+  segments:
+  - {fileID: 4074115732385665438}
+  - {fileID: 8034759030823890728}
+  - {fileID: 4093175385427638595}
+  - {fileID: 7958790665850210338}
+  timesSegmentCrossed: 00000000000000000000000000000000
   openSides: 01010101
+  hintedSegments: 00000000
   numberOfOpenSides: 4
   x: 0
   y: 0
@@ -303,7 +306,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 323669291
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -3714223025549352440, guid: a3404f0495c8c5442b02f982404418d3,
     type: 3}

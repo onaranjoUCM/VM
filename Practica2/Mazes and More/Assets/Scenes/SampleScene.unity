@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 4900000, guid: 25a4cb5fd070a2046b93736516737a13, type: 3}
   boardManager: {fileID: 805658759}
+  player: {fileID: 1177221788}
 --- !u!4 &127514209
 Transform:
   m_ObjectHideFlags: 0
