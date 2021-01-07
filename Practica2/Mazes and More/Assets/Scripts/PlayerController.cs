@@ -34,7 +34,7 @@ namespace MazesAndMore {
                 {
                     moving = false;
                     // The target was a corner, so player must turn around
-                    if (boardManager.getPlayerTile().numberOfOpenSides == 2)
+                    if (boardManager.getPlayerTile().numberOfOpenSides == 2 && !boardManager.getPlayerTile().iceFloor.isVisible)
                     {
                         for (int i = 0; i < 4; i++)
                         {
@@ -45,6 +45,10 @@ namespace MazesAndMore {
                             }
                         }
                     }
+
+                    // The target is an ice tile, so player must keep moving until it finds a wall
+                    if (boardManager.getPlayerTile().iceFloor.isVisible && boardManager.getPlayerTile().openSides[direction])
+                        startMoving(direction);
                 }
                 else
                     transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);

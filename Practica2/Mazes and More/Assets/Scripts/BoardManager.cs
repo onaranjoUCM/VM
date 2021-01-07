@@ -44,6 +44,9 @@ namespace MazesAndMore {
             // Set walls
             setWalls(map);
 
+            // Set ice tiles
+            setIceFloor(map);
+
             // Adjust to window
             Vector3 scale = transform.localScale;
             float scaleFactor = (float)(5.625 / map.cols);
@@ -143,6 +146,14 @@ namespace MazesAndMore {
                     else
                         _tiles[x - 1, y - 1].enableRightWall();
                 }
+            }
+        }
+
+        private void setIceFloor(Map map)
+        {
+            foreach (JSONPoint iceTile in map.ice)
+            {
+                _tiles[(int)iceTile.x, (int)iceTile.y].enableIce();
             }
         }
 
