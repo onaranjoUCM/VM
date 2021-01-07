@@ -12,16 +12,22 @@ namespace MazesAndMore {
         private bool moving = false;
         private int direction;
 
+        public ArrowPlayer arrowPrefab;
+        GameObject arrow;
+
         // Start is called before the first frame update
         void Start()
         {
             Invoke("init", 0.01f);
+            arrow = Instantiate(arrowPrefab.gameObject, transform.position, Quaternion.identity);
+            arrow.transform.SetParent(transform);
+            DisableArrows();
         }
 
         private void init()
         {
             transform.position = boardManager.getPlayerTile().transform.position;
-            target = transform.position;
+            target = transform.position;            
         }
 
         // Update is called once per frame
@@ -55,6 +61,8 @@ namespace MazesAndMore {
 
             // Player is not moving, so it can recieve move commands
             } else {
+                ActiveArrows(boardManager.canMove((int)Tile.SIDE.UP), boardManager.canMove((int)Tile.SIDE.DOWN), boardManager.canMove((int)Tile.SIDE.RIGHT), boardManager.canMove((int)Tile.SIDE.LEFT));
+                
                 if (Input.GetKey("up") && boardManager.canMove((int)Tile.SIDE.UP))
                     startMoving((int)Tile.SIDE.UP);
                 else if (Input.GetKey("down") && boardManager.canMove((int)Tile.SIDE.DOWN))
@@ -68,6 +76,7 @@ namespace MazesAndMore {
 
         private void startMoving(int dir)
         {
+            DisableArrows();
             moving = true;
             direction = dir;
             target = boardManager.findTarget(dir);
@@ -76,6 +85,35 @@ namespace MazesAndMore {
         public void setColor(Color c)
         {
             gameObject.GetComponent<SpriteRenderer>().color = c;
+        }
+
+        private void DisableArrows()
+        {
+            arrow.GetComponent<ArrowPlayer>().DisableUp();
+            arrow.GetComponent<ArrowPlayer>().DisableDown();
+            arrow.GetComponent<ArrowPlayer>().DisableRight();
+            arrow.GetComponent<ArrowPlayer>().DisableLeft();
+
+        }
+
+        private void ActiveArrows(bool up, bool down, bool right, bool left)
+        {
+            if (up)
+            {
+                arrow.GetComponent<ArrowPlayer>().EnableUp();
+            }
+            if (down)
+            {
+                arrow.GetComponent<ArrowPlayer>().EnableDown();
+            }
+            if (right)
+            {
+                arrow.GetComponent<ArrowPlayer>().EnableRight();
+            }
+            if (left)
+            {
+                arrow.GetComponent<ArrowPlayer>().EnableLeft();
+            }
         }
     }
 }

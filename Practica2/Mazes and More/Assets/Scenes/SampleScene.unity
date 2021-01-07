@@ -325,6 +325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 805658759}
   speed: 5
+  arrowPrefab: {fileID: 3760749272121121913, guid: 993bf45bfb9506b4d84db9b16fcb1cab,
+    type: 3}
 --- !u!1001 &6874713353409634290
 PrefabInstance:
   m_ObjectHideFlags: 0
