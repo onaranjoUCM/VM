@@ -18,12 +18,6 @@ namespace MazesAndMore
         private Button[,] botones;
         GameManager gamemanager;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-
         public void init(GameManager g)
         {
             //SOLUCIONAR ESTO
@@ -58,12 +52,6 @@ namespace MazesAndMore
             pass[0] = true; //DE PRUEBA
 
             putButtons();
-        }
-
-            // Update is called once per frame
-        void Update()
-        {
-
         }
 
         void putButtons()

@@ -11,14 +11,13 @@ namespace MazesAndMore
         public MenuLevelManager menuLevelManager;
         static GameManager _instance;
         public LevelPackage[] levelPackages;
+
         private int nNiveles;
-        private string packLevelName;
-        private string[] levelPackageNames;
+        private int packageIndex;
 
 #if UNITY_EDITOR
         public int levelToPlay;
 #endif
-        // Start is called before the first frame update
         void Start()
         {
             if (_instance != null)
@@ -26,57 +25,38 @@ namespace MazesAndMore
                 _instance.levelManager = levelManager;
                 _instance.menuLevelManager = menuLevelManager;
                 if (menuLevelManager != null) _instance.menuLevelManager.init(_instance);
-                DestroyImmediate(this.gameObject);
+                DestroyImmediate(gameObject);
+
+                if (levelManager != null)
+                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
                 return;
             }
             else
             {
                 _instance = this;
-                levelPackageNames = new string[levelPackages.Length];
                 if (menuLevelManager != null) _instance.menuLevelManager.init(_instance);
                 DontDestroyOnLoad(this.gameObject);
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void loadLevelsScene(int n)
         {
-
-        }
-
-        public void sceneNivelesClassic()
-        {
-            nNiveles = levelPackages[0].levels.Length;
-            packLevelName = "ClassicLevels";
-            SceneManager.LoadScene("MenuNiveles");
-        }
-        public void sceneNivelesHielo()
-        {
-            nNiveles = levelPackages[1].levels.Length;
-            packLevelName = "IceFloorLevels";
+            packageIndex = n;
+            nNiveles = levelPackages[n].levels.Length;
+            Debug.Log(n);
             SceneManager.LoadScene("MenuNiveles");
         }
 
-        public void sceneLevelPlay(int n)
+        public void sceneLevelPlay(int level)
         {
-            levelToPlay = n;
-            Debug.Log("Level Play " + n);
-            //SceneManager.LoadScene("Game");
+            levelToPlay = level;
+            //Debug.Log("Level Play " + level);
+            SceneManager.LoadScene("Game");
         }
 
         public int getnNiveles() 
         {
             return nNiveles;
         }
-
-        /*
-        private void StartNewScene()
-        {
-            if (levelManager != null)
-            {
-
-            }
-        }
-        */
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b206ae3a668ec0346b40991aadbef011, type: 3}
   m_Name: IceFloorGroup
   m_EditorClassIdentifier: 
+  packageName: 
   levels:
   - {fileID: 4900000, guid: 412d23e2e197f424b835b8e9ed1f643f, type: 3}
   - {fileID: 4900000, guid: 92d1069861c75794dade01bc8ebc20d4, type: 3}
@@ -58,4 +59,4 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 10883eae1e5b9194e942da2857018768, type: 3}
   - {fileID: 4900000, guid: 8045a8888cda76742828879b723325a2, type: 3}
   - {fileID: 4900000, guid: 27d50a98ffb9b844fa736e5389d116b8, type: 3}
-  color: {r: 0.135849, g: 0.5619758, b: 1, a: 0}
+  color: {r: 0.135849, g: 0.5619758, b: 1, a: 1}

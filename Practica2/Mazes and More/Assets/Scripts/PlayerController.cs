@@ -18,7 +18,7 @@ namespace MazesAndMore {
         // Start is called before the first frame update
         void Start()
         {
-            Invoke("init", 0.01f);
+            Invoke("init", 0.1f);
             arrow = Instantiate(arrowPrefab.gameObject, transform.position, Quaternion.identity);
             arrow.transform.SetParent(transform);
             DisableArrows();

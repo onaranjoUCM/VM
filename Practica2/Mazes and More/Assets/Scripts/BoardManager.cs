@@ -37,6 +37,9 @@ namespace MazesAndMore {
                 }
             }
 
+            // Set ice tiles
+            setIceFloor(map);
+
             // Set start and finish
             _tiles[(int)map.finish.x, (int)map.finish.y].enableFinish();
             playerTile = _tiles[(int)map.start.x, (int)map.start.y];
@@ -44,8 +47,6 @@ namespace MazesAndMore {
             // Set walls
             setWalls(map);
 
-            // Set ice tiles
-            setIceFloor(map);
 
             // Adjust to window
             Vector3 scale = transform.localScale;

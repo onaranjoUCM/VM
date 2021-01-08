@@ -17,8 +17,18 @@ namespace MazesAndMore {
             }
 #endif
             boardManager.init(this);
+            //  Descomentar para no tener que ir desde el menu principal
+            /*
             player.setColor(Color.green);
             boardManager.setMap(new Map(level), Color.green);
+            boardManager.activateHint(0);
+            */
+        }
+
+        public void loadLevel(LevelPackage pack, int level)
+        {
+            player.setColor(pack.color);
+            boardManager.setMap(new Map(pack.levels[level]), pack.color);
             boardManager.activateHint(0);
         }
     }
