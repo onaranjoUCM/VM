@@ -17,6 +17,8 @@ namespace MazesAndMore
         private bool[] pass;
         private Button[,] botones;
         GameManager gamemanager;
+        public Button regalo;
+        private Text title;
 
         public void init(GameManager g)
         {
@@ -51,6 +53,15 @@ namespace MazesAndMore
 
             pass[0] = true; //DE PRUEBA
 
+            Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
+            adsButton.gameObject.transform.SetParent(transform);
+            adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
+
+            /*title.text = "TITULO";
+            Text t = Instantiate(title, new Vector3(0, 0, 0), Quaternion.identity);
+            t.gameObject.transform.SetParent(transform);
+            t.transform.position = new Vector3((Screen.width) / 2, Screen.height - 60, 0);*/
+
             putButtons();
         }
 
@@ -78,12 +89,12 @@ namespace MazesAndMore
                     int increX = (Screen.width - 20) / 6;
 
                     b.gameObject.transform.SetParent(transform);
-                    b.transform.position = new Vector3(increX * (i + 1), Screen.height - (j + 1) * 60 , 0);
+                    b.transform.position = new Vector3(increX * (i + 1), Screen.height - 100 - (j + 1) * 60 , 0);
 
 
                     botones[i, j] = b;
                     if (pass[c])
-                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(1));
+                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(c+1));
 
                     c++;
                 }

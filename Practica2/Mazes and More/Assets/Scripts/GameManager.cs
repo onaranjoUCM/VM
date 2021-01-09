@@ -14,6 +14,7 @@ namespace MazesAndMore
 
         private int nNiveles;
         private int packageIndex;
+        private int nTracks = 0;
 
 #if UNITY_EDITOR
         public int levelToPlay;
@@ -29,12 +30,15 @@ namespace MazesAndMore
 
                 if (levelManager != null)
                     levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
+
+                Debug.Log(nTracks);
                 return;
             }
             else
             {
                 _instance = this;
                 if (menuLevelManager != null) _instance.menuLevelManager.init(_instance);
+                Debug.Log(nTracks);
                 DontDestroyOnLoad(this.gameObject);
             }
         }
@@ -57,6 +61,16 @@ namespace MazesAndMore
         public int getnNiveles() 
         {
             return nNiveles;
+        }
+
+        public void oneTrack()
+        {
+            nTracks++;
+        }
+
+        public int getTracks()
+        {
+            return nTracks;
         }
     }
 }

@@ -479,7 +479,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1027046904
@@ -499,3 +499,4 @@ MonoBehaviour:
   botonBlock: {fileID: 5559657631220167722, guid: 098f547f2e919f9408def5f341decb99,
     type: 3}
   canvas: {fileID: 1713392}
+  regalo: {fileID: 1578762368843756811, guid: bc42504b69e62784084e2cca1ec428cd, type: 3}

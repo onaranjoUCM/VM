@@ -27,7 +27,7 @@ namespace MazesAndMore {
             {
                 for (int j = map.rows - 1; j >= 0; j--)
                 {
-                    _tiles[i, j] = Instantiate(tilePrefab, new Vector3(i, j, 0), Quaternion.identity);
+                    _tiles[i, j] = Instantiate(tilePrefab, new Vector3(i, j, -1f), Quaternion.identity);
                     _tiles[i, j].transform.parent = gameObject.transform;
                     _tiles[i, j].x = i;
                     _tiles[i, j].y = j;

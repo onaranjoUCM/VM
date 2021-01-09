@@ -3,72 +3,81 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
-[RequireComponent(typeof(Button))]
-public class ButtonAds : MonoBehaviour, IUnityAdsListener
+
+namespace MazesAndMore
 {
+    [RequireComponent(typeof(Button))]
+    public class ButtonAds : MonoBehaviour, IUnityAdsListener
+    {
 
 #if UNITY_IOS
-    private string gameId = "3963368";
+        private string gameId = "3963368";
 #elif UNITY_ANDROID
-    private string gameId = "3963369";
+        private string gameId = "3963369";
 #endif
 
-    Button myButton;
-    public string myPlacementId = "rewardedVideo";
+        Button myButton;
+        public string myPlacementId = "rewardedVideo";
+        public GameObject gameManager;
+        GameManager manager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        myButton = GetComponent<Button>();
-
-        // Set interactivity to be dependent on the Placement’s status:
-        myButton.interactable = Advertisement.IsReady(myPlacementId);
-
-        // Map the ShowRewardedVideo function to the button’s click listener:
-        if (myButton) myButton.onClick.AddListener(ShowRewardedVideo);
-
-        // Initialize the Ads listener and service:
-        Advertisement.AddListener(this);
-        Advertisement.Initialize(gameId, true);
-    }
-    void ShowRewardedVideo()
-    {
-        Advertisement.Show(myPlacementId);
-    }
-
-    public void OnUnityAdsDidError(string message)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
-    {
-        // Define conditional logic for each ad completion status:
-        if (showResult == ShowResult.Finished)
+        // Start is called before the first frame update
+        void Start()
         {
-            Debug.LogWarning("+1 moneda");
+            manager = gameManager.GetComponent<GameManager>();
+
+            myButton = GetComponent<Button>();
+
+            // Set interactivity to be dependent on the Placement’s status:
+            myButton.interactable = Advertisement.IsReady(myPlacementId);
+
+            // Map the ShowRewardedVideo function to the button’s click listener:
+            if (myButton) myButton.onClick.AddListener(ShowRewardedVideo);
+
+            // Initialize the Ads listener and service:
+            Advertisement.AddListener(this);
+            Advertisement.Initialize(gameId, true);
         }
-        else if (showResult == ShowResult.Skipped)
+        void ShowRewardedVideo()
         {
-            Debug.LogWarning("Si skipeas te quedas sin moneda");
+            Advertisement.Show(myPlacementId);
         }
-        else if (showResult == ShowResult.Failed)
+
+        public void OnUnityAdsDidError(string message)
         {
-            Debug.LogWarning("The ad did not finish due to an error.");
+            //throw new System.NotImplementedException();
         }
-    }
 
-    public void OnUnityAdsDidStart(string placementId)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnUnityAdsReady(string placementId)
-    {
-        // If the ready Placement is rewarded, activate the button: 
-        if (placementId == myPlacementId)
+        public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
         {
-            myButton.interactable = true;
+            // Define conditional logic for each ad completion status:
+            if (showResult == ShowResult.Finished)
+            {
+                manager.oneTrack();
+                Debug.LogWarning("+1 pista, Pistas totales: " + manager.getTracks());
+            }
+            else if (showResult == ShowResult.Skipped)
+            {
+                Debug.LogWarning("Si skipeas te quedas sin pistas");
+            }
+            else if (showResult == ShowResult.Failed)
+            {
+                Debug.LogWarning("The ad did not finish due to an error.");
+            }
+        }
+
+        public void OnUnityAdsDidStart(string placementId)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        public void OnUnityAdsReady(string placementId)
+        {
+            // If the ready Placement is rewarded, activate the button: 
+            if (placementId == myPlacementId)
+            {
+                myButton.interactable = true;
+            }
         }
     }
 }
