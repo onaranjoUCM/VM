@@ -156,6 +156,7 @@ MonoBehaviour:
   level: {fileID: 4900000, guid: d797b169aa76af84fb1abac0e92bdcea, type: 3}
   boardManager: {fileID: 805658759}
   player: {fileID: 1177221788}
+  gameManager: {fileID: 6874713353409634291}
 --- !u!4 &127514209
 Transform:
   m_ObjectHideFlags: 0
@@ -401,6 +402,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04b6698fa9c08bd499937c867bee7f47, type: 3}
+--- !u!114 &6874713353409634291 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 814204432531510523, guid: 04b6698fa9c08bd499937c867bee7f47,
+    type: 3}
+  m_PrefabInstance: {fileID: 6874713353409634290}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cbd78a5fdcc6d42995368e9821f5f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7582123444744596919
 PrefabInstance:
   m_ObjectHideFlags: 0

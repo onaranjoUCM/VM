@@ -15,19 +15,12 @@ namespace MazesAndMore {
         public ArrowPlayer arrowPrefab;
         GameObject arrow;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            Invoke("init", 0.1f);
-            arrow = Instantiate(arrowPrefab.gameObject, transform.position, Quaternion.identity);
-            arrow.transform.SetParent(transform);
-            DisableArrows();
-        }
-
-        private void init()
+        public void init()
         {
             transform.position = boardManager.getPlayerTile().transform.position;
-            target = transform.position;            
+            target = transform.position; arrow = Instantiate(arrowPrefab.gameObject, transform.position, Quaternion.identity);
+            arrow.transform.SetParent(transform);
+            DisableArrows();
         }
 
         // Update is called once per frame

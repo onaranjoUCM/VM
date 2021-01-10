@@ -11,6 +11,7 @@ namespace MazesAndMore {
         private LevelManager _levelManager;
 
         Tile playerTile;
+        Tile finishTile;
 
         public void init(LevelManager levelManager)
         {
@@ -41,19 +42,25 @@ namespace MazesAndMore {
             setIceFloor(map);
 
             // Set start and finish
-            _tiles[(int)map.finish.x, (int)map.finish.y].enableFinish();
+            finishTile = _tiles[(int)map.finish.x, (int)map.finish.y];
+            finishTile.enableFinish();
             playerTile = _tiles[(int)map.start.x, (int)map.start.y];
 
             // Set walls
             setWalls(map);
+            
+        }
 
+        public void adjustToWindow()
+        {
+            transform.localScale = Vector3.one;
+            transform.position = Vector3.zero;
 
-            // Adjust to window
             Vector3 scale = transform.localScale;
-            float scaleFactor = (float)(5.625 / map.cols);
+            float scaleFactor = (float)(5.625 / _map.cols);
             transform.localScale = new Vector3(scale.x * scaleFactor, scale.y * scaleFactor, scale.z);
-            transform.Translate(Vector3.left * (map.cols / 2) * scaleFactor);
-            transform.Translate(Vector3.down * (map.rows / 2) * scaleFactor);
+            transform.Translate(Vector3.left * (_map.cols / 2) * scaleFactor);
+            transform.Translate(Vector3.down * (_map.rows / 2) * scaleFactor);
         }
 
         public bool canMove(int dir)
@@ -65,7 +72,7 @@ namespace MazesAndMore {
             // Since there are only LEFT and UP walls, to check RIGHT
             // we need to check the LEFT wall of the tile on the right
             if (dir == (int)Tile.SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
-                    return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)Tile.SIDE.LEFT];
+                return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)Tile.SIDE.LEFT];
 
             // Check UP wall
             if (dir == (int)Tile.SIDE.UP)
@@ -166,6 +173,24 @@ namespace MazesAndMore {
         public Tile getPlayerTile()
         {
             return playerTile;
+        }
+
+        public Tile getFinishTile()
+        {
+            return finishTile;
+        }
+
+        public void clear()
+        {
+            _map = null;
+            if (_tiles != null)
+            {
+                foreach (Tile t in _tiles)
+                {
+                    Destroy(t.gameObject);
+                }
+            }
+            _tiles = null;
         }
 
         // PROVISIONAL. (Pendiente de averiguar el funcionamiento exacto de las pistas)

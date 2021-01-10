@@ -25,11 +25,20 @@ namespace MazesAndMore {
             */
         }
 
+        public bool checkFinish()
+        {
+            Tile playerTile = boardManager.getPlayerTile();
+            return (playerTile != null && playerTile == boardManager.getFinishTile());
+        }
+
         public void loadLevel(LevelPackage pack, int level)
         {
+            boardManager.clear();
             player.setColor(pack.color);
             boardManager.setMap(new Map(pack.levels[level]), pack.color);
-            boardManager.activateHint(0);
+            boardManager.adjustToWindow();
+            player.init();
+            boardManager.activateHint(0);   // PROVISIONAL
         }
     }
 }

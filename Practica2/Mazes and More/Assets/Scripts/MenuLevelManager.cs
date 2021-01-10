@@ -11,7 +11,7 @@ namespace MazesAndMore
         public Button botonBlock;
         public Canvas canvas;
         int nNiveles;
-        private int c;
+        private int c = 0;
         float height;
         float width;
         private bool[] pass;
@@ -41,7 +41,6 @@ namespace MazesAndMore
 
             gamemanager = g;
             nNiveles = gamemanager.getnNiveles();
-            Debug.Log("Numero de niveles: " + nNiveles);
 
             botones = new Button[5, nNiveles / 5];
 
@@ -94,7 +93,7 @@ namespace MazesAndMore
 
                     botones[i, j] = b;
                     if (pass[c])
-                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(c+1));
+                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(nNiveles - c));
 
                     c++;
                 }
