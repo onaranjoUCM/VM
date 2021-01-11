@@ -14,21 +14,23 @@ namespace MazesAndMore
         private int packageIndex;
         private int nHints;
         private int[] levelsPassed;
-
+        bool init = false;
 #if UNITY_EDITOR
         public int levelToPlay;
 #endif
-        void Start()
+        private void Start()
         {
             if (_instance != null)
             {
                 _instance.levelManager = levelManager;
                 _instance.menuLevelManager = menuLevelManager;
                 if (menuLevelManager != null) _instance.menuLevelManager.init(_instance);
+
+
                 DestroyImmediate(gameObject);
 
-                if (levelManager != null)
-                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
+                /*if (levelManager != null)
+                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);*/
 
                 return;
             }
@@ -36,7 +38,6 @@ namespace MazesAndMore
             {
                 _instance = this;
                 if (menuLevelManager != null) _instance.menuLevelManager.init(_instance);
-                DontDestroyOnLoad(this.gameObject);
 
                 // Load game progress from PlayerPrefs
                 GameData data = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
@@ -51,14 +52,23 @@ namespace MazesAndMore
                     nHints = data.nHints;
                     levelsPassed = data.levelsPassed;
                 }
+
+                DontDestroyOnLoad(this.gameObject);
             }
         }
 
         private void Update()
         {
             if (levelManager != null)
-                if(levelManager.checkFinish())
+            {
+                if (levelManager.checkFinish())
                     levelPassed();
+                if (!init)
+                {
+                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
+                    init = true;
+                }
+            }
         }
 
         public void loadLevelsScene(int n)

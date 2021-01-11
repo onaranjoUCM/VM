@@ -51,6 +51,7 @@ namespace MazesAndMore
             }
 
             pass[0] = true; //DE PRUEBA
+            pass[1] = true;
 
             Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
             adsButton.gameObject.transform.SetParent(transform);
@@ -92,8 +93,9 @@ namespace MazesAndMore
 
 
                     botones[i, j] = b;
+                    int level = c;
                     if (pass[c])
-                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(nNiveles - c));
+                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(level));
 
                     c++;
                 }

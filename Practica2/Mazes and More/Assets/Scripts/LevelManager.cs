@@ -35,7 +35,7 @@ namespace MazesAndMore {
         {
             boardManager.clear();
             player.setColor(pack.color);
-            boardManager.setMap(new Map(pack.levels[level]), pack.color);
+            boardManager.setMap(new Map(pack.levels[level]), pack.color);        
             boardManager.adjustToWindow();
             player.init();
             boardManager.activateHint(0);   // PROVISIONAL
