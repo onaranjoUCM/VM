@@ -14,6 +14,7 @@ namespace MazesAndMore
         private int packageIndex;
         private int nHints;
         private int[] levelsPassed;
+        public string typeLevel;
         bool init = false;
 #if UNITY_EDITOR
         public int levelToPlay;
@@ -75,6 +76,10 @@ namespace MazesAndMore
         {
             packageIndex = n;
             nNiveles = levelPackages[n].levels.Length;
+            if (n == 0)
+                typeLevel = "CLASICO";
+            else
+                typeLevel = "HIELO";
             SceneManager.LoadScene("MenuNiveles");
         }
 

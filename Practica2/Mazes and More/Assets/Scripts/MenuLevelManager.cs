@@ -18,7 +18,9 @@ namespace MazesAndMore
         private Button[,] botones;
         GameManager gamemanager;
         public Button regalo;
-        private Text title;
+        GameObject texto;
+        public Text title;
+        public GameObject star;
 
         public void init(GameManager g)
         {
@@ -57,10 +59,13 @@ namespace MazesAndMore
             adsButton.gameObject.transform.SetParent(transform);
             adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
 
-            /*title.text = "TITULO";
-            Text t = Instantiate(title, new Vector3(0, 0, 0), Quaternion.identity);
-            t.gameObject.transform.SetParent(transform);
-            t.transform.position = new Vector3((Screen.width) / 2, Screen.height - 60, 0);*/
+            title.text = gamemanager.typeLevel;
+            title.gameObject.transform.SetParent(transform);
+            title.transform.position = new Vector3((Screen.width) * 3 / 6, Screen.height - 60, 0);
+
+            GameObject starCanvas = Instantiate(star, new Vector3(0, 0, 0), Quaternion.identity);
+            starCanvas.gameObject.transform.SetParent(transform);
+            starCanvas.transform.position = new Vector3((Screen.width - 20)* 5 / 6, Screen.height - 60, 0);
 
             putButtons();
         }
