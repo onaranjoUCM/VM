@@ -53,12 +53,13 @@ namespace MazesAndMore {
 
         public void adjustToWindow()
         {
-            transform.localScale = Vector3.one;
-            transform.position = Vector3.zero;
+            float scaleFactor;
+            if (Screen.height > Screen.width)
+                scaleFactor = (((float)Screen.width / (float)Screen.height) * 10) / _map.cols;
+            else
+                scaleFactor = (((float)Screen.height / (float)Screen.width) * 10) / _map.rows;
 
-            Vector3 scale = transform.localScale;
-            float scaleFactor = (float)(5.625 / _map.cols);
-            transform.localScale = new Vector3(scale.x * scaleFactor, scale.y * scaleFactor, scale.z);
+            transform.localScale = new Vector3(transform.localScale.x * scaleFactor, transform.localScale.y * scaleFactor, transform.localScale.z);
             transform.Translate(Vector3.left * (_map.cols / 2) * scaleFactor);
             transform.Translate(Vector3.down * (_map.rows / 2) * scaleFactor);
         }
@@ -180,8 +181,11 @@ namespace MazesAndMore {
             return finishTile;
         }
 
-        public void clear()
+        public void reset()
         {
+            transform.localScale = Vector3.one;
+            transform.position = Vector3.zero;
+
             _map = null;
             if (_tiles != null)
             {

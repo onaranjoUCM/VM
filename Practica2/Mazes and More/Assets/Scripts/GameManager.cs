@@ -29,8 +29,8 @@ namespace MazesAndMore
 
                 DestroyImmediate(gameObject);
 
-                /*if (levelManager != null)
-                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);*/
+                if (levelManager != null)
+                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
 
                 return;
             }
@@ -63,11 +63,11 @@ namespace MazesAndMore
             {
                 if (levelManager.checkFinish())
                     levelPassed();
-                if (!init)
+                /*if (!init)
                 {
                     levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
                     init = true;
-                }
+                }*/
             }
         }
 
