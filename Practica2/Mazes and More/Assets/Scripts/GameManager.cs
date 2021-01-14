@@ -27,11 +27,10 @@ namespace MazesAndMore
                 _instance.menuLevelManager = menuLevelManager;
                 if (menuLevelManager != null) _instance.menuLevelManager.init(_instance);
 
+                if (levelManager != null)
+                    _instance.loadLevel();
 
                 DestroyImmediate(gameObject);
-
-                if (levelManager != null)
-                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
 
                 return;
             }
@@ -64,11 +63,6 @@ namespace MazesAndMore
             {
                 if (levelManager.checkFinish())
                     levelPassed();
-                /*if (!init)
-                {
-                    levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
-                    init = true;
-                }*/
             }
         }
 
@@ -83,6 +77,16 @@ namespace MazesAndMore
             SceneManager.LoadScene("MenuNiveles");
         }
 
+        public void loadLevel()
+        {
+            levelManager.loadLevel(levelPackages[_instance.packageIndex], levelToPlay);
+        }
+
+        public int getPackageIndex()
+        {
+            return packageIndex;
+        }
+
         public void sceneLevelPlay(int level)
         {
             levelToPlay = level;
@@ -91,8 +95,19 @@ namespace MazesAndMore
 
         public void saveProgress()
         {
-            string json = JsonUtility.ToJson(new GameData(nHints, levelsPassed));
-            PlayerPrefs.SetString("progress", json); 
+            GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+            g.levelsPassed = levelsPassed;
+            string json = JsonUtility.ToJson(g);
+            PlayerPrefs.SetString("progress", json);
+
+            /*string json = JsonUtility.ToJson(new GameData(nHints, levelsPassed));
+            PlayerPrefs.SetString("progress", json);
+            Debug.Log(PlayerPrefs.GetString("progress"));*/
+        }
+
+        public GameData getProgress()
+        {
+            return JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
         }
 
         public void levelPassed()
@@ -114,12 +129,26 @@ namespace MazesAndMore
 
         public void oneHint()
         {
-            nHints++;
+            //nHints++;
+            GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+            g.nHints++;
+            string json = JsonUtility.ToJson(g);
+            PlayerPrefs.SetString("progress", json);
         }
 
         public int getHints()
         {
-            return nHints;
+            return JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).nHints;
+        }
+
+        public void takeHints()
+        {
+            GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+            g.nHints--;
+            string json = JsonUtility.ToJson(g);
+            PlayerPrefs.SetString("progress", json);
+            levelManager.hud();
+            levelManager.boardManager.activateHint(0);
         }
     }
 }

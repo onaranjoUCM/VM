@@ -9,6 +9,8 @@ namespace MazesAndMore {
         public PlayerController player;
         public Text title;
         public GameObject hints;
+        LevelPackage pack;
+        int nLevel;
 
         void Start()
         {
@@ -39,28 +41,32 @@ namespace MazesAndMore {
             return (playerTile != null && playerTile == boardManager.getFinishTile());
         }
 
-        public void loadLevel(LevelPackage pack, int level)
+        public void loadLevel(LevelPackage pack_, int level_)
         {
+            pack = pack_;
+            nLevel = level_;
             boardManager.reset();
             player.setColor(pack.color);
 
-            hud(pack, level);
+            hud();
 
-            boardManager.setMap(new Map(pack.levels[level]), pack.color);
+            boardManager.setMap(new Map(pack.levels[nLevel]), pack.color);
             boardManager.adjustToWindow();
             player.init();
-            boardManager.activateHint(0);   // PROVISIONAL  
+            //boardManager.activateHint(0);   // PROVISIONAL  
         }
 
-        public void hud(LevelPackage pack, int level)
+        public void hud()
         {
-            if(pack.name == "ClassicGroup")
-                title.text = "CLASSIC_" + level;
+            int i = nLevel + 1;
+            if (pack.name == "ClassicGroup")
+                title.text = "CLASSIC - " + i;
             else
-                title.text = "ICEFLOOR_" + level;
+                title.text = "ICEFLOOR - " + i;
 
             title.transform.position = new Vector3(Screen.width / 6, Screen.height - 60, 0);
-            hints.transform.position = new Vector3(Screen.width* 5 / 6, Screen.height - 60, 0);
+            hints.transform.position = new Vector3(Screen.width * 5 / 6, Screen.height - 60, 0);
+            hints.GetComponentInChildren<Text>().text = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).nHints.ToString();
         }
     }
 }

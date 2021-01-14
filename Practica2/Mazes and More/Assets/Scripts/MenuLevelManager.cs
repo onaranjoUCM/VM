@@ -52,8 +52,11 @@ namespace MazesAndMore
                 pass[i] = false;
             }
 
-            pass[0] = true; //DE PRUEBA
-            pass[1] = true;
+            int nPass = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.getPackageIndex()];
+            for(int i = 0; i <= nPass + 1; i++)
+            {
+                pass[i] = true;
+            }
 
             Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
             adsButton.gameObject.transform.SetParent(transform);
@@ -99,8 +102,17 @@ namespace MazesAndMore
 
                     botones[i, j] = b;
                     int level = c;
+                    Color color = gamemanager.levelPackages[gamemanager.getPackageIndex()].color;
+                    int levelEnd = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.getPackageIndex()];
+
                     if (pass[c])
+                    {
                         botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(level));
+                        int n = c + 1;
+                        if(c <= levelEnd)
+                            botones[i, j].GetComponent<Image>().color = color;
+                        botones[i, j].GetComponentInChildren<Text>().text = n.ToString();//GetComponent<Text>().text = n.ToString();
+                    }
 
                     c++;
                 }
