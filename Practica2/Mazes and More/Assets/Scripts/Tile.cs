@@ -6,7 +6,7 @@ namespace MazesAndMore
 {
     public class Tile : MonoBehaviour
     {
-        public enum SIDE { LEFT, RIGHT, UP, DOWN, ALL }
+        public enum SIDE { LEFT, RIGHT, UP, DOWN }
         public static int[] opposite = { 1, 0, 3, 2 };
         Color playerColor;
         Color hintColor;
@@ -48,35 +48,6 @@ namespace MazesAndMore
 #endif
         }
 
-        public void checkSegments() {
-            for (int i = 0; i < segments.Length; i++)
-            {
-                if (timesSegmentCrossed[i] != 0)
-                {
-                    enableSegment(i);
-                    segments[i].color = playerColor;
-                }
-                else
-                    if (hintedSegments[i])
-                    segments[i].color = hintColor;
-                else
-                    disableSegment(i);
-            }
-        }
-
-        public void setSegmentColor(int side, Color c)
-        {
-            if (side == (int)SIDE.ALL)
-            {
-                foreach (SpriteRenderer segment in segments)
-                    segment.color = c;
-            }
-            else
-            {
-                segments[side].color = c;
-            }
-        }
-
         // Misc
         public void enableIce() { iceFloor.gameObject.SetActive(true); }
         public void enableStart() { start.gameObject.SetActive(true); }
@@ -115,25 +86,40 @@ namespace MazesAndMore
             numberOfOpenSides--;
         }
 
-        // Player segments
+        // Segments
+        public void checkSegments()
+        {
+            for (int i = 0; i < segments.Length; i++)
+            {
+                if (timesSegmentCrossed[i] != 0)
+                {
+                    enableSegment(i);
+                    segments[i].color = playerColor;
+                }
+                else
+                    if (hintedSegments[i])
+                    segments[i].color = hintColor;
+                else
+                    disableSegment(i);
+            }
+        }
         public void enableSegment(int dir) { segments[dir].gameObject.SetActive(true); }
         public void disableSegment(int dir) { segments[dir].gameObject.SetActive(false); }
 
         // Hints
         public void hintSegment(int side)
         {
+            if (!segments[side].gameObject.activeSelf)
+                setSegmentColor(side, Color.yellow);
+
             hintedSegments[side] = true;
             enableSegment(side);
         }
 
-        public void setPlayerColor(Color c)
-        {
-            playerColor = c;
-        }
-
-        public void setHintColor(Color c)
-        {
-            hintColor = c;
-        }
+        // GETTERS AND SETTERS
+        public void setSegmentColor(int side, Color c) { segments[side].color = c; }
+        public Color getSegmentColor(int side) { return segments[side].color; }
+        public void setPlayerColor(Color c) { playerColor = c; }
+        public void setHintColor(Color c) { hintColor = c; }
     }
 }

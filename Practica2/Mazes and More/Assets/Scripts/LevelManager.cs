@@ -6,11 +6,15 @@ namespace MazesAndMore {
     {
         public TextAsset level; // PROVISIONAL
         public BoardManager boardManager;
-        public PlayerController player;
+        public PlayerController playerController;
         public Text title;
-        public GameObject hints;
+        public GameObject hintsButton;
+        public GameObject pauseButton;
+
         LevelPackage pack;
         int nLevel;
+        int hintsUsed;
+        bool paused;
 
         void Start()
         {
@@ -21,10 +25,9 @@ namespace MazesAndMore {
                 return;
             }
 #endif
-            
-            boardManager.init(this);
+            boardManager.Init(this);
 
-            //  Descomentar para no tener que ir desde el menu principal
+            //  PROVISIONAL: Descomentar para no tener que ir desde el menu principal
             /*
             boardManager.reset();
             player.setColor(Color.green);
@@ -35,38 +38,64 @@ namespace MazesAndMore {
             */
         }
 
-        public bool checkFinish()
+        void Update()
         {
-            Tile playerTile = boardManager.getPlayerTile();
-            return (playerTile != null && playerTile == boardManager.getFinishTile());
+            if (!paused)
+                playerController.Run();
         }
 
-        public void loadLevel(LevelPackage pack_, int level_)
+        // Returns whether or not the player has reached the finish
+        public bool CheckFinish()
         {
+            Tile playerTile = boardManager.GetPlayerTile();
+            return (playerTile != null && playerTile == boardManager.GetFinishTile());
+        }
+
+        // Loads a level from given package
+        public void LoadLevel(LevelPackage pack_, int level_)
+        {
+            paused = false;
+            hintsUsed = 0;
             pack = pack_;
             nLevel = level_;
-            boardManager.reset();
-            player.setColor(pack.color);
+            boardManager.ClearAndReset();
+            playerController.SetColor(pack.color);
 
-            hud();
+            SetHud();
 
-            boardManager.setMap(new Map(pack.levels[nLevel]), pack.color);
-            boardManager.adjustToWindow();
-            player.init();
-            //boardManager.activateHint(0);   // PROVISIONAL  
+            boardManager.SetMap(new Map(pack.levels[nLevel]), pack.color);
+            boardManager.AdjustToWindow();
+            playerController.Init();
         }
 
-        public void hud()
+        // Configures HUD according to level and screen size
+        public void SetHud()
         {
-            int i = nLevel + 1;
-            if (pack.name == "ClassicGroup")
-                title.text = "CLASSIC - " + i;
-            else
-                title.text = "ICEFLOOR - " + i;
-
+            title.text = pack.packageName + " - " + (nLevel + 1).ToString();
             title.transform.position = new Vector3(Screen.width / 6, Screen.height - 60, 0);
-            hints.transform.position = new Vector3(Screen.width * 5 / 6, Screen.height - 60, 0);
-            hints.GetComponentInChildren<Text>().text = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).nHints.ToString();
+
+            hintsButton.transform.position = new Vector3(Screen.width * 5 / 6, Screen.height - 60, 0);
+            hintsButton.GetComponentInChildren<Text>().text = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).nHints.ToString();
+
+            pauseButton.transform.position = new Vector3(Screen.width * 4 / 6, Screen.height - 60, 0);
+        }
+
+        public void UseHint()
+        {
+            boardManager.ActivateHint(++hintsUsed);
+        }
+
+        // Pauses the game and enables the pause menu
+        public void PausePressed()
+        {
+            SetPaused(true);
+            // TODO: Mostrar menu de pausa
+        }
+
+        // GETTERS AND SETTERS
+        public void SetPaused(bool p)
+        {
+            paused = p;
         }
     }
 }

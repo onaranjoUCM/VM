@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b206ae3a668ec0346b40991aadbef011, type: 3}
   m_Name: ClassicGroup
   m_EditorClassIdentifier: 
-  packageName: 
+  packageName: CLASICO
   levels:
   - {fileID: 4900000, guid: 25a4cb5fd070a2046b93736516737a13, type: 3}
   - {fileID: 4900000, guid: 133f6d2d498379f43b7bf389eef266c9, type: 3}
@@ -115,3 +115,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 903c6f650cccd8a4d97e92c7f9c5485e, type: 3}
   - {fileID: 4900000, guid: fa6628444d034b3499c639d7aeb10fbc, type: 3}
   color: {r: 0, g: 1, b: 0, a: 1}
+  buttonImage: {fileID: 8833899560157532653, guid: df33f6ccc7417624c82305b7b67bcb8a,
+    type: 3}
+  buttonPressedImage: {fileID: 4420612298364088709, guid: df33f6ccc7417624c82305b7b67bcb8a,
+    type: 3}

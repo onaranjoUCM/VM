@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName= "Data", menuName = "ScriptableObjects/LevelGroup", order = 1)]
 public class LevelPackage : ScriptableObject
@@ -8,6 +6,6 @@ public class LevelPackage : ScriptableObject
     public string packageName;
     public TextAsset[] levels;
     public Color color;
-    // Boton normal
-    // Boton pulsado
+    public Sprite buttonImage;
+    public Sprite buttonPressedImage;
 }

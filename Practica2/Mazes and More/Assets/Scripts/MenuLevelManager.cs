@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace MazesAndMore
@@ -52,7 +50,7 @@ namespace MazesAndMore
                 pass[i] = false;
             }
 
-            int nPass = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.getPackageIndex()];
+            int nPass = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.GetPackageIndex()];
             for(int i = 0; i <= nPass + 1; i++)
             {
                 pass[i] = true;
@@ -62,7 +60,7 @@ namespace MazesAndMore
             adsButton.gameObject.transform.SetParent(transform);
             adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
 
-            title.text = gamemanager.typeLevel;
+            title.text = gamemanager.levelPackages[gamemanager.GetPackageIndex()].name;
             title.gameObject.transform.SetParent(transform);
             title.transform.position = new Vector3((Screen.width) * 3 / 6, Screen.height - 60, 0);
 
@@ -102,12 +100,12 @@ namespace MazesAndMore
 
                     botones[i, j] = b;
                     int level = c;
-                    Color color = gamemanager.levelPackages[gamemanager.getPackageIndex()].color;
-                    int levelEnd = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.getPackageIndex()];
+                    Color color = gamemanager.levelPackages[gamemanager.GetPackageIndex()].color;
+                    int levelEnd = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.GetPackageIndex()];
 
                     if (pass[c])
                     {
-                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.sceneLevelPlay(level));
+                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.SceneLevelPlay(level));
                         int n = c + 1;
                         if(c <= levelEnd)
                             botones[i, j].GetComponent<Image>().color = color;

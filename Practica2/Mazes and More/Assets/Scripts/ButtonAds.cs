@@ -53,7 +53,7 @@ namespace MazesAndMore
             // Define conditional logic for each ad completion status:
             if (showResult == ShowResult.Finished)
             {
-                manager.oneHint();
+                manager.AddHints(1);
                 Debug.LogWarning("+1 pista, Pistas totales: " + manager.getHints());
             }
             else if (showResult == ShowResult.Skipped)

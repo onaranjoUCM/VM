@@ -476,7 +476,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 163247633}
         m_TargetAssemblyTypeName: MazesAndMore.GameManager, Assembly-CSharp
-        m_MethodName: loadLevelsScene
+        m_MethodName: LoadLevelsScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -856,7 +856,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 163247633}
         m_TargetAssemblyTypeName: MazesAndMore.GameManager, Assembly-CSharp
-        m_MethodName: loadLevelsScene
+        m_MethodName: LoadLevelsScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

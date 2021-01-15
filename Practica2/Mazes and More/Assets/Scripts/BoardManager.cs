@@ -6,19 +6,19 @@ namespace MazesAndMore {
         public Tile tilePrefab;
 
         Map _map;
-        private Tile[,] _tiles;
-
-        private LevelManager _levelManager;
-
         Tile playerTile;
         Tile finishTile;
 
-        public void init(LevelManager levelManager)
+        private Tile[,] _tiles;
+        private LevelManager _levelManager;
+
+        public void Init(LevelManager levelManager)
         {
             _levelManager = levelManager;
         }
 
-        public void setMap(Map map, Color segmentsColor)
+        // Creates and configures the graphic components of the map
+        public void SetMap(Map map, Color playerColor)
         {
             _map = map;
             _tiles = new Tile[map.cols, map.rows];
@@ -32,14 +32,13 @@ namespace MazesAndMore {
                     _tiles[i, j].transform.parent = gameObject.transform;
                     _tiles[i, j].x = i;
                     _tiles[i, j].y = j;
-                    _tiles[i, j].setSegmentColor((int)Tile.SIDE.ALL, segmentsColor);
-                    _tiles[i, j].setPlayerColor(segmentsColor);
+                    _tiles[i, j].setPlayerColor(playerColor);
                     _tiles[i, j].setHintColor(Color.yellow);
                 }
             }
 
             // Set ice tiles
-            setIceFloor(map);
+            SetIceFloor(map);
 
             // Set start and finish
             finishTile = _tiles[(int)map.finish.x, (int)map.finish.y];
@@ -47,24 +46,31 @@ namespace MazesAndMore {
             playerTile = _tiles[(int)map.start.x, (int)map.start.y];
 
             // Set walls
-            setWalls(map);
+            SetWalls(map);
             
         }
 
-        public void adjustToWindow()
+        // Adjusts size and position of the map to fit screen resolution
+        public void AdjustToWindow()
         {
+            // TODO: Revisar por qué se desplaza en los niveles mas grandes
             float scaleFactor;
-            if (Screen.height > Screen.width)
-                scaleFactor = (((float)Screen.width / (float)Screen.height) * 10) / _map.cols;
-            else
-                scaleFactor = (((float)Screen.height / (float)Screen.width) * 10) / _map.rows;
+            float w = Screen.width;
+            float h = Screen.height;
 
+            if (h > w)
+                scaleFactor = (w / h) / _map.cols;
+            else
+                scaleFactor = (h / w) / _map.rows;
+
+            scaleFactor *= 9;
             transform.localScale = new Vector3(transform.localScale.x * scaleFactor, transform.localScale.y * scaleFactor, transform.localScale.z);
             transform.Translate(Vector3.left * (_map.cols / 2) * scaleFactor);
             transform.Translate(Vector3.down * (_map.rows / 2) * scaleFactor);
         }
 
-        public bool canMove(int dir)
+        // Returns whether or not the player tile is open in the given direction
+        public bool CanMove(int dir)
         {
             // Check LEFT wall
             if (dir == (int)Tile.SIDE.LEFT)
@@ -88,7 +94,9 @@ namespace MazesAndMore {
             return false;
         }
 
-        public Vector3 findTarget(int dir)
+        // Moves the player one tile in given direction 
+        // and returns the position of the new tile
+        public Vector3 MovePlayer(int dir)
         {
             Tile newTile = null;
             if (dir == (int)Tile.SIDE.LEFT)
@@ -123,7 +131,8 @@ namespace MazesAndMore {
             return newTile.transform.position;
         }
 
-        private void setWalls(Map map)
+        // Auxiliary method to create and configure the walls
+        private void SetWalls(Map map)
         {
             foreach (JSONWall wall in map.walls)
             {
@@ -158,7 +167,8 @@ namespace MazesAndMore {
             }
         }
 
-        private void setIceFloor(Map map)
+        // Auxiliary method to create and configure the ice tiles
+        private void SetIceFloor(Map map)
         {
             foreach (JSONPoint iceTile in map.ice)
             {
@@ -166,22 +176,8 @@ namespace MazesAndMore {
             }
         }
 
-        public Tile getTile(int x, int y)
-        {
-            return _tiles[x, y];
-        }
-
-        public Tile getPlayerTile()
-        {
-            return playerTile;
-        }
-
-        public Tile getFinishTile()
-        {
-            return finishTile;
-        }
-
-        public void reset()
+        // Delete all tiles and reset position and scale
+        public void ClearAndReset()
         {
             transform.localScale = Vector3.one;
             transform.position = Vector3.zero;
@@ -197,51 +193,66 @@ namespace MazesAndMore {
             _tiles = null;
         }
 
-        // PROVISIONAL. (Pendiente de averiguar el funcionamiento exacto de las pistas)
-        public void activateHint(int n)
+        // Activates the n/3 hinted segments
+        public void ActivateHint(int n)
         {
-            JSONPoint prevPoint = _map.start;
-            for (int i = n; i < _map.hints.Count; i++)
+            if (n > 0 && n <= 3)
             {
-                JSONPoint p = _map.hints[i];
-                Tile prevTile = _tiles[(int)prevPoint.x, (int)prevPoint.y];
-                Tile pTile = _tiles[(int)p.x, (int)p.y];
-                
-                if (prevPoint.x == p.x) // Vertical segment
+                JSONPoint prevPoint = _map.start;
+
+                float nHints = (float)_map.hints.Count * ((float)n / 3);
+                for (int i = 0; i < nHints; i++)
                 {
-                    if (prevPoint.y < p.y)
+                    JSONPoint p = _map.hints[i];
+                    Tile prevTile = _tiles[(int)prevPoint.x, (int)prevPoint.y];
+                    Tile pTile = _tiles[(int)p.x, (int)p.y];
+
+                    if (prevPoint.x == p.x) // Vertical segment
                     {
-                        prevTile.setSegmentColor((int)Tile.SIDE.UP, Color.yellow);
-                        prevTile.hintSegment((int)Tile.SIDE.UP);
-                        pTile.setSegmentColor((int)Tile.SIDE.DOWN, Color.yellow);
-                        pTile.hintSegment((int)Tile.SIDE.DOWN);
-                    } else
-                    {
-                        prevTile.setSegmentColor((int)Tile.SIDE.DOWN, Color.yellow);
-                        prevTile.hintSegment((int)Tile.SIDE.DOWN);
-                        pTile.setSegmentColor((int)Tile.SIDE.UP, Color.yellow);
-                        pTile.hintSegment((int)Tile.SIDE.UP);
-                    }
-                }
-                else
-                {   // Horizontal segment
-                    if (prevPoint.x < p.x)
-                    {
-                        prevTile.setSegmentColor((int)Tile.SIDE.RIGHT, Color.yellow);
-                        prevTile.hintSegment((int)Tile.SIDE.RIGHT); ;
-                        pTile.setSegmentColor((int)Tile.SIDE.LEFT, Color.yellow);
-                        pTile.hintSegment((int)Tile.SIDE.LEFT);
+                        if (prevPoint.y < p.y)
+                        {
+                            prevTile.hintSegment((int)Tile.SIDE.UP);
+                            pTile.hintSegment((int)Tile.SIDE.DOWN);
+                        }
+                        else
+                        {
+                            prevTile.hintSegment((int)Tile.SIDE.DOWN);
+                            pTile.hintSegment((int)Tile.SIDE.UP);
+                        }
                     }
                     else
-                    {
-                        prevTile.setSegmentColor((int)Tile.SIDE.LEFT, Color.yellow);
-                        prevTile.hintSegment((int)Tile.SIDE.LEFT);
-                        pTile.setSegmentColor((int)Tile.SIDE.RIGHT, Color.yellow);
-                        pTile.hintSegment((int)Tile.SIDE.RIGHT);
+                    {   // Horizontal segment
+                        if (prevPoint.x < p.x)
+                        {
+                            prevTile.hintSegment((int)Tile.SIDE.RIGHT); ;
+                            pTile.hintSegment((int)Tile.SIDE.LEFT);
+                        }
+                        else
+                        {
+                            prevTile.hintSegment((int)Tile.SIDE.LEFT);
+                            pTile.hintSegment((int)Tile.SIDE.RIGHT);
+                        }
                     }
+
+                    prevPoint = p;
                 }
-                prevPoint = p;
             }
+        }
+
+        // GETTERS AND SETTERS
+        public Tile GetTile(int x, int y)
+        {
+            return _tiles[x, y];
+        }
+
+        public Tile GetPlayerTile()
+        {
+            return playerTile;
+        }
+
+        public Tile GetFinishTile()
+        {
+            return finishTile;
         }
     }
 }
