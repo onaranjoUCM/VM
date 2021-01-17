@@ -139,11 +139,15 @@ namespace MazesAndMore {
                 int x = (int)wall.o.x;
                 int y = (int)wall.o.y;
 
+                if (x == 14 && y == 18)
+                    Debug.Log("asd");
+
                 // Horizontal wall
                 if (y == wall.d.y)
                 {
                     if (y > 0)
                     {
+                        // TODO: El nivel 16 da un error aqui
                         _tiles[x, y - 1].enableUpWall();
                         if (y < map.rows)
                             _tiles[x, y].blockDownWall();

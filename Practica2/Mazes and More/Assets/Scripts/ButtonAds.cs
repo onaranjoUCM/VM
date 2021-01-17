@@ -18,14 +18,10 @@ namespace MazesAndMore
 
         Button myButton;
         public string myPlacementId = "rewardedVideo";
-        public GameObject gameManager;
-        GameManager manager;
 
         // Start is called before the first frame update
         void Start()
         {
-            manager = gameManager.GetComponent<GameManager>();
-
             myButton = GetComponent<Button>();
 
             // Set interactivity to be dependent on the Placement’s status:
@@ -53,8 +49,11 @@ namespace MazesAndMore
             // Define conditional logic for each ad completion status:
             if (showResult == ShowResult.Finished)
             {
-                manager.AddHints(1);
-                Debug.LogWarning("+1 pista, Pistas totales: " + manager.getHints());
+                GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+                g.nHints++;
+                string json = JsonUtility.ToJson(g);
+                PlayerPrefs.SetString("progress", json);
+                Debug.LogWarning("+1 pista, Pistas totales: " + g.nHints);
             }
             else if (showResult == ShowResult.Skipped)
             {

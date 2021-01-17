@@ -8,9 +8,10 @@ namespace MazesAndMore
     {
         public LevelManager levelManager;
         public MenuLevelManager menuLevelManager;
-        static GameManager _instance;
         public LevelPackage[] levelPackages;
         public GameObject hintsButton;
+        
+        private static GameManager _instance;
 
         private int nNiveles;
         private int packageIndex;
@@ -19,7 +20,7 @@ namespace MazesAndMore
 #if UNITY_EDITOR
         public int levelToPlay;
 #endif
-        private void Start()
+        private void Awake()
         {
             if (_instance != null)
             {
@@ -52,10 +53,14 @@ namespace MazesAndMore
                     levelsPassed = new int[levelPackages.Length];
                     for (int i = 0; i < levelPackages.Length; i++)
                         levelsPassed[i] = 0;
+
+                    data = new GameData(2, levelsPassed);
+                    PlayerPrefs.SetString("progress", JsonUtility.ToJson(data));
                 } else
                 {
                     levelsPassed = data.levelsPassed;
                 }
+                
 
                 DontDestroyOnLoad(this.gameObject);
             }
@@ -100,8 +105,7 @@ namespace MazesAndMore
         {
             GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
             g.levelsPassed = levelsPassed;
-            string json = JsonUtility.ToJson(g);
-            PlayerPrefs.SetString("progress", json);
+            PlayerPrefs.SetString("progress", JsonUtility.ToJson(g));
         }
 
         public void LevelPassed()
@@ -135,6 +139,15 @@ namespace MazesAndMore
         }
 
         // GETTERS AND SETTERS
+        public static GameManager getInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new GameManager();
+            }
+            return _instance;
+        }
+
         public int getnNiveles() 
         {
             return nNiveles;

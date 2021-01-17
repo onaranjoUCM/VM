@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace MazesAndMore {
@@ -10,6 +11,8 @@ namespace MazesAndMore {
         public Text title;
         public GameObject hintsButton;
         public GameObject pauseButton;
+        public GameObject pauseMenu;
+        public GameObject shopMenu;
 
         LevelPackage pack;
         int nLevel;
@@ -85,11 +88,40 @@ namespace MazesAndMore {
             boardManager.ActivateHint(++hintsUsed);
         }
 
+        public void AddHints(int n)
+        {
+            GameManager.getInstance().AddHints(n);
+            SetHud();
+        }
+
+        public void resumeGame()
+        {
+            SetPaused(false);
+            pauseMenu.SetActive(false);
+        }
+
         // Pauses the game and enables the pause menu
         public void PausePressed()
         {
             SetPaused(true);
-            // TODO: Mostrar menu de pausa
+            pauseMenu.SetActive(true);
+        }
+
+        public void returnHome()
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
+        public void OpenShop()
+        {
+            SetPaused(true);
+            shopMenu.gameObject.SetActive(true);
+        }
+
+        public void CloseShop()
+        {
+            SetPaused(false);
+            shopMenu.gameObject.SetActive(false);
         }
 
         // GETTERS AND SETTERS

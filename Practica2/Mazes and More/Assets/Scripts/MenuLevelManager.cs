@@ -103,13 +103,14 @@ namespace MazesAndMore
                     Color color = gamemanager.levelPackages[gamemanager.GetPackageIndex()].color;
                     int levelEnd = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.GetPackageIndex()];
 
+                    // TODO: Revisar esto, al crear un usuario nuevo sale el nivel 1 como superado ya
                     if (pass[c])
                     {
                         botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.SceneLevelPlay(level));
                         int n = c + 1;
                         if(c <= levelEnd)
                             botones[i, j].GetComponent<Image>().color = color;
-                        botones[i, j].GetComponentInChildren<Text>().text = n.ToString();//GetComponent<Text>().text = n.ToString();
+                        botones[i, j].GetComponentInChildren<Text>().text = n.ToString();
                     }
 
                     c++;
