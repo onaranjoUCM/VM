@@ -139,9 +139,6 @@ namespace MazesAndMore {
                 int x = (int)wall.o.x;
                 int y = (int)wall.o.y;
 
-                if (x == 14 && y == 18)
-                    Debug.Log("asd");
-
                 // Horizontal wall
                 if (y == wall.d.y)
                 {

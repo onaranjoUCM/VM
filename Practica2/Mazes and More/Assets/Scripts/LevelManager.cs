@@ -13,6 +13,7 @@ namespace MazesAndMore {
         public GameObject pauseButton;
         public GameObject pauseMenu;
         public GameObject shopMenu;
+        public GameObject winMenu;
 
         LevelPackage pack;
         int nLevel;
@@ -29,22 +30,21 @@ namespace MazesAndMore {
             }
 #endif
             boardManager.Init(this);
-
-            //  PROVISIONAL: Descomentar para no tener que ir desde el menu principal
-            /*
-            boardManager.reset();
-            player.setColor(Color.green);
-            boardManager.setMap(new Map(level), Color.green);
-            boardManager.adjustToWindow();
-            player.init();
-            boardManager.activateHint(0);   // PROVISIONAL
-            */
         }
 
         void Update()
         {
             if (!paused)
+            {
                 playerController.Run();
+                if (CheckFinish())
+                {
+                    SetPaused(true);
+                    GameManager.getInstance().LevelPassed();
+                    winMenu.gameObject.SetActive(true);
+                }
+            }
+
         }
 
         // Returns whether or not the player has reached the finish
@@ -83,6 +83,13 @@ namespace MazesAndMore {
             pauseButton.transform.position = new Vector3(Screen.width * 4 / 6, Screen.height - 60, 0);
         }
 
+        // Button functions
+        public void NextLevel()
+        {
+            winMenu.gameObject.SetActive(false);
+            GameManager.getInstance().LoadLevel();
+        }
+
         public void UseHint()
         {
             boardManager.ActivateHint(++hintsUsed);
@@ -100,7 +107,6 @@ namespace MazesAndMore {
             pauseMenu.SetActive(false);
         }
 
-        // Pauses the game and enables the pause menu
         public void PausePressed()
         {
             SetPaused(true);

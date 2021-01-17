@@ -22,6 +22,7 @@ namespace MazesAndMore
 #endif
         private void Awake()
         {
+            //PlayerPrefs.DeleteAll();
             if (_instance != null)
             {
                 _instance.levelManager = levelManager;
@@ -68,12 +69,6 @@ namespace MazesAndMore
 
         private void Update()
         {
-            if (levelManager != null)
-            {
-                if (levelManager.CheckFinish())
-                    LevelPassed();
-            }
-
             if (Input.GetKeyDown(KeyCode.H))
                 takeHints();
         }
@@ -117,7 +112,6 @@ namespace MazesAndMore
             }
 
             levelToPlay++;
-            levelManager.LoadLevel(levelPackages[_instance.packageIndex], levelToPlay);
         }
 
         public void AddHints(int n)
