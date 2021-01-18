@@ -9,7 +9,6 @@ namespace MazesAndMore
         public LevelManager levelManager;
         public MenuLevelManager menuLevelManager;
         public LevelPackage[] levelPackages;
-        public GameObject hintsButton;
         
         private static GameManager _instance;
 
@@ -27,17 +26,12 @@ namespace MazesAndMore
             {
                 _instance.levelManager = levelManager;
                 _instance.menuLevelManager = menuLevelManager;
-                _instance.hintsButton = hintsButton;
 
                 if (menuLevelManager != null) 
                     _instance.menuLevelManager.init(_instance);
 
                 if (levelManager != null)
                     _instance.LoadLevel();
-
-                // REVISAR (NO FUNCIONA)
-                if (hintsButton != null)
-                    hintsButton.GetComponent<Button>().onClick.AddListener(() => takeHints());
 
                 DestroyImmediate(gameObject);
                 return;
@@ -65,12 +59,6 @@ namespace MazesAndMore
 
                 DontDestroyOnLoad(this.gameObject);
             }
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.H))
-                takeHints();
         }
 
         public void LoadLevelsScene(int n)
@@ -111,7 +99,8 @@ namespace MazesAndMore
                 SaveProgress();
             }
 
-            levelToPlay++;
+            if (levelToPlay + 1 != levelPackages[packageIndex].levels.Length)
+                levelToPlay++;
         }
 
         public void AddHints(int n)
@@ -122,14 +111,12 @@ namespace MazesAndMore
             PlayerPrefs.SetString("progress", json);
         }
 
-        public void takeHints()
+        public void UseHint()
         {
             GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
             g.nHints--;
             string json = JsonUtility.ToJson(g);
             PlayerPrefs.SetString("progress", json);
-            levelManager.SetHud();
-            levelManager.UseHint();
         }
 
         // GETTERS AND SETTERS

@@ -10,12 +10,6 @@ namespace MazesAndMore {
         Tile finishTile;
 
         private Tile[,] _tiles;
-        private LevelManager _levelManager;
-
-        public void Init(LevelManager levelManager)
-        {
-            _levelManager = levelManager;
-        }
 
         // Creates and configures the graphic components of the map
         public void SetMap(Map map, Color playerColor)
@@ -55,18 +49,18 @@ namespace MazesAndMore {
         {
             // TODO: Revisar por qué se desplaza en los niveles mas grandes
             float scaleFactor;
-            float w = Screen.width;
-            float h = Screen.height;
+            float w = Screen.width; float h = Screen.height;
+            float c = _map.cols; float r = _map.rows;
 
             if (h > w)
-                scaleFactor = (w / h) / _map.cols;
+                scaleFactor = (w / h) / c;
             else
-                scaleFactor = (h / w) / _map.rows;
+                scaleFactor = (h / w) / r;
 
             scaleFactor *= 9;
             transform.localScale = new Vector3(transform.localScale.x * scaleFactor, transform.localScale.y * scaleFactor, transform.localScale.z);
-            transform.Translate(Vector3.left * (_map.cols / 2) * scaleFactor);
-            transform.Translate(Vector3.down * (_map.rows / 2) * scaleFactor);
+            transform.Translate(Vector3.left * ((c-1) / 2.0f) * scaleFactor);
+            transform.Translate(Vector3.down * (r / 2.0f) * scaleFactor);
         }
 
         // Returns whether or not the player tile is open in the given direction
@@ -90,7 +84,7 @@ namespace MazesAndMore {
             if (dir == (int)Tile.SIDE.DOWN && playerTile.y - 1 >= 0)
                 return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)Tile.SIDE.UP];
 
-            // If we reach here it means we are trying to move RIGHT or DOWN out of the maze
+            // If you reach here it means you are trying to move RIGHT or DOWN out of the maze
             return false;
         }
 
@@ -192,6 +186,36 @@ namespace MazesAndMore {
                 }
             }
             _tiles = null;
+        }
+
+        // Return player to the start but keep the hints
+        public void Reset(GameObject player)
+        {
+            playerTile = _tiles[(int)_map.start.x, (int)_map.start.y];
+            player.transform.position = playerTile.transform.position;
+            foreach (Tile t in _tiles)
+            {
+                if (!t.hintedSegments[(int)Tile.SIDE.LEFT])
+                    t.disableSegment((int)Tile.SIDE.LEFT);
+                else
+                    t.setSegmentColor((int)Tile.SIDE.LEFT, Color.yellow);
+
+                if (!t.hintedSegments[(int)Tile.SIDE.RIGHT])
+                    t.disableSegment((int)Tile.SIDE.RIGHT);
+                else
+                    t.setSegmentColor((int)Tile.SIDE.RIGHT, Color.yellow);
+
+                if (!t.hintedSegments[(int)Tile.SIDE.UP])
+                    t.disableSegment((int)Tile.SIDE.UP);
+                else
+                    t.setSegmentColor((int)Tile.SIDE.UP, Color.yellow);
+
+
+                if (!t.hintedSegments[(int)Tile.SIDE.DOWN])
+                    t.disableSegment((int)Tile.SIDE.DOWN);
+                else
+                    t.setSegmentColor((int)Tile.SIDE.DOWN, Color.yellow);
+            }
         }
 
         // Activates the n/3 hinted segments

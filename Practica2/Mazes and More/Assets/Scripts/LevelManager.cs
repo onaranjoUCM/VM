@@ -29,7 +29,6 @@ namespace MazesAndMore {
                 return;
             }
 #endif
-            boardManager.Init(this);
         }
 
         void Update()
@@ -90,9 +89,16 @@ namespace MazesAndMore {
             GameManager.getInstance().LoadLevel();
         }
 
+        public void Reset()
+        {
+            boardManager.Reset(playerController.gameObject);
+        }
+
         public void UseHint()
         {
+            GameManager.getInstance().UseHint();
             boardManager.ActivateHint(++hintsUsed);
+            SetHud();
         }
 
         public void AddHints(int n)

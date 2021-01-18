@@ -635,6 +635,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Estrella
       objectReference: {fileID: 0}
+    - target: {fileID: 4807906443327851033, guid: f171246b79ddeb646b844d64e7a89e72,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f171246b79ddeb646b844d64e7a89e72, type: 3}
 --- !u!1 &880304260
