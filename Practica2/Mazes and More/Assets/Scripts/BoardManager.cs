@@ -130,11 +130,12 @@ namespace MazesAndMore {
         {
             foreach (JSONWall wall in map.walls)
             {
-                int x = (int)wall.o.x;
-                int y = (int)wall.o.y;
+                int x = (wall.o.x < wall.d.x) ? (int)wall.o.x : (int)wall.d.x;
+                int y = (wall.o.y > wall.d.y) ? (int)wall.o.y : (int)wall.d.y;
+                //int y = (int)wall.o.y;
 
                 // Horizontal wall
-                if (y == wall.d.y)
+                if (wall.o.y == wall.d.y)
                 {
                     if (y > 0)
                     {
@@ -148,7 +149,7 @@ namespace MazesAndMore {
                 }
 
                 // Vertical wall
-                if (x == wall.d.x)
+                if (wall.o.x == wall.d.x)
                 {
                     if (x < map.cols)
                     {
