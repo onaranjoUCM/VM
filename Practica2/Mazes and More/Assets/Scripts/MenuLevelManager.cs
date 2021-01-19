@@ -20,25 +20,11 @@ namespace MazesAndMore
         public Text title;
         public GameObject star;
 
+        public GameObject butonsUI;
+        public GameObject UIUp;
+
         public void init(GameManager g)
-        {
-            //SOLUCIONAR ESTO
-            height = 600;
-            width = 800;
-
-            Camera cam = Camera.main;
-            float camW = height * cam.aspect;
-            float camH = 2f * cam.orthographicSize;
-
-            float h1 = height / camH;
-            float w1 = width / camW;
-
-            float midH = (h1 * (camH / 2)) / 2;
-            float midW = (w1 * (camW / 2)) / 2;
-
-            height = midH;
-            width = midW;
-
+        {    
             gamemanager = g;
             nNiveles = gamemanager.getnNiveles();
 
@@ -57,16 +43,17 @@ namespace MazesAndMore
             }
 
             Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
-            adsButton.gameObject.transform.SetParent(transform);
+            adsButton.gameObject.transform.SetParent(UIUp.transform);
             adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
+            //adsButton.transform.localScale = Vector3.one;
 
             title.text = gamemanager.levelPackages[gamemanager.GetPackageIndex()].name;
-            title.gameObject.transform.SetParent(transform);
+            title.gameObject.transform.SetParent(UIUp.transform);
             title.transform.position = new Vector3((Screen.width) * 3 / 6, Screen.height - 60, 0);
 
             GameObject starCanvas = Instantiate(star, new Vector3(0, 0, 0), Quaternion.identity);
-            starCanvas.gameObject.transform.SetParent(transform);
-            starCanvas.transform.position = new Vector3((Screen.width - 20)* 5 / 6, Screen.height - 60, 0);
+            starCanvas.gameObject.transform.SetParent(UIUp.transform);
+            starCanvas.transform.position = new Vector3((Screen.width - 20) * 5 / 6, Screen.height - 60, 0);
 
             putButtons();
         }
@@ -94,8 +81,8 @@ namespace MazesAndMore
                     float scale = width / height;
                     int increX = (Screen.width - 20) / 6;
 
-                    b.gameObject.transform.SetParent(transform);
-                    b.transform.position = new Vector3(increX * (i + 1), Screen.height - 100 - (j + 1) * 60 , 0);
+                    b.gameObject.transform.SetParent(butonsUI.transform);
+                    //b.transform.localScale = Vector3.one * 4;
 
 
                     botones[i, j] = b;

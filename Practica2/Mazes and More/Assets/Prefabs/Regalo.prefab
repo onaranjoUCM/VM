@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1578762368843756809}
   - component: {fileID: 1578762368843756810}
   - component: {fileID: 1578762368843756811}
-  - component: {fileID: 1578762368843756808}
+  - component: {fileID: 272670939005556408}
   m_Layer: 5
   m_Name: Regalo
   m_TagString: Untagged
@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 188, y: -48}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 209, y: -64.1}
+  m_SizeDelta: {x: 321.44757, y: 60.271423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1578762368843756809
 CanvasRenderer:
@@ -133,7 +133,7 @@ MonoBehaviour:
           m_StringArgument: Recompensa
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1578762368843756808
+--- !u!114 &272670939005556408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,5 +146,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPlacementId: Recompensa
-  gameManager: {fileID: 5111991643201884266, guid: 04b6698fa9c08bd499937c867bee7f47,
-    type: 3}
