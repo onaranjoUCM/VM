@@ -78,7 +78,7 @@ namespace MazesAndMore {
         public void SetHud()
         {
             title.text = pack.packageName + " - " + (nLevel + 1).ToString();
-            hintsButton.GetComponentInChildren<Text>().text = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).nHints.ToString();
+            hintsButton.GetComponentInChildren<Text>().text = GameManager.getInstance().GetPlayerProgress().nHints.ToString();
         }
 
         // Button functions
@@ -97,7 +97,7 @@ namespace MazesAndMore {
 
         public void UseHint()
         {
-            GameManager.getInstance().UseHint();
+            GameManager.getInstance().AddHints(-1);
             boardManager.ActivateHint(++hintsUsed);
             SetHud();
         }

@@ -14,7 +14,6 @@ namespace MazesAndMore
         float width;
         private bool[] pass;
         private Button[,] botones;
-        GameManager gamemanager;
         public Button regalo;
         GameObject texto;
         public Text title;
@@ -23,10 +22,9 @@ namespace MazesAndMore
         public GameObject butonsUI;
         public GameObject UIUp;
 
-        public void init(GameManager g)
+        public void init()
         {    
-            gamemanager = g;
-            nNiveles = gamemanager.getnNiveles();
+            nNiveles = GameManager.getInstance().GetCurrentLevelPackage().levels.Length;
 
             botones = new Button[5, nNiveles / 5];
 
@@ -36,7 +34,8 @@ namespace MazesAndMore
                 pass[i] = false;
             }
 
-            int nPass = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.GetPackageIndex()];
+            GameManager gm = GameManager.getInstance();
+            int nPass = gm.GetPlayerProgress().levelsPassed[gm.GetPackageIndex()];
             for(int i = 0; i <= nPass + 1; i++)
             {
                 pass[i] = true;
@@ -47,7 +46,7 @@ namespace MazesAndMore
             adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
             //adsButton.transform.localScale = Vector3.one;
 
-            title.text = gamemanager.levelPackages[gamemanager.GetPackageIndex()].packageName;
+            title.text = gm.levelPackages[gm.GetPackageIndex()].packageName;
             title.gameObject.transform.SetParent(UIUp.transform);
             title.transform.position = new Vector3((Screen.width) * 3 / 6, Screen.height - 60, 0);
 
@@ -87,13 +86,14 @@ namespace MazesAndMore
 
                     botones[i, j] = b;
                     int level = c;
-                    Color color = gamemanager.levelPackages[gamemanager.GetPackageIndex()].color;
-                    int levelEnd = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).levelsPassed[gamemanager.GetPackageIndex()];
+                    GameManager gm = GameManager.getInstance();
+                    Color color = gm.GetCurrentLevelPackage().color;
+                    int levelEnd = gm.GetPlayerProgress().levelsPassed[gm.GetPackageIndex()];
 
                     // TODO: Revisar esto, al crear un usuario nuevo sale el nivel 1 como superado ya
                     if (pass[c])
                     {
-                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gamemanager.SceneLevelPlay(level));
+                        botones[i, j].GetComponent<Button>().onClick.AddListener(() => gm.SceneLevelPlay(level));
                         int n = c + 1;
                         if(c <= levelEnd)
                             botones[i, j].GetComponent<Image>().color = color;
