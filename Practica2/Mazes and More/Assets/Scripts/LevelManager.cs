@@ -5,12 +5,12 @@ using UnityEngine.UI;
 namespace MazesAndMore {
     public class LevelManager : MonoBehaviour
     {
-        public TextAsset level; // PROVISIONAL
         public BoardManager boardManager;
         public PlayerController playerController;
         public Text title;
         public GameObject hintsButton;
-        public GameObject pauseButton;
+        //public GameObject pauseButton;
+        public GameObject topMenu;
         public GameObject pauseMenu;
         public GameObject shopMenu;
         public GameObject winMenu;
@@ -40,6 +40,8 @@ namespace MazesAndMore {
                 {
                     SetPaused(true);
                     GameManager.getInstance().LevelPassed();
+                    topMenu.gameObject.SetActive(false);
+                    boardManager.gameObject.SetActive(false);
                     winMenu.gameObject.SetActive(true);
                 }
             }
@@ -74,18 +76,15 @@ namespace MazesAndMore {
         public void SetHud()
         {
             title.text = pack.packageName + " - " + (nLevel + 1).ToString();
-            title.transform.position = new Vector3(Screen.width / 6, Screen.height - 60, 0);
-
-            hintsButton.transform.position = new Vector3(Screen.width * 5 / 6, Screen.height - 60, 0);
             hintsButton.GetComponentInChildren<Text>().text = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress")).nHints.ToString();
-
-            pauseButton.transform.position = new Vector3(Screen.width * 4 / 6, Screen.height - 60, 0);
         }
 
         // Button functions
         public void NextLevel()
         {
             winMenu.gameObject.SetActive(false);
+            boardManager.gameObject.SetActive(true);
+            topMenu.gameObject.SetActive(true);
             GameManager.getInstance().LoadLevel();
         }
 

@@ -47,7 +47,7 @@ namespace MazesAndMore
             adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
             //adsButton.transform.localScale = Vector3.one;
 
-            title.text = gamemanager.levelPackages[gamemanager.GetPackageIndex()].name;
+            title.text = gamemanager.levelPackages[gamemanager.GetPackageIndex()].packageName;
             title.gameObject.transform.SetParent(UIUp.transform);
             title.transform.position = new Vector3((Screen.width) * 3 / 6, Screen.height - 60, 0);
 
