@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
-public class Ads : MonoBehaviour
+public class Ads : MonoBehaviour, IUnityAdsListener
 {
     string gameId = "3963369";
     bool testMode = true;
@@ -13,12 +14,13 @@ public class Ads : MonoBehaviour
         Advertisement.Initialize(gameId, testMode);
     }
 
-    public void ShowInterstitialAd()
+    public void ShowInterstitialAd(string placementId)
     {
+        Advertisement.AddListener(this);
         // Check if UnityAds ready before calling Show method:
-        if (Advertisement.IsReady())
+        if (Advertisement.IsReady(placementId))
         {
-            Advertisement.Show();
+            Advertisement.Show(placementId);
         }
         else
         {
@@ -45,7 +47,7 @@ public class Ads : MonoBehaviour
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            // Reward the user for watching the ad to completion.
+            Debug.LogWarning("Close");
         }
         else if (showResult == ShowResult.Skipped)
         {
@@ -55,5 +57,26 @@ public class Ads : MonoBehaviour
         {
             Debug.LogWarning("The ad did not finish due to an error.");
         }
+        Advertisement.RemoveListener(this);
+    }
+
+    public void OnDestroy()
+    {
+        //Advertisement.RemoveListener(this);
+    }
+
+    public void OnUnityAdsReady(string placementId)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnUnityAdsDidError(string message)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnUnityAdsDidStart(string placementId)
+    {
+        //throw new System.NotImplementedException();
     }
 }

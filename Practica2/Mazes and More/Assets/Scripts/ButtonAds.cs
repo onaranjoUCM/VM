@@ -24,18 +24,17 @@ namespace MazesAndMore
         {
             myButton = GetComponent<Button>();
 
-            // Set interactivity to be dependent on the Placement’s status:
-            myButton.interactable = Advertisement.IsReady(myPlacementId);
-
             // Map the ShowRewardedVideo function to the button’s click listener:
             if (myButton) myButton.onClick.AddListener(ShowRewardedVideo);
 
             // Initialize the Ads listener and service:
-            Advertisement.AddListener(this);
+
             Advertisement.Initialize(gameId, true);
+
         }
         void ShowRewardedVideo()
         {
+            Advertisement.AddListener(this);
             Advertisement.Show(myPlacementId);
         }
 
@@ -63,6 +62,7 @@ namespace MazesAndMore
             {
                 Debug.LogWarning("The ad did not finish due to an error.");
             }
+            Advertisement.RemoveListener(this);
         }
 
         public void OnUnityAdsDidStart(string placementId)
@@ -77,6 +77,10 @@ namespace MazesAndMore
             {
                 myButton.interactable = true;
             }
+        }
+        public void OnDestroy()
+        {
+            Advertisement.RemoveListener(this);
         }
     }
 }

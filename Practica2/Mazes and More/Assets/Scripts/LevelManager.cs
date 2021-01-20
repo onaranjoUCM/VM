@@ -14,6 +14,7 @@ namespace MazesAndMore {
         public GameObject pauseMenu;
         public GameObject shopMenu;
         public GameObject winMenu;
+        public GameObject ads;
 
         LevelPackage pack;
         int nLevel;
@@ -42,6 +43,7 @@ namespace MazesAndMore {
                     GameManager.getInstance().LevelPassed();
                     topMenu.gameObject.SetActive(false);
                     boardManager.gameObject.SetActive(false);
+                    ads.AddComponent<Ads>().ShowInterstitialAd("nextlevel");
                     winMenu.gameObject.SetActive(true);
                 }
             }
