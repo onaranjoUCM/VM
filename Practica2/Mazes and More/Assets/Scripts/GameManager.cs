@@ -64,7 +64,7 @@ namespace MazesAndMore
             {
                 levelsPassed = new int[levelPackages.Length];
                 for (int i = 0; i < levelPackages.Length; i++)
-                    levelsPassed[i] = 0;
+                    levelsPassed[i] = -1;
 
                 data = new GameData(2, levelsPassed);
                 SaveProgress(JsonUtility.ToJson(data));
@@ -91,7 +91,7 @@ namespace MazesAndMore
 
         public void LevelPassed()
         {
-            if (levelsPassed[packageIndex] < levelToPlay + 1)
+            if (levelsPassed[packageIndex] < levelToPlay)
             {
                 levelsPassed[packageIndex] = levelToPlay;
                 GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
@@ -133,6 +133,11 @@ namespace MazesAndMore
         public LevelPackage GetCurrentLevelPackage()
         {
             return levelPackages[packageIndex];
+        }
+
+        public LevelPackage GetCurrentLevelPackage(int i)
+        {
+            return levelPackages[i];
         }
 
         public GameData GetPlayerProgress()

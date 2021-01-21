@@ -48,11 +48,8 @@ namespace MazesAndMore
             // Define conditional logic for each ad completion status:
             if (showResult == ShowResult.Finished)
             {
-                GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
-                g.nHints++;
-                string json = JsonUtility.ToJson(g);
-                PlayerPrefs.SetString("progress", json);
-                Debug.LogWarning("+1 pista, Pistas totales: " + g.nHints);
+                GameManager.getInstance().AddHints(1);
+                //Debug.LogWarning("+1 pista, Pistas totales: " + g.nHints);
             }
             else if (showResult == ShowResult.Skipped)
             {

@@ -18,6 +18,7 @@ namespace MazesAndMore
         GameObject texto;
         public Text title;
         public GameObject star;
+        int nextlevel;
 
         public GameObject butonsUI;
         public GameObject UIUp;
@@ -36,10 +37,11 @@ namespace MazesAndMore
 
             GameManager gm = GameManager.getInstance();
             int nPass = gm.GetPlayerProgress().levelsPassed[gm.GetPackageIndex()];
-            for(int i = 0; i <= nPass + 1; i++)
+            for(int i = 0; i <= nPass; i++)
             {
                 pass[i] = true;
             }
+            nextlevel = nPass + 1;
 
             Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
             adsButton.gameObject.transform.SetParent(UIUp.transform);
@@ -65,7 +67,7 @@ namespace MazesAndMore
                 for (int i = 0; i < 5; i++)
                 {
                     Button boton;
-                    if (pass[c])
+                    if (pass[c] || c == nextlevel)
                     {
                         //botonNivel.GetComponent<Text>().text = "c";
                         boton = botonNivel;
@@ -91,13 +93,14 @@ namespace MazesAndMore
                     int levelEnd = gm.GetPlayerProgress().levelsPassed[gm.GetPackageIndex()];
 
                     // TODO: Revisar esto, al crear un usuario nuevo sale el nivel 1 como superado ya
-                    if (pass[c])
+                    if (pass[c] || c == nextlevel)
                     {
                         botones[i, j].GetComponent<Button>().onClick.AddListener(() => gm.SceneLevelPlay(level));
                         int n = c + 1;
                         if(c <= levelEnd)
                             botones[i, j].GetComponent<Image>().color = color;
                         botones[i, j].GetComponentInChildren<Text>().text = n.ToString();
+                        //Debug.Log()
                     }
 
                     c++;

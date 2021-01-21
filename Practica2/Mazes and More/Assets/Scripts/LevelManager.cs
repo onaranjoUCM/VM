@@ -97,9 +97,15 @@ namespace MazesAndMore {
 
         public void UseHint()
         {
-            GameManager.getInstance().AddHints(-1);
-            boardManager.ActivateHint(++hintsUsed);
-            SetHud();
+            GameData g = GameManager.getInstance().GetPlayerProgress();
+            if (g.nHints > 0)
+            {
+                GameManager.getInstance().AddHints(-1);
+                boardManager.ActivateHint(++hintsUsed);
+                SetHud();
+            }
+            else
+                OpenShop();
         }
 
         public void AddHints(int n)
@@ -133,6 +139,7 @@ namespace MazesAndMore {
 
         public void CloseShop()
         {
+            SetPaused(false);
             shopMenu.gameObject.SetActive(false);
         }
 
