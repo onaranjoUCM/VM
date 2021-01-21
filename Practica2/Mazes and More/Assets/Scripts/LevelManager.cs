@@ -43,7 +43,10 @@ namespace MazesAndMore {
                     GameManager.getInstance().LevelPassed();
                     topMenu.gameObject.SetActive(false);
                     boardManager.gameObject.SetActive(false);
-                    ads.AddComponent<Ads>().ShowInterstitialAd("nextlevel");
+
+                    if (GameManager.getInstance().GetPlayerData().adsEnabled)
+                        ads.AddComponent<Ads>().ShowInterstitialAd("nextlevel");
+
                     winMenu.gameObject.SetActive(true);
                 }
             }
@@ -78,7 +81,7 @@ namespace MazesAndMore {
         public void SetHud()
         {
             title.text = pack.packageName + " - " + (nLevel + 1).ToString();
-            hintsButton.GetComponentInChildren<Text>().text = GameManager.getInstance().GetPlayerProgress().nHints.ToString();
+            hintsButton.GetComponentInChildren<Text>().text = GameManager.getInstance().GetPlayerData().nHints.ToString();
         }
 
         // Button functions
@@ -97,7 +100,7 @@ namespace MazesAndMore {
 
         public void UseHint()
         {
-            GameData g = GameManager.getInstance().GetPlayerProgress();
+            GameData g = GameManager.getInstance().GetPlayerData();
             if (g.nHints > 0)
             {
                 GameManager.getInstance().AddHints(-1);
@@ -141,6 +144,11 @@ namespace MazesAndMore {
         {
             SetPaused(false);
             shopMenu.gameObject.SetActive(false);
+        }
+
+        public void DisableAds()
+        {
+            GameManager.getInstance().DisableAds();
         }
 
         // GETTERS AND SETTERS

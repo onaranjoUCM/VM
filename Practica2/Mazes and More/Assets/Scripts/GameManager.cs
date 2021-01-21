@@ -58,7 +58,7 @@ namespace MazesAndMore
 
         public void LoadData()
         {
-            GameData data = GetPlayerProgress();
+            GameData data = GetPlayerData();
 
             if (data == null)
             {
@@ -66,7 +66,7 @@ namespace MazesAndMore
                 for (int i = 0; i < levelPackages.Length; i++)
                     levelsPassed[i] = -1;
 
-                data = new GameData(2, levelsPassed);
+                data = new GameData(2, levelsPassed, true);
                 SaveProgress(JsonUtility.ToJson(data));
             }
             else
@@ -110,6 +110,13 @@ namespace MazesAndMore
             SaveProgress(JsonUtility.ToJson(g));
         }
 
+        public void DisableAds()
+        {
+            GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+            g.adsEnabled = false;
+            SaveProgress(JsonUtility.ToJson(g));
+        }
+
         // Security
         private bool VerifyHash(string json)
         {
@@ -140,7 +147,7 @@ namespace MazesAndMore
             return levelPackages[i];
         }
 
-        public GameData GetPlayerProgress()
+        public GameData GetPlayerData()
         {
             string json = PlayerPrefs.GetString("progress");
 

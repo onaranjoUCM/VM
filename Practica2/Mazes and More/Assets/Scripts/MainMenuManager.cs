@@ -27,7 +27,7 @@ namespace MazesAndMore
                 b.GetComponent<Image>().sprite = lp.buttonImage;
 
                 GameManager gm = GameManager.getInstance();
-                int nPass = gm.GetPlayerProgress().levelsPassed[i] + 1;
+                int nPass = gm.GetPlayerData().levelsPassed[i] + 1;
                 int porcen = nPass * 100 / GameManager.getInstance().GetCurrentLevelPackage(i).levels.Length;
                 b.GetComponentInChildren<Text>().text = lp.packageName + "  " + porcen + "%";
                 b.GetComponentInChildren<Text>().color = Color.white;

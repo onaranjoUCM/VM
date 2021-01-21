@@ -36,7 +36,7 @@ namespace MazesAndMore
             }
 
             GameManager gm = GameManager.getInstance();
-            int nPass = gm.GetPlayerProgress().levelsPassed[gm.GetPackageIndex()];
+            int nPass = gm.GetPlayerData().levelsPassed[gm.GetPackageIndex()];
             for(int i = 0; i <= nPass; i++)
             {
                 pass[i] = true;
@@ -90,7 +90,7 @@ namespace MazesAndMore
                     int level = c;
                     GameManager gm = GameManager.getInstance();
                     Color color = gm.GetCurrentLevelPackage().color;
-                    int levelEnd = gm.GetPlayerProgress().levelsPassed[gm.GetPackageIndex()];
+                    int levelEnd = gm.GetPlayerData().levelsPassed[gm.GetPackageIndex()];
 
                     // TODO: Revisar esto, al crear un usuario nuevo sale el nivel 1 como superado ya
                     if (pass[c] || c == nextlevel)
