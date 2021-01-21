@@ -37,6 +37,7 @@ namespace MazesAndMore {
             // Set start and finish
             finishTile = _tiles[(int)map.finish.x, (int)map.finish.y];
             finishTile.enableFinish();
+            finishTile.setFinishColor(playerColor);
             playerTile = _tiles[(int)map.start.x, (int)map.start.y];
 
             // Set walls

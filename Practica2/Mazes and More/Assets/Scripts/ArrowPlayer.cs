@@ -8,16 +8,12 @@ public class ArrowPlayer : MonoBehaviour
     public SpriteRenderer arrowDown;
     public SpriteRenderer arrowRight;
     public SpriteRenderer arrowLeft;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void EnableUp()
     {
         arrowUp.gameObject.SetActive(true);
     }
+
     public void DisableUp()
     {
         arrowUp.gameObject.SetActive(false);
@@ -27,6 +23,7 @@ public class ArrowPlayer : MonoBehaviour
     {
         arrowRight.gameObject.SetActive(true);
     }
+
     public void DisableRight()
     {
         arrowRight.gameObject.SetActive(false);
@@ -47,5 +44,13 @@ public class ArrowPlayer : MonoBehaviour
     public void DisableDown()
     {
         arrowDown.gameObject.SetActive(false);
+    }
+
+    public void setColor(Color c)
+    {
+        arrowUp.color = c;
+        arrowDown.color = c;
+        arrowLeft.color = c;
+        arrowRight.color = c;
     }
 }

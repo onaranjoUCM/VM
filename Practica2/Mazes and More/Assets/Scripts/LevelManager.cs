@@ -133,7 +133,6 @@ namespace MazesAndMore {
 
         public void CloseShop()
         {
-            SetPaused(false);
             shopMenu.gameObject.SetActive(false);
         }
 

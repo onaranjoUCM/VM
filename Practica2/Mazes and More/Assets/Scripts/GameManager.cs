@@ -14,10 +14,8 @@ namespace MazesAndMore
 
         private int packageIndex;
         private int[] levelsPassed;
+        int levelToPlay;
 
-#if UNITY_EDITOR
-        public int levelToPlay;
-#endif
         private void Awake()
         {
             //PlayerPrefs.DeleteAll();

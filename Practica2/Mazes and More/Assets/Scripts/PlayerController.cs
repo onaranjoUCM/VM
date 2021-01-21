@@ -13,6 +13,10 @@ namespace MazesAndMore {
         private bool moving = false;
         private int direction;
 
+        private Vector2 fingerDown;
+        private Vector2 fingerUp;
+        public float SWIPE_THRESHOLD = 20f;
+
         public void Init()
         {
             transform.position = boardManager.GetPlayerTile().transform.position;
@@ -59,14 +63,79 @@ namespace MazesAndMore {
 
         private void CheckInput()
         {
-            if (Input.GetKey("up") && boardManager.CanMove((int)Tile.SIDE.UP))
-                StartMoving((int)Tile.SIDE.UP);
-            else if (Input.GetKey("down") && boardManager.CanMove((int)Tile.SIDE.DOWN))
-                StartMoving((int)Tile.SIDE.DOWN);
-            else if (Input.GetKey("left") && boardManager.CanMove((int)Tile.SIDE.LEFT))
-                StartMoving((int)Tile.SIDE.LEFT);
-            else if (Input.GetKey("right") && boardManager.CanMove((int)Tile.SIDE.RIGHT))
-                StartMoving((int)Tile.SIDE.RIGHT);
+            // Input for android
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        fingerUp = touch.position;
+                        fingerDown = touch.position;
+                    }
+
+                    //Detects Swipe while finger is still moving
+                    if (touch.phase == TouchPhase.Moved)
+                    {
+                        fingerDown = touch.position;
+                        CheckSwipe();
+                    }
+
+                    //Detects swipe after finger is released
+                    if (touch.phase == TouchPhase.Ended)
+                    {
+                        fingerDown = touch.position;
+                        CheckSwipe();
+                    }
+                }
+            }
+            else 
+            {
+                // Input for PC
+                if ((Input.GetKey("up") || Input.GetKey(KeyCode.W)) && boardManager.CanMove((int)Tile.SIDE.UP))
+                    StartMoving((int)Tile.SIDE.UP);
+                else if ((Input.GetKey("down") || Input.GetKey(KeyCode.S)) && boardManager.CanMove((int)Tile.SIDE.DOWN))
+                    StartMoving((int)Tile.SIDE.DOWN);
+                else if ((Input.GetKey("left") || Input.GetKey(KeyCode.A)) && boardManager.CanMove((int)Tile.SIDE.LEFT))
+                    StartMoving((int)Tile.SIDE.LEFT);
+                else if ((Input.GetKey("right") || Input.GetKey(KeyCode.D)) && boardManager.CanMove((int)Tile.SIDE.RIGHT))
+                    StartMoving((int)Tile.SIDE.RIGHT);
+            }
+        }
+
+        void CheckSwipe()
+        {
+            //Check if Vertical swipe
+            if (VerticalMove() > SWIPE_THRESHOLD && VerticalMove() > HorizontalValMove())
+            {
+                if (fingerDown.y - fingerUp.y > 0) //up swipe
+                    StartMoving((int)Tile.SIDE.UP);
+                else if (fingerDown.y - fingerUp.y < 0) //Down swipe
+                    StartMoving((int)Tile.SIDE.DOWN);
+
+                fingerUp = fingerDown;
+            }
+
+            //Check if Horizontal swipe
+            else if (HorizontalValMove() > SWIPE_THRESHOLD && HorizontalValMove() > VerticalMove())
+            {
+                if (fingerDown.x - fingerUp.x > 0) //Right swipe
+                    StartMoving((int)Tile.SIDE.RIGHT);
+                else if (fingerDown.x - fingerUp.x < 0) //Left swipe
+                    StartMoving((int)Tile.SIDE.LEFT);
+
+                fingerUp = fingerDown;
+            }
+        }
+
+        float VerticalMove()
+        {
+            return Mathf.Abs(fingerDown.y - fingerUp.y);
+        }
+
+        float HorizontalValMove()
+        {
+            return Mathf.Abs(fingerDown.x - fingerUp.x);
         }
 
         private void StartMoving(int dir)
@@ -80,6 +149,7 @@ namespace MazesAndMore {
         public void SetColor(Color c)
         {
             gameObject.GetComponent<SpriteRenderer>().color = c;
+            arrowPrefab.setColor(c);
         }
 
         private void DisableArrows()

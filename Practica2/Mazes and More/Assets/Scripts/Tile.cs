@@ -53,6 +53,7 @@ namespace MazesAndMore
         public void enableStart() { start.gameObject.SetActive(true); }
         public void disableStart() { start.gameObject.SetActive(false); }
         public void enableFinish() { finish.gameObject.SetActive(true); }
+        public void setFinishColor(Color c) { finish.color = c; }
 
         // Walls
         public void enableLeftWall() { 
