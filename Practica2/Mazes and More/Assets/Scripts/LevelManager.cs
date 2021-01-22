@@ -9,7 +9,6 @@ namespace MazesAndMore {
         public PlayerController playerController;
         public Text title;
         public GameObject hintsButton;
-        //public GameObject pauseButton;
         public GameObject topMenu;
         public GameObject pauseMenu;
         public GameObject shopMenu;
@@ -53,7 +52,7 @@ namespace MazesAndMore {
 
         }
 
-        // Returns whether or not the player has reached the finish
+        // Returns whether or not the player has reached the finish tile
         public bool CheckFinish()
         {
             Tile playerTile = boardManager.GetPlayerTile();
@@ -70,21 +69,21 @@ namespace MazesAndMore {
             boardManager.ClearAndReset();
             playerController.SetColor(pack.color);
 
-            SetHud();
+            SetHudText();
 
             boardManager.SetMap(new Map(pack.levels[nLevel]), pack.color);
             boardManager.AdjustToWindow();
             playerController.Init();
         }
 
-        // Configures HUD according to level and screen size
-        public void SetHud()
+        // Configures HUD text according to level name and number of hints
+        public void SetHudText()
         {
             title.text = pack.packageName + " - " + (nLevel + 1).ToString();
             hintsButton.GetComponentInChildren<Text>().text = GameManager.getInstance().GetPlayerData().nHints.ToString();
         }
 
-        // Button functions
+        // BUTTON FUNCTIONS
         public void NextLevel()
         {
             winMenu.gameObject.SetActive(false);
@@ -105,7 +104,7 @@ namespace MazesAndMore {
             {
                 GameManager.getInstance().AddHints(-1);
                 boardManager.ActivateHint(++hintsUsed);
-                SetHud();
+                SetHudText();
             }
             else
                 OpenShop();
@@ -114,7 +113,7 @@ namespace MazesAndMore {
         public void AddHints(int n)
         {
             GameManager.getInstance().AddHints(n);
-            SetHud();
+            SetHudText();
         }
 
         public void resumeGame()

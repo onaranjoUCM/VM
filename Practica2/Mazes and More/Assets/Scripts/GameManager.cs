@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace MazesAndMore
 {
@@ -13,20 +12,18 @@ namespace MazesAndMore
         private static GameManager _instance;
 
         private int packageIndex;
-        private int[] levelsPassed;
         int levelToPlay;
 
-        private void Awake()
+        private void Start()
         {
             //PlayerPrefs.DeleteAll();
             if (_instance != null)
             {
-                _instance.levelManager = levelManager;
                 _instance.menuLevelManager = menuLevelManager;
-
                 if (menuLevelManager != null) 
                     _instance.menuLevelManager.init();
 
+                _instance.levelManager = levelManager;
                 if (levelManager != null)
                     _instance.LoadLevel();
 
@@ -38,59 +35,56 @@ namespace MazesAndMore
                 _instance = this;
                 if (menuLevelManager != null) _instance.menuLevelManager.init();
 
-                // Load game progress from PlayerPrefs
-                LoadData();
+                // Create PlayerPrefs for new players
+                if (GetPlayerData() == null)
+                    CreateNewData();
                 
                 DontDestroyOnLoad(this.gameObject);
             }
         }
 
+        // Loads level selection scene
         public void LoadLevelsScene(int n)
         {
             packageIndex = n;
             SceneManager.LoadScene("MenuNiveles");
         }
 
+        // Loads current level from current package
         public void LoadLevel()
         {
             levelManager.LoadLevel(levelPackages[_instance.packageIndex], levelToPlay);
         }
 
-        public void LoadData()
-        {
-            GameData data = GetPlayerData();
-
-            if (data == null)
-            {
-                levelsPassed = new int[levelPackages.Length];
-                for (int i = 0; i < levelPackages.Length; i++)
-                    levelsPassed[i] = -1;
-
-                data = new GameData(2, levelsPassed, true);
-                SaveProgress(JsonUtility.ToJson(data));
-            }
-            else
-            {
-                levelsPassed = data.levelsPassed;
-            }
-        }
-
+        // Loads Game scene and sets current level
         public void SceneLevelPlay(int level)
         {
             levelToPlay = level;
             SceneManager.LoadScene("Game");
         }
 
-        public void SaveProgress(string json)
+        // Creates starting data for new players
+        public void CreateNewData()
         {
-            PlayerPrefs.SetString("progress", json);
+            int[] levelsPassed = new int[levelPackages.Length];
+            for (int i = 0; i < levelPackages.Length; i++)
+                levelsPassed[i] = -1;
 
-            string hashValue = SecureHelper.Hash(json);
-            PlayerPrefs.SetString("HASH", hashValue);
+            GameData data = new GameData(2, levelsPassed, true);
+            SaveProgress(JsonUtility.ToJson(data));
         }
 
+        // Saves hashed player progress in PlayerPrefs
+        public void SaveProgress(string json)
+        {
+            string hashValue = SecureHelper.Hash(json);
+            PlayerPrefs.SetString("progress", hashValue + "#" + json);
+        }
+
+        // Updates player progress and moves to next level
         public void LevelPassed()
         {
+            int[] levelsPassed = GetPlayerData().levelsPassed;
             if (levelsPassed[packageIndex] < levelToPlay)
             {
                 levelsPassed[packageIndex] = levelToPlay;
@@ -103,6 +97,7 @@ namespace MazesAndMore
                 levelToPlay++;
         }
 
+        // Adds "n" hints to player data
         public void AddHints(int n)
         {
             GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
@@ -110,6 +105,7 @@ namespace MazesAndMore
             SaveProgress(JsonUtility.ToJson(g));
         }
 
+        // Disables ads for current player
         public void DisableAds()
         {
             GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
@@ -120,11 +116,11 @@ namespace MazesAndMore
         // Security
         private bool VerifyHash(string json)
         {
-            string defaultValue = "NO_HASH_GENERATED";
-            string hashValue = SecureHelper.Hash(json);
-            string hashStored = PlayerPrefs.GetString("HASH", defaultValue);
+            string[] subs = json.Split('#');
+            string hashValue = SecureHelper.Hash(subs[1]);
+            string hashStored = subs[0];
 
-            return hashValue == hashStored || hashStored == defaultValue;
+            return hashValue == hashStored;
         }
 
         // GETTERS AND SETTERS
@@ -150,15 +146,21 @@ namespace MazesAndMore
         public GameData GetPlayerData()
         {
             string json = PlayerPrefs.GetString("progress");
+            if (json == "")
+                return null;
 
             if (VerifyHash(json))
-                return JsonUtility.FromJson<GameData>(json);
+            {
+                string[] subs = json.Split('#');
+                return JsonUtility.FromJson<GameData>(subs[1]);
+            }
             else
             {
                 Debug.LogError("Invalid data, hash mismatch");
                 return null;
             }
         }
+
         public int GetPackageIndex()
         {
             return packageIndex;

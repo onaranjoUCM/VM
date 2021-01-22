@@ -92,7 +92,6 @@ namespace MazesAndMore
                     Color color = gm.GetCurrentLevelPackage().color;
                     int levelEnd = gm.GetPlayerData().levelsPassed[gm.GetPackageIndex()];
 
-                    // TODO: Revisar esto, al crear un usuario nuevo sale el nivel 1 como superado ya
                     if (pass[c] || c == nextlevel)
                     {
                         botones[i, j].GetComponent<Button>().onClick.AddListener(() => gm.SceneLevelPlay(level));
@@ -100,7 +99,6 @@ namespace MazesAndMore
                         if(c <= levelEnd)
                             botones[i, j].GetComponent<Image>().color = color;
                         botones[i, j].GetComponentInChildren<Text>().text = n.ToString();
-                        //Debug.Log()
                     }
 
                     c++;
