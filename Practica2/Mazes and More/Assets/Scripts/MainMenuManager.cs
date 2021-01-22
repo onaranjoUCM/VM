@@ -16,10 +16,12 @@ namespace MazesAndMore
         {
             startMenu.gameObject.SetActive(false);
 
+            //Mostrar los botones de tipo de nivel
             LevelPackage[] levelPackages = GameManager.getInstance().levelPackages;
             for (int i = 0; i < levelPackages.Length; i++)
             {
                 LevelPackage lp = levelPackages[i];
+                //Colocacion, escala, texto e imagen
                 Button b = Instantiate(levelPackButtonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 b.transform.SetParent(mainMenubutton.transform);
                 b.transform.localPosition = new Vector3(0, 100 - 200 * i, 0);
@@ -29,7 +31,7 @@ namespace MazesAndMore
                 GameManager gm = GameManager.getInstance();
                 int nPass = gm.GetPlayerData().levelsPassed[i] + 1;
                 int porcen = nPass * 100 / GameManager.getInstance().GetCurrentLevelPackage(i).levels.Length;
-                b.GetComponentInChildren<Text>().text = lp.packageName + "  " + porcen + "%";
+                b.GetComponentInChildren<Text>().text = lp.packageName + "  " + porcen + "%"; //Calcular el porcentaje completado del nivel
                 b.GetComponentInChildren<Text>().color = Color.white;
                 b.GetComponentInChildren<Text>().fontStyle = FontStyle.Bold;
 

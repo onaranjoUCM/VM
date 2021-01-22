@@ -9,6 +9,7 @@ public class ArrowPlayer : MonoBehaviour
     public SpriteRenderer arrowRight;
     public SpriteRenderer arrowLeft;
 
+    //Este script activa o no las flechas que se situan en el jugador
     public void EnableUp()
     {
         arrowUp.gameObject.SetActive(true);

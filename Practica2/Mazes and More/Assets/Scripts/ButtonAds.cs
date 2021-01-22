@@ -45,11 +45,10 @@ namespace MazesAndMore
 
         public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
         {
-            // Define conditional logic for each ad completion status:
+            //Accion que se realiza dependiendo de lo que se haga con el anuncio
             if (showResult == ShowResult.Finished)
             {
                 GameManager.getInstance().AddHints(1);
-                //Debug.LogWarning("+1 pista, Pistas totales: " + g.nHints);
             }
             else if (showResult == ShowResult.Skipped)
             {
