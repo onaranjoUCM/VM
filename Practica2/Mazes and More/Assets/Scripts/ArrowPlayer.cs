@@ -9,6 +9,8 @@ public class ArrowPlayer : MonoBehaviour
     public SpriteRenderer arrowRight;
     public SpriteRenderer arrowLeft;
 
+
+    //Script que activa y desactiva las arrow del jugador
     public void EnableUp()
     {
         arrowUp.gameObject.SetActive(true);
