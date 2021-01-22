@@ -88,7 +88,7 @@ namespace MazesAndMore
             if (levelsPassed[packageIndex] < levelToPlay)
             {
                 levelsPassed[packageIndex] = levelToPlay;
-                GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+                GameData g = GetPlayerData();
                 g.levelsPassed = levelsPassed;
                 SaveProgress(JsonUtility.ToJson(g));
             }
@@ -100,7 +100,7 @@ namespace MazesAndMore
         // Adds "n" hints to player data
         public void AddHints(int n)
         {
-            GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+            GameData g = GetPlayerData();
             g.nHints += n;
             SaveProgress(JsonUtility.ToJson(g));
         }
@@ -108,7 +108,7 @@ namespace MazesAndMore
         // Disables ads for current player
         public void DisableAds()
         {
-            GameData g = JsonUtility.FromJson<GameData>(PlayerPrefs.GetString("progress"));
+            GameData g = GetPlayerData();
             g.adsEnabled = false;
             SaveProgress(JsonUtility.ToJson(g));
         }
