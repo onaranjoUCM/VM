@@ -51,7 +51,7 @@ public class Ads : MonoBehaviour, IUnityAdsListener
         }
         else if (showResult == ShowResult.Skipped)
         {
-            Debug.LogWarning("SKIPEADO");
+            Debug.LogWarning("SKIPPED");
         }
         else if (showResult == ShowResult.Failed)
         {

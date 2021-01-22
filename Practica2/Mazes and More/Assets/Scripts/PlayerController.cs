@@ -108,9 +108,9 @@ namespace MazesAndMore {
             //Check if Vertical swipe
             if (VerticalMove() > SWIPE_THRESHOLD && VerticalMove() > HorizontalValMove())
             {
-                if (fingerDown.y - fingerUp.y > 0) //up swipe
+                if (fingerDown.y - fingerUp.y > 0 && boardManager.CanMove((int)Tile.SIDE.UP)) //up swipe
                     StartMoving((int)Tile.SIDE.UP);
-                else if (fingerDown.y - fingerUp.y < 0) //Down swipe
+                else if (fingerDown.y - fingerUp.y < 0 && boardManager.CanMove((int)Tile.SIDE.DOWN)) //Down swipe
                     StartMoving((int)Tile.SIDE.DOWN);
 
                 fingerUp = fingerDown;
@@ -119,9 +119,9 @@ namespace MazesAndMore {
             //Check if Horizontal swipe
             else if (HorizontalValMove() > SWIPE_THRESHOLD && HorizontalValMove() > VerticalMove())
             {
-                if (fingerDown.x - fingerUp.x > 0) //Right swipe
+                if (fingerDown.x - fingerUp.x > 0 && boardManager.CanMove((int)Tile.SIDE.RIGHT)) //Right swipe
                     StartMoving((int)Tile.SIDE.RIGHT);
-                else if (fingerDown.x - fingerUp.x < 0) //Left swipe
+                else if (fingerDown.x - fingerUp.x < 0 && boardManager.CanMove((int)Tile.SIDE.LEFT)) //Left swipe
                     StartMoving((int)Tile.SIDE.LEFT);
 
                 fingerUp = fingerDown;

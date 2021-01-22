@@ -59,7 +59,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 10883eae1e5b9194e942da2857018768, type: 3}
   - {fileID: 4900000, guid: 8045a8888cda76742828879b723325a2, type: 3}
   - {fileID: 4900000, guid: 27d50a98ffb9b844fa736e5389d116b8, type: 3}
-  color: {r: 0.135849, g: 0.5619758, b: 1, a: 1}
+  color: {r: 0, g: 0.6627451, b: 0.95294124, a: 1}
   buttonImage: {fileID: -2808022710340833380, guid: df33f6ccc7417624c82305b7b67bcb8a,
     type: 3}
   buttonPressedImage: {fileID: -8371733956228400691, guid: df33f6ccc7417624c82305b7b67bcb8a,

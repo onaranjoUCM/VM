@@ -419,7 +419,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: 003da3dd83d2f190f6f71b39e31f2777
+      Hash: 0e8f8be420358b7e39b59958b9026108
     assemblyName: Assembly-CSharp.dll
     namespaceName: MazesAndMore
     className: MainMenuManager

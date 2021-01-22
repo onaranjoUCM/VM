@@ -93,8 +93,11 @@ namespace MazesAndMore
                     {
                         botones[i, j].GetComponent<Button>().onClick.AddListener(() => gm.SceneLevelPlay(level));
                         int n = c + 1;
-                        if(c <= levelEnd) //Si el nivel ha sido completado se cambia a color verde
+                        if (c <= levelEnd) //Si el nivel ha sido completado se cambia a color verde
+                        {
                             botones[i, j].GetComponent<Image>().color = color;
+                            botones[i, j].GetComponentInChildren<Text>().color = Color.white;
+                        }
                         botones[i, j].GetComponentInChildren<Text>().text = n.ToString();
                     }
 
