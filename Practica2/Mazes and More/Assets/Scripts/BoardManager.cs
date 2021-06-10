@@ -48,7 +48,6 @@ namespace MazesAndMore {
         // Adjusts size and position of the map to fit screen resolution
         public void AdjustToWindow()
         {
-            // TODO: Revisar por qué se desplaza en los niveles mas grandes
             float scaleFactor;
             float w = Screen.width; float h = Screen.height;
             float c = _map.cols; float r = _map.rows;
@@ -58,10 +57,10 @@ namespace MazesAndMore {
             else
                 scaleFactor = (h / w) / r;
 
-            scaleFactor *= 9;
+            scaleFactor *= 8;
             transform.localScale = new Vector3(transform.localScale.x * scaleFactor, transform.localScale.y * scaleFactor, transform.localScale.z);
             transform.Translate(Vector3.left * ((c-1) / 2.0f) * scaleFactor);
-            transform.Translate(Vector3.down * (r / 2.0f) * scaleFactor);
+            transform.Translate(Vector3.down * ((r-1) / 2.0f) * scaleFactor);
         }
 
         // Returns whether or not the player tile is open in the given direction

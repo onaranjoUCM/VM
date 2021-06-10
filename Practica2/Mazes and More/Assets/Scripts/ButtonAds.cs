@@ -9,13 +9,13 @@ namespace MazesAndMore
     [RequireComponent(typeof(Button))]
     public class ButtonAds : MonoBehaviour, IUnityAdsListener
     {
-
+        /*
 #if UNITY_IOS
         private string gameId = "3963368";
 #elif UNITY_ANDROID
         private string gameId = "3963369";
 #endif
-
+        */
         Button myButton;
         public string myPlacementId = "rewardedVideo";
 
@@ -29,7 +29,7 @@ namespace MazesAndMore
 
             // Initialize the Ads listener and service:
 
-            Advertisement.Initialize(gameId, true);
+            Advertisement.Initialize("3963369", true);
 
         }
         void ShowRewardedVideo()
