@@ -13,17 +13,13 @@ import es.ucm.gdv.engine.desktop.Engine;
 
 public class Main {
         public static void main (String[] args){
-            Input i = new Input();
-            Window w = new Window("OFF THE LINE", 640, 480, i);
-            w.createBufferStrategy(2);
-            BufferStrategy strategy = w.getBufferStrategy();
-
-            Engine e = new Engine(w);
+            Engine e = new Engine();
+            BufferStrategy strategy = e.getStrategy();
 
             OffTheLineLogic logic = null;
             File json = new File("levels.json");
             try {
-                logic = new OffTheLineLogic(e, new FileInputStream(json), i);
+                logic = new OffTheLineLogic(e, new FileInputStream(json), e.getInput());
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }

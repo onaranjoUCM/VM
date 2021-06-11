@@ -1,18 +1,31 @@
 package es.ucm.gdv.engine.desktop;
 
+import java.awt.image.BufferStrategy;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.swing.JFrame;
 
+import es.ucm.gdv.engine.Input;
+
 public class Engine implements es.ucm.gdv.engine.Engine {
     Graphics graphics_;
     Font font_;
+    Input input_;
+    BufferStrategy strategy_;
 
-    public Engine(JFrame window) {
+    public Engine() {
         super();
-        graphics_ = new es.ucm.gdv.engine.desktop.Graphics(window, this);
+        input_ = new es.ucm.gdv.engine.desktop.Input();
+        Window w = new Window("OFF THE LINE", 640, 480, (es.ucm.gdv.engine.desktop.Input) input_);
+        w.createBufferStrategy(2);
+        strategy_ = w.getBufferStrategy();
+        graphics_ = new es.ucm.gdv.engine.desktop.Graphics(w, this);
+    }
+
+    public BufferStrategy getStrategy() {
+        return strategy_;
     }
 
     @Override
@@ -23,6 +36,11 @@ public class Engine implements es.ucm.gdv.engine.Engine {
     @Override
     public Font getFont() {
         return font_;
+    }
+
+    @Override
+    public Input getInput() {
+        return input_;
     }
 
     @Override

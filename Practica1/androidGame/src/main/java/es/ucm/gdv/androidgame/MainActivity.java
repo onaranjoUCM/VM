@@ -43,15 +43,13 @@ public class MainActivity extends AppCompatActivity {
         volatile boolean _running = false;
         OffTheLineLogic _logic;
         Engine _engine;
-        Input _input;
 
         public MySurfaceView(Context context) {
             super(context);
             _holder = getHolder();
             _engine = new Engine(context);
-            _input = new es.ucm.gdv.engine.android.Input();
 
-            setOnTouchListener((OnTouchListener) _input);
+            setOnTouchListener((OnTouchListener) _engine.getInput());
 
             InputStream stream = null;
             try {
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            _logic = new OffTheLineLogic(_engine, stream, _input);
+            _logic = new OffTheLineLogic(_engine, stream, _engine.getInput());
         }
 
         public void resume() {
