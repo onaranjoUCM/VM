@@ -1,19 +1,28 @@
 package es.ucm.gdv.engine.desktop;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.List;
+import java.util.ArrayList;
 
 import es.ucm.gdv.engine.TouchEvent;
 
-public class Input extends es.ucm.gdv.engine.Input implements MouseListener {
+public class Input implements MouseListener, es.ucm.gdv.engine.Input {
+    private ArrayList<TouchEvent> events_;
     private TouchEvent event_;
 
     public Input(){
         super();
+        events_ = new ArrayList<TouchEvent>();
+    }
+
+    @Override
+    public synchronized void addEvent(TouchEvent e) {
+        events_.add(e);
+    }
+
+    @Override
+    public ArrayList<TouchEvent> getEvents() {
+        return events_;
     }
 
     @Override
