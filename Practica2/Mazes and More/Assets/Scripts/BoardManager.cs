@@ -10,7 +10,15 @@ namespace MazesAndMore {
         Tile finishTile;
 
         private Tile[,] _tiles;
+        float w, h;
 
+        private void Update()
+        {
+            if(w != Screen.width || h != Screen.height)
+            {
+                AdjustToWindow();
+            }
+        }
         // Creates and configures the graphic components of the map
         public void SetMap(Map map, Color playerColor)
         {
@@ -49,7 +57,7 @@ namespace MazesAndMore {
         public void AdjustToWindow()
         {
             float scaleFactor;
-            float w = Screen.width; float h = Screen.height;
+            w = Screen.width; h = Screen.height;
             float c = _map.cols; float r = _map.rows;
 
             if (h > w)
@@ -61,6 +69,22 @@ namespace MazesAndMore {
             transform.localScale = new Vector3(transform.localScale.x * scaleFactor, transform.localScale.y * scaleFactor, transform.localScale.z);
             transform.Translate(Vector3.left * ((c-1) / 2.0f) * scaleFactor);
             transform.Translate(Vector3.down * ((r-1) / 2.0f) * scaleFactor);
+        }
+
+        public void AdjustToWindow2()
+        {            
+            float newW = Screen.width;
+            float newH = Screen.height;
+            float c = _map.cols; float r = _map.rows;
+
+            float scaleFactorX = newW / w;
+            float scaleFactorY = newH / h;
+
+            transform.localScale = new Vector3(transform.localScale.x * scaleFactorX, transform.localScale.y * scaleFactorY, transform.localScale.z);
+            transform.Translate(Vector3.left * ((c - 1) / 2.0f) * scaleFactorX);
+            transform.Translate(Vector3.down * ((r - 1) / 2.0f) * scaleFactorY);
+
+            w = Screen.width; h = Screen.height;
         }
 
         // Returns whether or not the player tile is open in the given direction
