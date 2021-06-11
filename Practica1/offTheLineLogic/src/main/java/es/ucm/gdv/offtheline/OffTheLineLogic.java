@@ -35,13 +35,13 @@ public class OffTheLineLogic {
     public static final int PlayHard = 1;
     public static final int ReturnMenu = 2;
 
-    public OffTheLineLogic(Engine e, InputStream stream, Input i) {
+    public OffTheLineLogic(Engine e, InputStream stream) {
         graphics = e.getGraphics();
+        input = e.getInput();
         f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
         lr = new LevelReader(stream);
         loadMenu();
         lastItemTime = System.nanoTime();
-        input = i;
     }
 
     // ==================== MAIN LOOP FUNCTIONS ====================

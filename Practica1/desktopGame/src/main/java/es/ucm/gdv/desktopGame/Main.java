@@ -12,14 +12,14 @@ import es.ucm.gdv.offtheline.OffTheLineLogic;
 import es.ucm.gdv.engine.desktop.Engine;
 
 public class Main {
-        public static void main (String[] args){
+        public static void main (String[] args) {
             Engine e = new Engine();
             BufferStrategy strategy = e.getStrategy();
 
             OffTheLineLogic logic = null;
             File json = new File("levels.json");
             try {
-                logic = new OffTheLineLogic(e, new FileInputStream(json), e.getInput());
+                logic = new OffTheLineLogic(e, new FileInputStream(json));
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }

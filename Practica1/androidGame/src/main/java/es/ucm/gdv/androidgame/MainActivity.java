@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            _logic = new OffTheLineLogic(_engine, stream, _engine.getInput());
+            _logic = new OffTheLineLogic(_engine, stream);
         }
 
         public void resume() {
