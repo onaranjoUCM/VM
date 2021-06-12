@@ -37,4 +37,23 @@ public class Engine implements es.ucm.gdv.engine.Engine {
     public InputStream openInputStream(String filename) {
         return null;
     }
+
+    @Override
+    public Vector2 transformCoordinates(Vector2 coords, Vector2 wSize) {
+        float incX = 640 / wSize.x;
+        float incY = 480 / wSize.y;
+        coords.x -= wSize.x / 2;
+        coords.y -= wSize.y / 2;
+        float difW = wSize.x - 640;
+        float difH = wSize.y - 480;
+        if(difH < difW){
+            coords.x *= incY;
+            coords.y *= incY;
+        } else{
+            coords.x *= incX;
+            coords.y *= incX;
+        }
+
+        return coords;
+    }
 }

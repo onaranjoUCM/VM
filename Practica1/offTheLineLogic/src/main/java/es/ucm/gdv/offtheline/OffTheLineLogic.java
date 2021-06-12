@@ -7,6 +7,7 @@ import es.ucm.gdv.engine.*;
 
 public class OffTheLineLogic {
     // Logic components
+    Engine engine;
     Graphics graphics;
     Input input;
     LevelReader lr;
@@ -36,6 +37,7 @@ public class OffTheLineLogic {
     public static final int ReturnMenu = 2;
 
     public OffTheLineLogic(Engine e, InputStream stream) {
+        engine = e;
         graphics = e.getGraphics();
         input = e.getInput();
         f_ = e.getGraphics().newFont("Bungee-Regular.ttf", 20, true);
@@ -102,26 +104,15 @@ public class OffTheLineLogic {
 
     // Checks if click events are made over button boundaries
     private void checkButtonClick(TouchEvent t) {
-        // Transform click coordinates to current resolution
-        float increX = (float)640 / W_;
-        float increY = (float)480 / H_;
-        t.posX -= W_ / 2;
-        t.posY -= H_ / 2;
-        int difW = W_ - 640;
-        int difH = H_ - 480;
-        if(difH < difW){
-            t.posX *= increY;
-            t.posY *= increY;
-        } else{
-            t.posX *= increX;
-            t.posY *= increX;
-        }
+        Engine.Vector2 coords = new Engine.Vector2(t.posX, t.posY);
+        Engine.Vector2 wSize = new Engine.Vector2(W_, H_);
+        Engine.Vector2 adaptedCoords = engine.transformCoordinates(coords, wSize);
 
         // Check click coordinates with every button
         for (GameObject object : gameObjects) {
             try {
                 Button b = (Button)object;
-                if(b.button_pressed(t.posX, t.posY)) {
+                if(b.button_pressed((int)adaptedCoords.x, (int)adaptedCoords.y)) {
                     if(b.getId_() == PlayEasy) {
                         EasyGame();
                     }

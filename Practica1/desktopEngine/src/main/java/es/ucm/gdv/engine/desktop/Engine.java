@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import javax.swing.JFrame;
-
 import es.ucm.gdv.engine.Input;
 
 public class Engine implements es.ucm.gdv.engine.Engine {
@@ -22,6 +20,26 @@ public class Engine implements es.ucm.gdv.engine.Engine {
         w.createBufferStrategy(2);
         strategy_ = w.getBufferStrategy();
         graphics_ = new es.ucm.gdv.engine.desktop.Graphics(w, this);
+    }
+
+    // Transform click coordinates to current resolution
+    @Override
+    public Vector2 transformCoordinates(Vector2 coords, Vector2 wSize) {
+        float incX = 640 / wSize.x;
+        float incY = 480 / wSize.y;
+        coords.x -= wSize.x / 2;
+        coords.y -= wSize.y / 2;
+        float difW = wSize.x - 640;
+        float difH = wSize.y - 480;
+        if(difH < difW){
+            coords.x *= incY;
+            coords.y *= incY;
+        } else{
+            coords.x *= incX;
+            coords.y *= incX;
+        }
+
+        return coords;
     }
 
     public BufferStrategy getStrategy() {
