@@ -46,7 +46,7 @@ namespace MazesAndMore
 
             //Interfaz de arriba 
 
-            Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
+            /*Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
             adsButton.gameObject.transform.SetParent(UIUp.transform);
             adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
 
@@ -56,8 +56,9 @@ namespace MazesAndMore
 
             GameObject starCanvas = Instantiate(star, new Vector3(0, 0, 0), Quaternion.identity);
             starCanvas.gameObject.transform.SetParent(UIUp.transform);
-            starCanvas.transform.position = new Vector3((Screen.width - 20) * 5 / 6, Screen.height - 60, 0);
+            starCanvas.transform.position = new Vector3((Screen.width - 20) * 5 / 6, Screen.height - 60, 0);*/
 
+            title.text = gm.levelPackages[gm.GetPackageIndex()].packageName;
             //Mostrar los botones en pantalla
             putButtons();
         }
@@ -77,9 +78,27 @@ namespace MazesAndMore
                         boton = botonBlock;
 
                     Button b = Instantiate(boton, new Vector3(0, 0, 0), Quaternion.identity);
-
+                    
                     float scale = width / height;
                     int increX = (Screen.width - 20) / 6;
+
+                    float w = Screen.width; float h = Screen.height;
+
+                    float incX = w / 720;
+                    float incY = h / 1080;
+
+                    if (720 * incY < w)
+                        b.transform.localScale = new Vector3(transform.localScale.x * incY, transform.localScale.y * incY, transform.localScale.z);
+                    else
+                        b.transform.localScale = new Vector3(transform.localScale.x * incX, transform.localScale.y * incX, transform.localScale.z);
+
+                    /*if (h > w)
+                        scale = (w / h) / 5;
+                    else
+                        scale = (h / w) / (nNiveles / 5);
+
+                    scale *= 8;*/
+
 
                     b.gameObject.transform.SetParent(butonsUI.transform);
 

@@ -20,10 +20,14 @@ namespace MazesAndMore {
         public void Init()
         {
             transform.position = boardManager.GetPlayerTile().transform.position;
-            target = transform.position; 
+            target = transform.position;             
+            DisableArrows();
+        }
+
+        public void PutArrow()
+        {
             arrow = Instantiate(arrowPrefab.gameObject, transform.position, Quaternion.identity);
             arrow.transform.SetParent(transform);
-            DisableArrows();
         }
 
         public void Run()

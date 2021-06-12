@@ -72,6 +72,7 @@ namespace MazesAndMore {
             SetHudText();
 
             boardManager.SetMap(new Map(pack.levels[nLevel]), pack.color);
+            playerController.PutArrow();
             boardManager.AdjustToWindow();
             playerController.Init();
         }
