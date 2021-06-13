@@ -2,6 +2,7 @@ package es.ucm.gdv.engine;
 
 public interface Graphics {
     Font newFont(String filename, int size, boolean isBold);
+    Engine.Vector2 adjustToWindow();
     void clear(int r, int g, int b);
     void translate(int x, int y);
     void scale(float x, float y);

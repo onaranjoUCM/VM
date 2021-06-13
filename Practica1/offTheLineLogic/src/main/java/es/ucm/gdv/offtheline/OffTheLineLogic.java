@@ -30,7 +30,6 @@ public class OffTheLineLogic {
     boolean gamePaused;
     String mode_;
     Engine.Vector2 wSize;
-    int W_, H_;
 
     // Button function IDs
     public static final int PlayEasy = 0;
@@ -93,8 +92,7 @@ public class OffTheLineLogic {
     public void render() {
         graphics.clear(0, 0, 0);
 
-        graphics.translate(graphics.getWidth() / 2, graphics.getHeight()/2);
-        wSize = engine.adjustToWindow(graphics.getWidth(), graphics.getHeight());
+        wSize = graphics.adjustToWindow();
 
         for (GameObject object : gameObjects) {
             object.render(graphics);
@@ -106,7 +104,6 @@ public class OffTheLineLogic {
     // Checks if click events are made over button boundaries
     private void checkButtonClick(TouchEvent t) {
         Engine.Vector2 coords = new Engine.Vector2(t.posX, t.posY);
-        //Engine.Vector2 wSize = new Engine.Vector2(W_, H_);
         Engine.Vector2 adaptedCoords = engine.transformCoordinates(coords, wSize);
 
         // Check click coordinates with every button
