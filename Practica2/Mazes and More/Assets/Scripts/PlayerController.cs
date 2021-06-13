@@ -11,6 +11,7 @@ namespace MazesAndMore {
 
         private Vector3 target;
         private bool moving = false;
+        private bool win = false;
         private int direction;
 
         private Vector2 fingerDown;
@@ -19,6 +20,7 @@ namespace MazesAndMore {
 
         public void Init()
         {
+            win = false;
             transform.position = boardManager.GetPlayerTile().transform.position;
             target = transform.position;             
             DisableArrows();
@@ -39,7 +41,9 @@ namespace MazesAndMore {
                 {
                     moving = false;
                     // The target was a corner, so player must turn around
-                    if (boardManager.GetPlayerTile().numberOfOpenSides == 2 && !boardManager.GetPlayerTile().iceFloor.isVisible)
+                    if (boardManager.GetPlayerTile() == boardManager.GetFinishTile())
+                        win = true;
+                    else if (boardManager.GetPlayerTile().numberOfOpenSides == 2 && !boardManager.GetPlayerTile().iceFloor.isVisible)
                     {
                         for (int i = 0; i < 4; i++)
                         {
@@ -59,7 +63,7 @@ namespace MazesAndMore {
                     transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
             // Player is not moving, so it can recieve move commands
-            } else {
+            } else if(!win) {
                 ActiveArrows(boardManager.CanMove((int)Tile.SIDE.UP), boardManager.CanMove((int)Tile.SIDE.DOWN), boardManager.CanMove((int)Tile.SIDE.RIGHT), boardManager.CanMove((int)Tile.SIDE.LEFT));
                 CheckInput();
             }
@@ -140,6 +144,11 @@ namespace MazesAndMore {
         float HorizontalValMove()
         {
             return Mathf.Abs(fingerDown.x - fingerUp.x);
+        }
+
+        public bool getWin()
+        {
+            return win;
         }
 
         private void StartMoving(int dir)

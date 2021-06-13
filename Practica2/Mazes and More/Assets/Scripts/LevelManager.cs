@@ -55,8 +55,7 @@ namespace MazesAndMore {
         // Returns whether or not the player has reached the finish tile
         public bool CheckFinish()
         {
-            Tile playerTile = boardManager.GetPlayerTile();
-            return (playerTile != null && playerTile == boardManager.GetFinishTile());
+            return playerController.getWin();
         }
 
         // Loads a level from given package

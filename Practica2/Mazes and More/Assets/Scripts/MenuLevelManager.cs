@@ -44,20 +44,6 @@ namespace MazesAndMore
             }
             nextlevel = nPass + 1; //indicar cual es el siguiente nivel
 
-            //Interfaz de arriba 
-
-            /*Button adsButton = Instantiate(regalo, new Vector3(0, 0, 0), Quaternion.identity);
-            adsButton.gameObject.transform.SetParent(UIUp.transform);
-            adsButton.transform.position = new Vector3((Screen.width - 20) / 6, Screen.height - 60, 0);
-
-            title.text = gm.levelPackages[gm.GetPackageIndex()].packageName;
-            title.gameObject.transform.SetParent(UIUp.transform);
-            title.transform.position = new Vector3((Screen.width) * 3 / 6, Screen.height - 60, 0);
-
-            GameObject starCanvas = Instantiate(star, new Vector3(0, 0, 0), Quaternion.identity);
-            starCanvas.gameObject.transform.SetParent(UIUp.transform);
-            starCanvas.transform.position = new Vector3((Screen.width - 20) * 5 / 6, Screen.height - 60, 0);*/
-
             title.text = gm.levelPackages[gm.GetPackageIndex()].packageName;
             //Mostrar los botones en pantalla
             putButtons();
@@ -85,7 +71,7 @@ namespace MazesAndMore
                     float w = Screen.width; float h = Screen.height;
 
                     float incX = w / 720;
-                    float incY = h / 1080;
+                    float incY = h / 1280;
 
                     if (720 * incY < w)
                         b.transform.localScale = new Vector3(transform.localScale.x * incY, transform.localScale.y * incY, transform.localScale.z);
