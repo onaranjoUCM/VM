@@ -6,7 +6,7 @@ public class Coin extends GameObject {
     private float speed_;
     private float spinSpeed_;
     private float radius_;
-    private float spinAngle_, spinAngle2_;
+    private float spinAngle_;
     private float angle_;
 
     public Coin(float posX, float posY, float radius, float speed, float angle){
@@ -15,9 +15,8 @@ public class Coin extends GameObject {
         radius_ = radius;
         angle_ = angle;
 
-        spinSpeed_ = 500;
+        spinSpeed_ = 5;
         spinAngle_ = 45;
-        spinAngle2_ = spinAngle_ - 90;
     }
 
     @Override
@@ -31,15 +30,18 @@ public class Coin extends GameObject {
 
         // Spin
         spinAngle_ += spinSpeed_ * deltaTime;
-        spinAngle2_+= spinSpeed_ * deltaTime;
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(255, 255, 0);
-        g.drawLine((int)(posX_ - (Math.cos(Math.toRadians (spinAngle2_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (spinAngle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (spinAngle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (spinAngle_))*(H_)))); //LineaArriba
-        g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (spinAngle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (spinAngle2_))*(H_))), (int)(posX_ + (Math.cos(Math.toRadians (spinAngle_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (spinAngle_))*(H_)))); //LineaAbajo
-        g.drawLine((int)(posX_ - (Math.cos(Math.toRadians (spinAngle2_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (spinAngle2_))*(H_))),  (int)(posX_ + (Math.cos(Math.toRadians (spinAngle_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (spinAngle_))*(H_)))); //LineaIzquierda
-        g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (spinAngle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (spinAngle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (spinAngle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (spinAngle_))*(H_)))); //LineaDerecha
+        g.save();
+        g.translate((int)posX_, (int)posY_);
+        g.rotate(spinAngle_);
+        g.drawLine(-W_/2, -H_/2, W_/2, -H_/2);
+        g.drawLine(W_/2, -H_/2,W_/2, H_/2);
+        g.drawLine(W_/2, H_/2, -W_/2, H_/2);
+        g.drawLine(-W_/2, H_/2, -W_/2, -H_/2);
+        g.restore();
     }
 }

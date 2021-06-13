@@ -14,18 +14,21 @@ class Live extends GameObject {
     public void update(double deltaTime) { }
 
     public void render(Graphics g) {
+        g.save();
+        g.translate((int)posX_, (int)posY_);
         if(live_) {
             g.setColor(0, 0, 255);
-            g.drawLine((int) (posX_ - (W_ / 2)), (int) (posY_ - (H_ / 2)), (int) (posX_ + (W_ / 2)), (int) (posY_ - (H_ / 2))); //LineaArriba
-            g.drawLine((int) (posX_ - (W_ / 2)), (int) (posY_ + (H_ / 2)), (int) (posX_ + (W_ / 2)), (int) (posY_ + (H_ / 2))); //LineaAbajo
-            g.drawLine((int) (posX_ - (W_ / 2)), (int) (posY_ - (H_ / 2)), (int) (posX_ - (W_ / 2)), (int) (posY_ + (H_ / 2))); //LineaIzquierda
-            g.drawLine((int) (posX_ + (W_ / 2)), (int) (posY_ - (H_ / 2)), (int) (posX_ + (W_ / 2)), (int) (posY_ + (H_ / 2))); //LineaDerecha
+            g.drawLine(-W_ / 2, -H_ / 2, W_ / 2, -H_ / 2); //LineaArriba
+            g.drawLine(-W_ / 2, H_ / 2, W_ / 2, H_ / 2); //LineaAbajo
+            g.drawLine(-W_ / 2, -H_ / 2, -W_ / 2, H_ / 2); //LineaIzquierda
+            g.drawLine(W_ / 2, -H_ / 2, W_ / 2, H_ / 2); //LineaDerecha
         }
         else{
             g.setColor(255, 0, 0);
-            g.drawLine((int) (posX_ - (W_ / 2)), (int) (posY_ - (H_ / 2)), (int) (posX_ + (W_ / 2)), (int) (posY_ + (H_ / 2)));
-            g.drawLine((int) (posX_ - (W_ / 2)), (int) (posY_ + (H_ / 2)), (int) (posX_ + (W_ / 2)), (int) (posY_ - (H_ / 2)));
+            g.drawLine(-W_ / 2,-H_ / 2, W_ / 2, H_ / 2);
+            g.drawLine(-W_ / 2, H_ / 2, W_ / 2, -H_ / 2);
         }
+        g.restore();
     }
 
     public void setLive_(boolean live_) {

@@ -9,7 +9,7 @@ public class Player extends GameObject {
     float moveSpeed_;
     float rotationSpeed_;
     float radius_;
-    float angle_, angle2_;
+    float angle_;
 
     int currentSegmentIndex_;
     Segment currentSegment_;
@@ -23,11 +23,10 @@ public class Player extends GameObject {
         super(path.segments.get(0).pointA_.x, path.segments.get(0).pointA_.y, W, H);
         hardMode_ = mode;
         moveSpeed_ = (hardMode_) ? 400 : 250;
-        rotationSpeed_ = 500;
+        rotationSpeed_ = 5;
 
         radius_ = (W < H) ? W : H;
         angle_ = angle;
-        angle2_ = angle_ - 90;
 
         currentPath_ = path;
         currentSegment_ = path.segments.get(0);
@@ -55,16 +54,19 @@ public class Player extends GameObject {
 
         // Update spin angle
         angle_ += rotationSpeed_ * deltaTime;
-        angle2_+= rotationSpeed_ * deltaTime;
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(0, 0, 255);
-        g.drawLine((int)(posX_ - (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaArriba
-        g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ + (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaAbajo
-        g.drawLine((int)(posX_ - (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle2_))*(H_))),  (int)(posX_ + (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaIzquierda
-        g.drawLine((int)(posX_ + (Math.cos(Math.toRadians (angle2_))*(W_))), (int)(posY_ + (Math.sin(Math.toRadians (angle2_))*(H_))), (int)(posX_ - (Math.cos(Math.toRadians (angle_))*(W_))), (int)(posY_ - (Math.sin(Math.toRadians (angle_))*(H_)))); //LineaDerecha
+        g.save();
+        g.translate((int)posX_, (int)posY_);
+        g.rotate(angle_);
+        g.drawLine(-W_/2, -H_/2, W_/2, -H_/2);
+        g.drawLine(W_/2, -H_/2,W_/2, H_/2);
+        g.drawLine(W_/2, H_/2, -W_/2, H_/2);
+        g.drawLine(-W_/2, H_/2, -W_/2, -H_/2);
+        g.restore();
     }
 
     // Sets the player direction to that of the path he is in

@@ -2,11 +2,13 @@ package es.ucm.gdv.engine.desktop;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
 
 public class Graphics implements es.ucm.gdv.engine.Graphics {
     java.awt.Graphics graphics;
+    AffineTransform saveAT;
     JFrame window;
     Engine engine_;
 
@@ -61,10 +63,12 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
     }
 
     @Override
-    public void save() { }
+    public void save() { saveAT = ((Graphics2D)graphics).getTransform(); }
 
     @Override
-    public void restore() { }
+    public void restore() {
+        ((Graphics2D)graphics).setTransform(saveAT);
+    }
 
     @Override
     public void setColor(int r, int g, int b) {
