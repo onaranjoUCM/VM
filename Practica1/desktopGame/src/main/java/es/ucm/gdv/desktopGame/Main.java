@@ -13,7 +13,7 @@ import es.ucm.gdv.engine.desktop.Engine;
 
 public class Main {
         public static void main (String[] args) {
-            Engine e = new Engine();
+            Engine e = new Engine(640, 480);
             BufferStrategy strategy = e.getStrategy();
 
             OffTheLineLogic logic = null;

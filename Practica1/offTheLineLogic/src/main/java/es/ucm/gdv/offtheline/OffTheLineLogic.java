@@ -29,6 +29,7 @@ public class OffTheLineLogic {
     boolean hardMode = false;
     boolean gamePaused;
     String mode_;
+    Engine.Vector2 wSize;
     int W_, H_;
 
     // Button function IDs
@@ -93,7 +94,7 @@ public class OffTheLineLogic {
         graphics.clear(0, 0, 0);
 
         graphics.translate(graphics.getWidth() / 2, graphics.getHeight()/2);
-        adjustToWindow();
+        wSize = engine.adjustToWindow(graphics.getWidth(), graphics.getHeight());
 
         for (GameObject object : gameObjects) {
             object.render(graphics);
@@ -105,7 +106,7 @@ public class OffTheLineLogic {
     // Checks if click events are made over button boundaries
     private void checkButtonClick(TouchEvent t) {
         Engine.Vector2 coords = new Engine.Vector2(t.posX, t.posY);
-        Engine.Vector2 wSize = new Engine.Vector2(W_, H_);
+        //Engine.Vector2 wSize = new Engine.Vector2(W_, H_);
         Engine.Vector2 adaptedCoords = engine.transformCoordinates(coords, wSize);
 
         // Check click coordinates with every button
@@ -178,25 +179,6 @@ public class OffTheLineLogic {
         // Add lives since they persist between levels
         gameObjects.add(lives_);
 
-    }
-
-    // Scales and transforms the game to fit screen resolution
-    void adjustToWindow() {
-        float w = graphics.getWidth();
-        float h = graphics.getHeight();
-
-        float incX = w / 640;
-        float incY = h / 480;
-
-        // Check whether we should adjust to width or height
-        if (640 * incY < w)
-            graphics.scale(incY, -incY);
-        else
-            graphics.scale(incX, -incX);
-
-        // Store new dimensions
-        W_ = graphics.getWidth();
-        H_ = graphics.getHeight();
     }
 
     // Removes a life and checks if game is over

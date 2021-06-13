@@ -9,6 +9,7 @@ public interface Engine {
     Input getInput();
     InputStream openInputStream(String filename) throws FileNotFoundException;
     Vector2 transformCoordinates(Vector2 coord, Vector2 wSize);
+    Vector2 adjustToWindow(float w, float h);
 
     class Vector2 {
         public float x;

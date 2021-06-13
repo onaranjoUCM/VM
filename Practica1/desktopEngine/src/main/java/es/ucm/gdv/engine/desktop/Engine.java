@@ -12,14 +12,32 @@ public class Engine implements es.ucm.gdv.engine.Engine {
     Font font_;
     Input input_;
     BufferStrategy strategy_;
+    int originalWidth_, originalHeight_;
 
-    public Engine() {
+    public Engine(int w, int h) {
         super();
+        originalWidth_ = w;
+        originalHeight_ = h;
         input_ = new es.ucm.gdv.engine.desktop.Input();
-        Window w = new Window("OFF THE LINE", 640, 480, (es.ucm.gdv.engine.desktop.Input) input_);
-        w.createBufferStrategy(2);
-        strategy_ = w.getBufferStrategy();
-        graphics_ = new es.ucm.gdv.engine.desktop.Graphics(w, this);
+        Window window = new Window("OFF THE LINE", w, h, (es.ucm.gdv.engine.desktop.Input) input_);
+        window.createBufferStrategy(2);
+        strategy_ = window.getBufferStrategy();
+        graphics_ = new es.ucm.gdv.engine.desktop.Graphics(window, this);
+    }
+
+    // Scales and transforms the game to fit screen resolution
+    @Override
+    public es.ucm.gdv.engine.Engine.Vector2 adjustToWindow(float w, float h) {
+        float incX = w / originalWidth_;
+        float incY = h / originalHeight_;
+
+        // Check whether we should adjust to width or height
+        if (640 * incY < w)
+            graphics_.scale(incY, -incY);
+        else
+            graphics_.scale(incX, -incX);
+
+        return new es.ucm.gdv.engine.Engine.Vector2(graphics_.getWidth(), graphics_.getHeight());
     }
 
     // Transform click coordinates to current resolution
@@ -29,8 +47,8 @@ public class Engine implements es.ucm.gdv.engine.Engine {
         float incY = 480 / wSize.y;
         coords.x -= wSize.x / 2;
         coords.y -= wSize.y / 2;
-        float difW = wSize.x - 640;
-        float difH = wSize.y - 480;
+        float difW = wSize.x - originalWidth_;
+        float difH = wSize.y - originalHeight_;
         if(difH < difW){
             coords.x *= incY;
             coords.y *= incY;

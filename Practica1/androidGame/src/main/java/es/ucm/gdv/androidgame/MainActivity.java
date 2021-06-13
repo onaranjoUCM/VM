@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         public MySurfaceView(Context context) {
             super(context);
             _holder = getHolder();
-            _engine = new Engine(context);
+            _engine = new Engine(context, 640, 480);
 
             setOnTouchListener((OnTouchListener) _engine.getInput());
 
