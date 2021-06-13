@@ -11,7 +11,6 @@ import android.view.SurfaceView;
 import java.io.IOException;
 import java.io.InputStream;
 
-import es.ucm.gdv.engine.Input;
 import es.ucm.gdv.engine.android.Engine;
 import es.ucm.gdv.offtheline.OffTheLineLogic;
 

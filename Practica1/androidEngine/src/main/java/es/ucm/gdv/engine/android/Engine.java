@@ -18,22 +18,7 @@ public class Engine implements es.ucm.gdv.engine.Engine {
         originalHeight_ = h;
         input_ = new es.ucm.gdv.engine.android.Input();
         AssetManager assetManager = context.getAssets();
-        graphics_ = new es.ucm.gdv.engine.android.Graphics(assetManager);
-    }
-
-    // Scales and transforms the game to fit screen resolution
-    @Override
-    public es.ucm.gdv.engine.Engine.Vector2 adjustToWindow(float w, float h) {
-        float incX = w / originalWidth_;
-        float incY = h / originalHeight_;
-
-        // Check whether we should adjust to width or height
-        if (originalWidth_ * incY < w)
-            graphics_.scale(incY, -incY);
-        else
-            graphics_.scale(incX, -incX);
-
-        return new es.ucm.gdv.engine.Engine.Vector2(graphics_.getWidth(), graphics_.getHeight());
+        graphics_ = new es.ucm.gdv.engine.android.Graphics(assetManager, this);
     }
 
     @Override

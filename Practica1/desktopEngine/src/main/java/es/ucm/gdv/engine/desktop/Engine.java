@@ -25,26 +25,11 @@ public class Engine implements es.ucm.gdv.engine.Engine {
         graphics_ = new es.ucm.gdv.engine.desktop.Graphics(window, this);
     }
 
-    // Scales and transforms the game to fit screen resolution
-    @Override
-    public es.ucm.gdv.engine.Engine.Vector2 adjustToWindow(float w, float h) {
-        float incX = w / originalWidth_;
-        float incY = h / originalHeight_;
-
-        // Check whether we should adjust to width or height
-        if (640 * incY < w)
-            graphics_.scale(incY, -incY);
-        else
-            graphics_.scale(incX, -incX);
-
-        return new es.ucm.gdv.engine.Engine.Vector2(graphics_.getWidth(), graphics_.getHeight());
-    }
-
     // Transform click coordinates to current resolution
     @Override
     public Vector2 transformCoordinates(Vector2 coords, Vector2 wSize) {
-        float incX = 640 / wSize.x;
-        float incY = 480 / wSize.y;
+        float incX = originalWidth_ / wSize.x;
+        float incY = originalHeight_ / wSize.y;
         coords.x -= wSize.x / 2;
         coords.y -= wSize.y / 2;
         float difW = wSize.x - originalWidth_;

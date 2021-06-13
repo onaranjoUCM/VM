@@ -16,6 +16,23 @@ public class Graphics implements es.ucm.gdv.engine.Graphics {
         engine_ = engine;
     }
 
+    // Scales and transforms the game to fit screen resolution
+    @Override
+    public es.ucm.gdv.engine.Engine.Vector2 adjustToWindow() {
+        translate(getWidth() / 2, getHeight() / 2);
+
+        float incX = (float)getWidth() / engine_.originalWidth_;
+        float incY = (float)getHeight() / engine_.originalHeight_;
+
+        // Check whether we should adjust to width or height
+        if (engine_.originalWidth_ * incY < getWidth())
+            scale(incY, -incY);
+        else
+            scale(incX, -incX);
+
+        return new es.ucm.gdv.engine.Engine.Vector2(getWidth(), getHeight());
+    }
+
     @Override
     public Font newFont(String filename, int size, boolean isBold) {
         Font f = new Font(filename, size, isBold, engine_);
