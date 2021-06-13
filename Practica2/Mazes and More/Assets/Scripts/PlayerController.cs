@@ -5,7 +5,8 @@ namespace MazesAndMore {
     {
         public BoardManager boardManager;
         public ArrowPlayer arrowPrefab;
-        public float speed = 5;
+        public float time = 0.1f;
+        float speed;
 
         GameObject arrow;
 
@@ -54,12 +55,11 @@ namespace MazesAndMore {
                             }
                         }
                     }
-
                     // The target is an ice tile, so player must keep moving until it finds a wall
                     if (boardManager.GetPlayerTile().iceFloor.isVisible && boardManager.GetPlayerTile().openSides[direction])
                         StartMoving(direction);
                 }
-                else
+                else              
                     transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
             // Player is not moving, so it can recieve move commands
@@ -157,6 +157,9 @@ namespace MazesAndMore {
             moving = true;
             direction = dir;
             target = boardManager.MovePlayer(dir);
+
+            float distance = (target - transform.position).magnitude;
+            speed = distance / time;
         }
 
         public void SetColor(Color c)
