@@ -23,8 +23,8 @@ namespace MazesAndMore {
                 {
                     _tiles[i, j] = Instantiate(tilePrefab, new Vector3(i, j, -1f), Quaternion.identity);
                     _tiles[i, j].transform.parent = gameObject.transform;
-                    _tiles[i, j].x = i;
-                    _tiles[i, j].y = j;
+                    _tiles[i, j].setX(i);
+                    _tiles[i, j].setY(j);
                     _tiles[i, j].setPlayerColor(playerColor);
                     _tiles[i, j].setHintColor(Color.yellow);
                 }
@@ -67,21 +67,21 @@ namespace MazesAndMore {
         {
             // Check LEFT wall
             if (dir == (int)Tile.SIDE.LEFT)
-                return playerTile.openSides[(int)Tile.SIDE.LEFT];
+                return playerTile.getOpenSides((int)Tile.SIDE.LEFT);
 
             // Since there are only LEFT and UP walls, to check RIGHT
             // we need to check the LEFT wall of the tile on the right
-            if (dir == (int)Tile.SIDE.RIGHT && playerTile.x + 1 < _tiles.GetLength(0))
-                return _tiles[playerTile.x + 1, playerTile.y].openSides[(int)Tile.SIDE.LEFT];
+            if (dir == (int)Tile.SIDE.RIGHT && playerTile.getX() + 1 < _tiles.GetLength(0))
+                return _tiles[playerTile.getX() + 1, playerTile.getY()].getOpenSides((int)Tile.SIDE.LEFT);
 
             // Check UP wall
             if (dir == (int)Tile.SIDE.UP)
-                return playerTile.openSides[dir];
+                return playerTile.getOpenSides(dir);
 
             // Since there are only LEFT and UP walls, to check DOWN
             // we need to check the UP wall of the tile underneath
-            if (dir == (int)Tile.SIDE.DOWN && playerTile.y - 1 >= 0)
-                return _tiles[playerTile.x, playerTile.y - 1].openSides[(int)Tile.SIDE.UP];
+            if (dir == (int)Tile.SIDE.DOWN && playerTile.getY() - 1 >= 0)
+                return _tiles[playerTile.getX(), playerTile.getY() - 1].getOpenSides((int)Tile.SIDE.UP);
 
             // If you reach here it means you are trying to move RIGHT or DOWN out of the maze
             return false;
@@ -94,27 +94,27 @@ namespace MazesAndMore {
             Tile newTile = null;
             if (dir == (int)Tile.SIDE.LEFT)
             {
-                newTile = _tiles[playerTile.x - 1, playerTile.y];
-                newTile.timesSegmentCrossed[(int)Tile.SIDE.RIGHT]++;
-                playerTile.timesSegmentCrossed[(int)Tile.SIDE.LEFT]++;
+                newTile = _tiles[playerTile.getX() - 1, playerTile.getY()];
+                newTile.setTimesSegmentCrossed((int)Tile.SIDE.RIGHT, newTile.getTimesSegmentCrossed((int)Tile.SIDE.RIGHT) + 1);
+                playerTile.setTimesSegmentCrossed((int)Tile.SIDE.LEFT, playerTile.getTimesSegmentCrossed((int)Tile.SIDE.LEFT) + 1);
             }
             else if (dir == (int)Tile.SIDE.RIGHT)
             {
-                newTile = _tiles[playerTile.x + 1, playerTile.y];
-                newTile.timesSegmentCrossed[(int)Tile.SIDE.LEFT]--;
-                playerTile.timesSegmentCrossed[(int)Tile.SIDE.RIGHT]--;
+                newTile = _tiles[playerTile.getX() + 1, playerTile.getY()];
+                newTile.setTimesSegmentCrossed((int)Tile.SIDE.LEFT, newTile.getTimesSegmentCrossed((int)Tile.SIDE.LEFT) - 1);
+                playerTile.setTimesSegmentCrossed((int)Tile.SIDE.RIGHT, playerTile.getTimesSegmentCrossed((int)Tile.SIDE.RIGHT) - 1);
             }
             else if (dir == (int)Tile.SIDE.UP)
             {
-                newTile = _tiles[playerTile.x, playerTile.y + 1];
-                newTile.timesSegmentCrossed[(int)Tile.SIDE.DOWN]++;
-                playerTile.timesSegmentCrossed[(int)Tile.SIDE.UP]++;
+                newTile = _tiles[playerTile.getX(), playerTile.getY() + 1];
+                newTile.setTimesSegmentCrossed((int)Tile.SIDE.DOWN, newTile.getTimesSegmentCrossed((int)Tile.SIDE.DOWN) + 1);
+                playerTile.setTimesSegmentCrossed((int)Tile.SIDE.UP, playerTile.getTimesSegmentCrossed((int)Tile.SIDE.UP) + 1);
             }
             else if (dir == (int)Tile.SIDE.DOWN)
             {
-                newTile = _tiles[playerTile.x, playerTile.y - 1];
-                newTile.timesSegmentCrossed[(int)Tile.SIDE.UP]--;
-                playerTile.timesSegmentCrossed[(int)Tile.SIDE.DOWN]--;
+                newTile = _tiles[playerTile.getX(), playerTile.getY() - 1];
+                newTile.setTimesSegmentCrossed((int)Tile.SIDE.UP, newTile.getTimesSegmentCrossed((int)Tile.SIDE.UP) - 1);
+                playerTile.setTimesSegmentCrossed((int)Tile.SIDE.DOWN, playerTile.getTimesSegmentCrossed((int)Tile.SIDE.DOWN) - 1);
             }
 
             newTile.checkSegments();
@@ -195,23 +195,23 @@ namespace MazesAndMore {
             player.transform.position = playerTile.transform.position;
             foreach (Tile t in _tiles)
             {
-                if (!t.hintedSegments[(int)Tile.SIDE.LEFT])
+                if (!t.getHintedSegments((int)Tile.SIDE.LEFT))
                     t.disableSegment((int)Tile.SIDE.LEFT);
                 else
                     t.setSegmentColor((int)Tile.SIDE.LEFT, Color.yellow);
 
-                if (!t.hintedSegments[(int)Tile.SIDE.RIGHT])
+                if (!t.getHintedSegments((int)Tile.SIDE.RIGHT))
                     t.disableSegment((int)Tile.SIDE.RIGHT);
                 else
                     t.setSegmentColor((int)Tile.SIDE.RIGHT, Color.yellow);
 
-                if (!t.hintedSegments[(int)Tile.SIDE.UP])
+                if (!t.getHintedSegments((int)Tile.SIDE.UP))
                     t.disableSegment((int)Tile.SIDE.UP);
                 else
                     t.setSegmentColor((int)Tile.SIDE.UP, Color.yellow);
 
 
-                if (!t.hintedSegments[(int)Tile.SIDE.DOWN])
+                if (!t.getHintedSegments((int)Tile.SIDE.DOWN))
                     t.disableSegment((int)Tile.SIDE.DOWN);
                 else
                     t.setSegmentColor((int)Tile.SIDE.DOWN, Color.yellow);

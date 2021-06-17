@@ -44,11 +44,11 @@ namespace MazesAndMore {
                     // The target was a corner, so player must turn around
                     if (boardManager.GetPlayerTile() == boardManager.GetFinishTile())
                         win = true;
-                    else if (boardManager.GetPlayerTile().numberOfOpenSides == 2 && !boardManager.GetPlayerTile().iceFloor.isVisible)
+                    else if (boardManager.GetPlayerTile().getNumberOfOpenSides() == 2 && !boardManager.GetPlayerTile().iceFloor.isVisible)
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            if (boardManager.GetPlayerTile().openSides[i] && i != Tile.opposite[direction])
+                            if (boardManager.GetPlayerTile().getOpenSides(i) && i != Tile.opposite[direction])
                             {
                                 StartMoving(i);
                                 break;
@@ -56,7 +56,7 @@ namespace MazesAndMore {
                         }
                     }
                     // The target is an ice tile, so player must keep moving until it finds a wall
-                    if (boardManager.GetPlayerTile().iceFloor.isVisible && boardManager.GetPlayerTile().openSides[direction])
+                    if (boardManager.GetPlayerTile().iceFloor.isVisible && boardManager.GetPlayerTile().getOpenSides(direction))
                         StartMoving(direction);
                 }
                 else              

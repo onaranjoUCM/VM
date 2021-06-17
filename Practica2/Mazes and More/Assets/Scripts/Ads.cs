@@ -47,15 +47,15 @@ public class Ads : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            Debug.LogWarning("Close");
+            //Debug.LogWarning("Close");
         }
         else if (showResult == ShowResult.Skipped)
         {
-            Debug.LogWarning("SKIPPED");
+            //Debug.LogWarning("SKIPPED");
         }
         else if (showResult == ShowResult.Failed)
         {
-            Debug.LogWarning("The ad did not finish due to an error.");
+            //Debug.LogWarning("The ad did not finish due to an error.");
         }
         Advertisement.RemoveListener(this);
     }

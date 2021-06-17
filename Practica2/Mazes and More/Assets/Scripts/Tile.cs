@@ -22,18 +22,12 @@ namespace MazesAndMore
         
         public SpriteRenderer[] segments;
 
-        [HideInInspector]
-        public int[] timesSegmentCrossed = { 0, 0, 0, 0 };
-        [HideInInspector]
-        public bool[] openSides = { true, true, true, true };
-        [HideInInspector]
-        public bool[] hintedSegments = { false, false, false, false };
-        [HideInInspector]
-        public int numberOfOpenSides = 4;
-        [HideInInspector]
-        public int x;
-        [HideInInspector]
-        public int y;
+        int[] timesSegmentCrossed = { 0, 0, 0, 0 };
+        bool[] openSides = { true, true, true, true };
+        bool[] hintedSegments = { false, false, false, false };
+        int numberOfOpenSides = 4;
+        int x;
+        int y;
 
         void Start()
         {
@@ -122,5 +116,15 @@ namespace MazesAndMore
         public Color getSegmentColor(int side) { return segments[side].color; }
         public void setPlayerColor(Color c) { playerColor = c; }
         public void setHintColor(Color c) { hintColor = c; }
+
+        public int getTimesSegmentCrossed(int n) { return timesSegmentCrossed[n]; }
+        public void setTimesSegmentCrossed(int n, int newValue) { timesSegmentCrossed[n] = newValue; }
+        public bool getOpenSides(int n) { return openSides[n]; }
+        public bool getHintedSegments(int n) { return hintedSegments[n]; }
+        public int getNumberOfOpenSides() { return numberOfOpenSides; }
+        public int getX() { return x; }
+        public void setX(int newX) { x = newX; }
+        public int getY() { return y; }
+        public void setY(int newY) { y = newY; }
     }
 }
