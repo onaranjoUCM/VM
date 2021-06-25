@@ -115,6 +115,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 903c6f650cccd8a4d97e92c7f9c5485e, type: 3}
   - {fileID: 4900000, guid: fa6628444d034b3499c639d7aeb10fbc, type: 3}
   color: {r: 0.28627452, g: 0.69411767, b: 0.3019608, a: 1}
+  wallsColor: {r: 0.8784314, g: 0.1254902, b: 0.1254902, a: 1}
   buttonImage: {fileID: 8833899560157532653, guid: df33f6ccc7417624c82305b7b67bcb8a,
     type: 3}
   buttonPressedImage: {fileID: 4420612298364088709, guid: df33f6ccc7417624c82305b7b67bcb8a,
