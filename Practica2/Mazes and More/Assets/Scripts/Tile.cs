@@ -112,6 +112,12 @@ namespace MazesAndMore
         }
 
         // GETTERS AND SETTERS
+        public void setWallsColor(Color c) { 
+            wall_down.color = c;
+            wall_up.color = c;
+            wall_right.color = c;
+            wall_left.color = c;
+        }
         public void setSegmentColor(int side, Color c) { segments[side].color = c; }
         public Color getSegmentColor(int side) { return segments[side].color; }
         public void setPlayerColor(Color c) { playerColor = c; }

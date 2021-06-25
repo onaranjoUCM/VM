@@ -11,7 +11,7 @@ namespace MazesAndMore {
 
         private Tile[,] _tiles;
         // Creates and configures the graphic components of the map
-        public void SetMap(Map map, Color playerColor)
+        public void SetMap(Map map, Color playerColor, Color wallsColor)
         {
             _map = map;
             _tiles = new Tile[map.cols, map.rows];
@@ -27,6 +27,7 @@ namespace MazesAndMore {
                     _tiles[i, j].setY(j);
                     _tiles[i, j].setPlayerColor(playerColor);
                     _tiles[i, j].setHintColor(Color.yellow);
+                    _tiles[i, j].setWallsColor(wallsColor);
                 }
             }
 
@@ -131,7 +132,6 @@ namespace MazesAndMore {
             {
                 int x = (wall.o.x < wall.d.x) ? (int)wall.o.x : (int)wall.d.x;
                 int y = (wall.o.y > wall.d.y) ? (int)wall.o.y : (int)wall.d.y;
-                //int y = (int)wall.o.y;
 
                 // Horizontal wall
                 if (wall.o.y == wall.d.y)

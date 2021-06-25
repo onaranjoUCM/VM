@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#define CHEATS_AVAILABLE
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,6 +21,9 @@ namespace MazesAndMore {
         int nLevel;
         int hintsUsed;
         bool paused;
+
+        int clicks = 0;
+        float firstClickTime = 0;
 
         void Start()
         {
@@ -50,6 +55,31 @@ namespace MazesAndMore {
                 }
             }
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS_AVAILABLE
+            if (Input.mousePosition.x < Screen.width/8 &&
+                Input.mousePosition.y < Screen.height / 8 &&
+                Input.GetMouseButtonDown(0))
+            {
+                float clickTime = Time.time;
+                if (clicks == 0)
+                    firstClickTime = clickTime;
+
+                if (clickTime - firstClickTime < 1)
+                {
+                    clicks++;
+                    if (clicks >= 3)
+                    {
+                        UseHint();
+                        UseHint();
+                        UseHint();
+                        AddHints(3);
+                    }
+                } else
+                {
+                    clicks = 0;
+                }
+            }
+#endif
         }
 
         // Returns whether or not the player has reached the finish tile
@@ -70,7 +100,7 @@ namespace MazesAndMore {
 
             SetHudText();
 
-            boardManager.SetMap(new Map(pack.levels[nLevel]), pack.color);
+            boardManager.SetMap(new Map(pack.levels[nLevel]), pack.color, pack.wallsColor);
             playerController.PutArrow();
             boardManager.AdjustToWindow();
             playerController.Init();
@@ -130,6 +160,10 @@ namespace MazesAndMore {
 
         public void returnHome()
         {
+            GameData g = GameManager.getInstance().GetPlayerData();
+            g.activePack = 0;
+            g.activeLevel = 0;
+            GameManager.getInstance().SaveProgress(JsonUtility.ToJson(g));
             SceneManager.LoadScene("Menu");
         }
 

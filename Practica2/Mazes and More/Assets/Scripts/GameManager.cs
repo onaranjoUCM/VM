@@ -20,7 +20,7 @@ namespace MazesAndMore
             if (_instance != null)
             {
                 _instance.menuLevelManager = menuLevelManager;
-                if (menuLevelManager != null) 
+                if (menuLevelManager != null)
                     _instance.menuLevelManager.init();
 
                 _instance.levelManager = levelManager;
@@ -35,11 +35,18 @@ namespace MazesAndMore
                 _instance = this;
                 if (menuLevelManager != null) _instance.menuLevelManager.init();
 
+                GameData data = GetPlayerData();
                 // Create PlayerPrefs for new players
-                if (GetPlayerData() == null)
+                if (data == null)
                     CreateNewData();
                 
                 DontDestroyOnLoad(this.gameObject);
+
+                if (data.activePack != 0 && data.activeLevel != 0)
+                {
+                    packageIndex = data.activePack - 1;
+                    SceneLevelPlay(data.activeLevel - 1);
+                }
             }
         }
 
@@ -47,12 +54,18 @@ namespace MazesAndMore
         public void LoadLevelsScene(int n)
         {
             packageIndex = n;
+            GameData g = GetPlayerData();
+            g.activePack = n + 1;
+            SaveProgress(JsonUtility.ToJson(g));
             SceneManager.LoadScene("MenuNiveles");
         }
 
         // Loads current level from current package
         public void LoadLevel()
         {
+            GameData g = GetPlayerData();
+            g.activeLevel = levelToPlay + 1;
+            SaveProgress(JsonUtility.ToJson(g));
             levelManager.LoadLevel(levelPackages[_instance.packageIndex], levelToPlay);
         }
 
